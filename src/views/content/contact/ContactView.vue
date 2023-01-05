@@ -2,8 +2,6 @@
   <main>
     <div class="q-px-xl">
       <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
-        <h3>{{ coords.latitude }}</h3>
-        <h3>{{ coords.longitude }}</h3>
         <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box" /> -->
         <div class="input-contain">
           <input
@@ -66,8 +64,7 @@
 
 <script setup lang="ts">
 import { COUNTRIES } from '@/constants'
-import { useGeolocation } from '@/utils/useGeolocation'
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { Loader } from '@googlemaps/js-api-loader'
 
 const tel = ref()
@@ -92,31 +89,41 @@ function onReset() {
   // age.value = null
 }
 
-const { coords } = useGeolocation()
+// const { coords } = useGeolocation()
+// const currPos = computed(() => ({
+//   lat: coords.value.latitude,
+//   lng: coords.value.longitude,
+// }))
 
 const loader = new Loader({
   libraries: ['places'],
   apiKey: 'AIzaSyByayuBNIozLkNWI1APxoXi6i6OD2qrYr8',
   version: 'weekly',
 })
+let map = ref()
+let searchBox = ref()
+let boundsListener: { remove: () => void } | null = null
+let searchBoxListener: { remove: () => void } | null = null
 
-loader.load().then(() => {
+onMounted(async () => {
+  await loader.load()
+
   // eslint-disable-next-line no-undef
   const center: google.maps.LatLngLiteral = { lat: 39.512, lng: 2.483 }
+
   // eslint-disable-next-line no-undef
-  const map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
-    center,
-    zoom: 10,
+  map.value = new google.maps.Map(document.getElementById('map') as HTMLElement, {
+    center: center,
+    zoom: 13,
     mapTypeId: 'roadmap',
   })
-
   const addressInputDiv = document.getElementById('pac-input') as HTMLInputElement
   // eslint-disable-next-line no-undef
-  const searchBox = new google.maps.places.SearchBox(addressInputDiv)
+  searchBox.value = new google.maps.places.SearchBox(addressInputDiv)
 
-  map.addListener('bounds_changed', () => {
+  boundsListener = map.value.addListener('bounds_changed', () => {
     // eslint-disable-next-line no-undef
-    searchBox.setBounds(map.getBounds() as google.maps.LatLngBounds)
+    searchBox.value.setBounds(map.value.getBounds() as google.maps.LatLngBounds)
   })
 
   // eslint-disable-next-line no-undef
@@ -124,24 +131,21 @@ loader.load().then(() => {
 
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
-  searchBox.addListener('places_changed', () => {
-    const places = searchBox.getPlaces()
+  searchBoxListener = searchBox.value.addListener('places_changed', () => {
+    const places = searchBox.value.getPlaces()
     if (places) {
       if (places.length == 0) {
         return
       }
-
       // Clear out the old markers.
       markers.forEach((marker) => {
         marker.setMap(null)
       })
       markers = []
 
-      // For each place, get the icon, name and location.
       // eslint-disable-next-line no-undef
       const bounds = new google.maps.LatLngBounds()
-
-      places.forEach((place) => {
+      places.forEach((place: any) => {
         if (!place.geometry || !place.geometry.location) {
           console.log('Returned place contains no geometry')
           return
@@ -163,7 +167,7 @@ loader.load().then(() => {
         markers.push(
           // eslint-disable-next-line no-undef
           new google.maps.Marker({
-            map,
+            map: map.value,
             icon,
             title: place.name,
             position: place.geometry.location,
@@ -177,25 +181,20 @@ loader.load().then(() => {
           bounds.extend(place.geometry.location)
         }
       })
-      map.fitBounds(bounds)
+      map.value.fitBounds(bounds)
     } else {
       return
     }
   })
 })
+
+onUnmounted(async () => {
+  if (boundsListener) boundsListener.remove()
+  if (searchBoxListener) searchBoxListener.remove()
+})
 </script>
 
 <style scoped>
-/* #pac-input {
-  background-color: #e0e0e0;
-  font-family: Roboto;
-  font-size: 15px;
-  padding: 0 11px 0 13px;
-  text-overflow: ellipsis;
-  border-radius: 0.2rem;
-  width: 400px;
-} */
-
 .input-contain {
   position: relative;
 }
