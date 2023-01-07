@@ -3,16 +3,6 @@
     <div class="q-px-xl">
       <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
         <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box" /> -->
-        <div class="input-contain">
-          <input
-            type="text"
-            id="pac-input"
-            name="pac-input"
-            autocomplete="false"
-            placeholder="Dirección"
-          />
-        </div>
-        <div id="map" style="width: 100%; height: 80vh" />
         <q-input v-model="url" filled type="url" label="Web Oficial">
           <template v-slot:prepend>
             <q-icon name="language" />
@@ -52,6 +42,19 @@
           </q-input>
         </div>
 
+        <q-separator spaced />
+
+        <div class="input-contain">
+          <input
+            type="text"
+            id="pac-input"
+            name="pac-input"
+            autocomplete="false"
+            placeholder="Dirección"
+          />
+        </div>
+        <div id="map" style="width: 100%; height: 80vh" />
+
         <div class="col" align="right">
           <!-- <q-btn label="Clean" type="reset" color="primary" flat class="q-ml-sm" /> -->
           <q-btn label="Clean" color="primary" @click="test" flat class="q-ml-sm" />
@@ -63,6 +66,8 @@
 </template>
 
 <script setup lang="ts">
+// https://github.com/codingwithjustin/vue-google-maps/blob/master/src/App.vue
+// https://developers.google.com/maps/documentation/javascript/geolocation
 import { COUNTRIES } from '@/constants'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { Loader } from '@googlemaps/js-api-loader'

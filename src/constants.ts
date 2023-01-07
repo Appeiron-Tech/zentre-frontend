@@ -1,5 +1,3 @@
-import { readonly } from "vue"
-
 export const API_PREFIX_BASE: string = import.meta.env.VITE_APP_API_PREFIX_BASE
 
 export const DEFAULT_LANGUAGE: string = import.meta.env.VITE_DEFAULT_LANGUAGE
@@ -85,4 +83,22 @@ export const COUNTRIES = [
     img_url: 'http://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg',
     country_code: 54,
   },
+]
+
+export const EPeriod = {
+  TODAY: 1,
+  WEEK: 2,
+  MONTH: 3,
+  MONTH3: 4,
+  MONTH6: 5,
+  YEAR: 6,
+}
+
+export const DEFAULT_PERIODS = [
+  { label: 'calendar-today', value: EPeriod.TODAY },
+  { label: 'calendar-week', value: EPeriod.WEEK },
+  { label: 'calendar-month', value: EPeriod.MONTH },
+  { label: 'calendar-3months', value: EPeriod.MONTH3 },
+  { label: 'calendar-6months', value: EPeriod.MONTH6 },
+  { label: 'calendar-year', value: EPeriod.YEAR },
 ]

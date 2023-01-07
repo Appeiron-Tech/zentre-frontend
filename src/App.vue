@@ -23,7 +23,6 @@
               <q-item-section avatar>
                 <q-icon name="analytics" />
               </q-item-section>
-
               <q-item-section> Dashboard </q-item-section>
             </q-item>
 
@@ -31,15 +30,21 @@
               <q-item-section avatar>
                 <q-icon name="space_dashboard" />
               </q-item-section>
-
               <q-item-section>Contenido</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/cxentre">
+              <q-item-section avatar>
+                <q-icon name="sentiment_very_satisfied" />
+              </q-item-section>
+              <q-item-section>Customer Experience</q-item-section>
             </q-item>
           </q-list>
         </q-scroll-area>
       </q-drawer>
 
       <q-page-container>
-        <q-page padding>
+        <q-page padding class="containerBackground">
           <router-view />
         </q-page>
       </q-page-container>
@@ -57,4 +62,7 @@ const miniState = ref(true)
 <style lang="sass" scoped>
 .menu-list .q-item
   border-radius: 0 32px 32px 0
+
+.containerBackground
+    background-color: #F6F6F6
 </style>
