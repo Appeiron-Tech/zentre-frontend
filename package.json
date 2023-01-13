@@ -11,7 +11,9 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.15.1",
     "@quasar/extras": "^1.13.5",
+    "@types/chart.js": "^2.9.37",
     "axios": "^0.26.1",
+    "chart.js": "^4.1.2",
     "http-status-codes": "^2.2.0",
     "quasar": "^2.6.6",
     "vue": "^3.2.31",

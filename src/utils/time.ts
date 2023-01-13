@@ -10,3 +10,9 @@ export function formattedDate(date: Date, hasHour?: boolean): string {
   }
   return ''
 }
+
+export function getEndOfDate(offsetDate?: Date): Date {
+  const finishDate = offsetDate ? new Date(offsetDate.getTime()) : new Date()
+  finishDate.setHours(23, 59, 59, 999)
+  return finishDate
+}

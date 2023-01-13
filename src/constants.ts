@@ -86,19 +86,19 @@ export const COUNTRIES = [
 ]
 
 export const EPeriod = {
-  TODAY: 1,
-  WEEK: 2,
-  MONTH: 3,
-  MONTH3: 4,
-  MONTH6: 5,
-  YEAR: 6,
+  TODAY: 0,
+  WEEK: 1,
+  MONTH: 2,
+  MONTH3: 3,
+  MONTH6: 4,
+  YEAR: 5,
 }
 
 export const DEFAULT_PERIODS = [
-  { label: 'calendar-today', value: EPeriod.TODAY },
-  { label: 'calendar-week', value: EPeriod.WEEK },
-  { label: 'calendar-month', value: EPeriod.MONTH },
-  { label: 'calendar-3months', value: EPeriod.MONTH3 },
-  { label: 'calendar-6months', value: EPeriod.MONTH6 },
-  { label: 'calendar-year', value: EPeriod.YEAR },
+  { label: 'calendar-today', value: EPeriod.TODAY, before: { type: 'day', back: 0 } },
+  { label: 'calendar-week', value: EPeriod.WEEK, before: { type: 'day', back: 7 } },
+  { label: 'calendar-month', value: EPeriod.MONTH, before: { type: 'month', back: 1 } },
+  { label: 'calendar-3months', value: EPeriod.MONTH3, before: { type: 'month', back: 3 } },
+  { label: 'calendar-6months', value: EPeriod.MONTH6, before: { type: 'month', back: 6 } },
+  { label: 'calendar-year', value: EPeriod.YEAR, before: { type: 'month', back: 12 } },
 ]
