@@ -104,9 +104,6 @@ function getInitDate(beforeRange: IPreviousRange, offsetDate?: Date): Date {
 
 let mainGraphCanvas, satisfactionGraphCanvas, viewersGraphCanvas, contactsGraphCanvas
 let mainGraph: Chart<'bar', number[], string>
-let satisfactionGraph: Chart<'bar', number[], string>
-let viewersGraph: Chart<'bar', number[], string>
-let contactsGraph: Chart<'bar', number[], string>
 let satisfactionCanvasCtx, viewersCanvasCtx, contactCanvasCtx
 let satisfactionGradient: CanvasGradient
 let viewersGradient: CanvasGradient
@@ -198,7 +195,7 @@ onMounted(() => {
       },
     },
   })
-  satisfactionGraph = new Chart(satisfactionGraphCanvas, {
+  new Chart(satisfactionGraphCanvas, {
     type: 'line',
     data: satisfactionData,
     options: {
@@ -218,7 +215,7 @@ onMounted(() => {
       },
     },
   })
-  viewersGraph = new Chart(viewersGraphCanvas, {
+  new Chart(viewersGraphCanvas, {
     type: 'line',
     data: viewersData,
     options: {
@@ -238,7 +235,7 @@ onMounted(() => {
       },
     },
   })
-  contactsGraph = new Chart(contactsGraphCanvas, {
+  new Chart(contactsGraphCanvas, {
     type: 'line',
     data: contactsData,
     options: {
