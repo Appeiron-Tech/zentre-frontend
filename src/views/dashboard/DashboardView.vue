@@ -82,9 +82,9 @@ const tab = ref('satisfaction')
 function updateDashboard(selectedRangeIdx: any) {
   const rangeDates = periodList[selectedRangeIdx].before
   const initDate = getInitDate(rangeDates)
-  const finishDate = getEndOfDate()
-  const prevInitDate = getInitDate(rangeDates, initDate)
-  const prevFinishDate = new Date(initDate.getTime())
+  // const finishDate = getEndOfDate()
+  // const prevInitDate = getInitDate(rangeDates, initDate)
+  // const prevFinishDate = new Date(initDate.getTime())
 }
 
 function getInitDate(beforeRange: IPreviousRange, offsetDate?: Date): Date {

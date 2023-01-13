@@ -102,7 +102,7 @@ function onReset() {
 
 const loader = new Loader({
   libraries: ['places'],
-  apiKey: 'AIzaSyByayuBNIozLkNWI1APxoXi6i6OD2qrYr8',
+  apiKey: import.meta.env.GOOGLE_STORAGE_API_KEY,
   version: 'weekly',
 })
 let map = ref()
