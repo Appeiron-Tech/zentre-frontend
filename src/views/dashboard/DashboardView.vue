@@ -219,7 +219,7 @@ function getInitDate(beforeRange: IPreviousRange, offsetDate?: Date): Date {
 }
 
 let mainGraphCanvas, satisfactionGraphCanvas, viewersGraphCanvas, contactsGraphCanvas
-let mainGraph: Chart<'bar', number[], string>
+let mainGraph: Chart<'line', number[], string>
 let satisfactionCanvasCtx, viewersCanvasCtx, contactCanvasCtx
 let satisfactionGradient: CanvasGradient
 let viewersGradient: CanvasGradient

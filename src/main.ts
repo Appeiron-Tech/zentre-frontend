@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { Quasar } from 'quasar'
+import { createPinia } from 'pinia'
 
 import App from './App.vue'
 
@@ -16,6 +17,7 @@ import appController from '@/controller/Controller'
 const app = createApp(App)
 
 app.use(router)
+app.use(createPinia())
 app.use(Quasar, quasarUserOptions)
 app.provide('appController', appController)
 app.mount('#app')
