@@ -1,123 +1,13 @@
-<template>
-  <div>
-    <main>
-      <div class="row q-gutter-none q-pa-md">
-        <div class="col items-end">
-          <div class="row justify-end">
-            <div class="col self-center text-right">
-              <q-btn-toggle
-                v-model="period"
-                class="q-mr-sm"
-                color="white"
-                toggle-color="accent"
-                text-color="accent"
-                no-caps
-                rounded
-                :options="periodList"
-                @update:model-value="updateDashboard"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Body -->
-      <div class="col-9 q-pa-md">
-        <div class="q-gutter-y-md">
-          <!-- <q-tabs v-model="tab" align="center"> -->
-          <div class="row justify-center">
-            <template v-for="(tabOption, index) in tabOptions" :key="index">
-              <div class="col-9 col-md-4 q-px-md">
-                <q-card
-                  rounded
-                  @click="updateGraph(tabOption.name)"
-                  :class="tab === tabOption.name ? 'mainCardSelected' : 'mainCard'"
-                >
-                  <q-card-section horizontal>
-                    <!-- <q-card-section class="q-pt-xs" style="width: 50%; padding-left: 8px; padding-right: 0px"> -->
-                    <q-card-section class="col-3 q-pt-xs q-pr-xs">
-                      <div class="text-overline">Average:</div>
-                      <div class="text-h5 q-mt-sm q-mb-xs">
-                        <strong>{{ tabOption.avg }}</strong>
-                      </div>
-                      <div class="text-caption text-grey">{{ tabOption.name }}</div>
-                    </q-card-section>
-                    <!-- <q-card-section class="col-5 flex flex-center"> -->
-                    <q-card-section class="flex flex-center q-pr-md">
-                      <!-- <q-card-section> -->
-                      <div class="rounded-borders" style="width: 250px; background-color: white">
-                        <canvas :id="tabOption.canvas"></canvas>
-                      </div>
-                    </q-card-section>
-                  </q-card-section>
-                </q-card>
-              </div>
-              <!-- <q-separator v-if="index < 2" spaced vertical inset /> -->
-            </template>
-          </div>
-          <div class="row justify-center">
-            <div
-              class="col-9 col-md-8 col-md-4"
-              style="width: 90%; object-fit: contain; background-color: white"
-            >
-              <canvas style="width: 100%; object-fit: contain" id="mainCanvas"></canvas>
-            </div>
-          </div>
-          <div class="row justify-center">
-            <div
-              class="col-9 col-md-8 col-md-4"
-              style="width: 90%; object-fit: contain; background-color: white"
-            >
-              <canvas style="width: 100%; object-fit: contain" id="productsSellsCanvas"></canvas>
-            </div>
-          </div>
-
-          <!-- last 5 comments -->
-          <div class="row justify-center">
-            <div class="col-6 col-md-6 col-md-4 q-pa-lg" style="background-color: white">
-              <q-list>
-                <q-item v-for="(topComment, idx) in topComments" :key="idx">
-                  <q-item-section>
-                    <q-item-label>Single line item</q-item-label>
-                    <q-item-label caption
-                      >Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit
-                      elit.</q-item-label
-                    >
-                  </q-item-section>
-
-                  <q-item-section side top>
-                    <q-item-label caption>2 min ago</q-item-label>
-                    <div class="text-orange">
-                      <q-rating
-                        v-model="topComment.rate"
-                        :size="14 + topComment.rate * 5.4 + 'px'"
-                        icon="star_border"
-                        icon-selected="star"
-                        color="secondary"
-                        readonly
-                      />
-                    </div>
-                  </q-item-section>
-                </q-item>
-              </q-list>
-            </div>
-            <q-separator spaced vertical inset />
-            <div class="col-5 col-md-5 col-md-4 q-pa-lg" style="background-color: white">
-              <canvas style="object-fit: contain" id="reviewsByRatingCanvas"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { DEFAULT_PERIODS } from '@/constants'
-import { getEndOfDate } from '@/utils/time'
+// import { getEndOfDate } from '@/utils/time'
 import { onMounted, ref } from 'vue'
 import type { IPreviousRange } from './interfaces/IPreviousRange'
 import Chart from 'chart.js/auto'
 import type { ISurvey } from '../cxentre/interfaces/ISurvey'
+import RangeTimeSelector from '@/components/Inputs/RangeTimeSelector.vue'
+import CardGraph from '@/components/graphs/CardGraph.vue'
+import MainGraph from '@/components/graphs/MainGraph.vue'
 
 const periodList = DEFAULT_PERIODS.map((period) => {
   return { label: period.label.split('-')[1], value: period.value, before: period.before }
@@ -342,6 +232,7 @@ onMounted(() => {
     type: 'line',
     data: satisfactionData,
     options: {
+      maintainAspectRatio: false,
       scales: {
         y: {
           beginAtZero: true,
@@ -353,6 +244,7 @@ onMounted(() => {
     type: 'line',
     data: satisfactionData,
     options: {
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           display: false,
@@ -372,6 +264,7 @@ onMounted(() => {
     type: 'line',
     data: viewersData,
     options: {
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           display: false,
@@ -392,6 +285,7 @@ onMounted(() => {
     type: 'line',
     data: contactsData,
     options: {
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           display: false,
@@ -413,6 +307,7 @@ onMounted(() => {
     type: 'bar',
     data: data,
     options: {
+      maintainAspectRatio: false,
       scales: {
         y: {
           beginAtZero: true,
@@ -443,6 +338,80 @@ function updateGraph(tabOption: string): void {
   mainGraph.update()
 }
 </script>
+
+<template>
+  <div>
+    <main>
+      <RangeTimeSelector v-model:toggle-selected="period" :toggleOptions="periodList" />
+      <!-- Body -->
+      <div class="col-9 q-pa-md">
+        <div class="q-gutter-y-md">
+          <div class="row justify-center">
+            <template v-for="(tabOption, index) in tabOptions" :key="index">
+              <div class="col-9 col-md-4 q-px-md">
+                <CardGraph
+                  :value="tabOption.avg.toString()"
+                  :description="tabOption.name"
+                  title="Average"
+                  :selected="tab === tabOption.name"
+                  :onClick="() => updateGraph(tabOption.name)"
+                >
+                  <canvas :id="tabOption.canvas"></canvas>
+                </CardGraph>
+              </div>
+            </template>
+          </div>
+          <MainGraph>
+            <canvas style="width: 100%; object-fit: contain" id="mainCanvas"></canvas>
+          </MainGraph>
+          <div class="row justify-center">
+            <div
+              class="col-9 col-md-8 col-md-4"
+              style="width: 90%; object-fit: contain; background-color: white"
+            >
+              <canvas style="width: 100%; object-fit: contain" id="productsSellsCanvas"></canvas>
+            </div>
+          </div>
+
+          <!-- last 5 comments -->
+          <div class="row justify-center">
+            <div class="col-6 col-md-6 col-md-4 q-pa-lg" style="background-color: white">
+              <q-list>
+                <q-item v-for="(topComment, idx) in topComments" :key="idx">
+                  <q-item-section>
+                    <q-item-label>Single line item</q-item-label>
+                    <q-item-label caption
+                      >Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit
+                      elit.</q-item-label
+                    >
+                  </q-item-section>
+
+                  <q-item-section side top>
+                    <q-item-label caption>2 min ago</q-item-label>
+                    <div class="text-orange">
+                      <q-rating
+                        v-model="topComment.rate"
+                        :size="14 + topComment.rate * 5.4 + 'px'"
+                        icon="star_border"
+                        icon-selected="star"
+                        color="secondary"
+                        readonly
+                      />
+                    </div>
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </div>
+            <q-separator spaced vertical inset />
+            <div class="col-5 col-md-5 col-md-4 q-pa-lg" style="background-color: white">
+              <canvas style="object-fit: contain" id="reviewsByRatingCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</template>
 
 <style scoped>
 .mainCardSelected {
