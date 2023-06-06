@@ -8,6 +8,7 @@ import type { ISurvey } from '../cxentre/interfaces/ISurvey'
 import RangeTimeSelector from '@/components/Inputs/RangeTimeSelector.vue'
 import CardGraph from '@/components/graphs/CardGraph.vue'
 import MainGraph from '@/components/graphs/MainGraph.vue'
+import RatingListVue from '@/components/ratings/RatingList.vue'
 
 const periodList = DEFAULT_PERIODS.map((period) => {
   return { label: period.label.split('-')[1], value: period.value, before: period.before }
@@ -362,45 +363,15 @@ function updateGraph(tabOption: string): void {
             </template>
           </div>
           <MainGraph>
-            <canvas style="width: 100%; object-fit: contain" id="mainCanvas"></canvas>
+            <canvas id="mainCanvas"></canvas>
           </MainGraph>
-          <div class="row justify-center">
-            <div
-              class="col-9 col-md-8 col-md-4"
-              style="width: 90%; object-fit: contain; background-color: white"
-            >
-              <canvas style="width: 100%; object-fit: contain" id="productsSellsCanvas"></canvas>
-            </div>
-          </div>
+          <MainGraph>
+            <canvas id="productsSellsCanvas"></canvas>
+          </MainGraph>
 
-          <!-- last 5 comments -->
           <div class="row justify-center">
             <div class="col-6 col-md-6 col-md-4 q-pa-lg" style="background-color: white">
-              <q-list>
-                <q-item v-for="(topComment, idx) in topComments" :key="idx">
-                  <q-item-section>
-                    <q-item-label>Single line item</q-item-label>
-                    <q-item-label caption
-                      >Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit
-                      elit.</q-item-label
-                    >
-                  </q-item-section>
-
-                  <q-item-section side top>
-                    <q-item-label caption>2 min ago</q-item-label>
-                    <div class="text-orange">
-                      <q-rating
-                        v-model="topComment.rate"
-                        :size="14 + topComment.rate * 5.4 + 'px'"
-                        icon="star_border"
-                        icon-selected="star"
-                        color="secondary"
-                        readonly
-                      />
-                    </div>
-                  </q-item-section>
-                </q-item>
-              </q-list>
+              <RatingListVue :topComments="topComments" />
             </div>
             <q-separator spaced vertical inset />
             <div class="col-5 col-md-5 col-md-4 q-pa-lg" style="background-color: white">
@@ -412,17 +383,3 @@ function updateGraph(tabOption: string): void {
     </main>
   </div>
 </template>
-
-<style scoped>
-.mainCardSelected {
-  transform: scale(0.98);
-  /* Scaling button to 0.98 to its original size */
-  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-  /* Lowering the shadow */
-  background-color: #eff4ff;
-}
-.mainCard:hover {
-  cursor: pointer;
-  background-color: #f3fafa;
-}
-</style>

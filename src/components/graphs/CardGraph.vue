@@ -19,9 +19,7 @@ defineEmits(['onClick'])
         <div class="text-caption text-grey">{{ description }}</div>
       </q-card-section>
       <q-card-section class="flex flex-center q-pr-md">
-        <!-- <div class="rounded-borders" style="max-width: 250px; background-color: white"> -->
         <div class="chart-container">
-        <!-- <div class="rounded-borders" style="background-color: white"> -->
           <slot></slot>
         </div>
       </q-card-section>
