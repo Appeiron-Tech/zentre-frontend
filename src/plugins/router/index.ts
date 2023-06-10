@@ -12,6 +12,11 @@ const router = createRouter({
       component: () => import('@/views/dashboard/DashboardView.vue'),
     },
     {
+      path: '/courses',
+      name: 'courses',
+      component: () => import('@/views/courses/CoursesView.vue'),
+    },
+    {
       path: '/content',
       name: 'content',
       component: () => import('@/views/content/ContentView.vue'),
@@ -36,7 +41,7 @@ const router = createRouter({
       path: '/network-error',
       name: 'NetworkError',
       component: NetworkErrorView,
-    }
+    },
   ],
 })
 

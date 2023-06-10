@@ -26,6 +26,13 @@
               <q-item-section> Dashboard </q-item-section>
             </q-item>
 
+            <q-item clickable v-ripple to="/courses">
+              <q-item-section avatar>
+                <q-icon name="space_dashboard" />
+              </q-item-section>
+              <q-item-section>Courses</q-item-section>
+            </q-item>
+
             <q-item clickable v-ripple to="/content">
               <q-item-section avatar>
                 <q-icon name="space_dashboard" />
