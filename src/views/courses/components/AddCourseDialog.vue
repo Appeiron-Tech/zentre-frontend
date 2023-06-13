@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import BaseBar from '@/components/base/dialog/BaseBar.vue';
+import BaseDialog from '@/components/base/dialog/BaseDialog.vue'
 import { computed, ref } from 'vue'
 
 const props = defineProps(['modelValue'])
@@ -17,14 +19,9 @@ const value = computed({
 </script>
 
 <template>
-  <q-dialog v-model="value" transition-show="flip-down" transition-hide="flip-up">
+  <BaseDialog v-model="value">
     <div style="max-width: 700px">
-      <q-bar class="bg-primary text-white">
-        <q-space />
-        <q-btn dense flat icon="close" v-close-popup>
-          <q-tooltip class="bg-primary text-white">Close</q-tooltip>
-        </q-btn>
-      </q-bar>
+      <BaseBar class="bg-primary text-white" />
       <q-stepper v-model="step" ref="stepper" color="primary" animated>
         <q-step :name="1" title="Title" icon="settings" :done="step > 1">
           For each ad campaign that you create, you can control how much you're willing to spend on
@@ -66,5 +63,5 @@ const value = computed({
         </template>
       </q-stepper>
     </div>
-  </q-dialog>
+  </BaseDialog>
 </template>
