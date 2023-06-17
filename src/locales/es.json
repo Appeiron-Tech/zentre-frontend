@@ -1,6 +1,22 @@
 {
   "CreateCourses": {
+    "titleTabTitle": "Título",
     "titleTitle": "¿Qué tal un título provisional?",
-    "titleDescription": "No pasa nada si ahora no se te ocurre un buen título. Puedes cambiarlo más adelante."
+    "titleDescription": "No pasa nada si ahora no se te ocurre un buen título. Puedes cambiarlo más adelante.",
+    "titlePlaceholder": "Ejemplo: Aprende a programar en Python desde cero",
+    "titleError": "Necesitamos un título",
+    "descTabTitle": "Descripción",
+    "descTitle": "¿Alguna idea para la descripción del curso?",
+    "descDescription": "Si no estás seguro de si la descripción es adecuada, podrás cambiarla más tarde.",
+    "descPlaceholder": "Ejemplo: En este curso aprenderás desde lo básico hasta lo más avanzado de ...",
+    "descError": "Necesitamos una descripción",
+    "categoryTabTitle": "Categoría",
+    "categoryTitle": "¿Qué categoría se ajusta mejor a los conocimientos que vas a compartir?",
+    "categoryDescription": "Si no está seguro de cuál es la categoría adecuada, puede cambiarla más tarde.",
+    "categoryPlaceholder": "Course category *",
+    "categoryError": "Por favor, elige una categoría",
+    "continue": "Continuar",
+    "back": "Atrás",
+    "finish": "Finalizar"
   }
 }

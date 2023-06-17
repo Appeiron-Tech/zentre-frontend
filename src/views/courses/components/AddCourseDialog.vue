@@ -15,12 +15,17 @@ const value = computed({
   },
 })
 
-const step = ref(1)
 const stepsValidation = ref([false, false, false])
-const title = ref(null)
 const description = ref(null)
 const category = ref(null)
+const title = ref(null)
+const step = ref(1)
 
+// --------- Computed ----------
+const nextStepDisabled = computed(() => {
+  return !stepsValidation.value[step.value - 1]
+})
+// -----------------------------
 function onSubmit() {
   console.log('submit')
   console.log(title.value)
@@ -33,10 +38,6 @@ const validateStep = (inputValue: string, idx: number, maxLength = 100) => {
   stepsValidation.value[idx] = verified
   return verified
 }
-
-const nextStepDisabled = computed(() => {
-  return !stepsValidation.value[step.value - 1]
-})
 </script>
 
 <template>
@@ -44,46 +45,53 @@ const nextStepDisabled = computed(() => {
     <div style="max-width: 750px">
       <BaseBar class="bg-primary text-white" />
       <q-stepper v-model="step" ref="stepper" color="primary" animated>
-        <q-step :name="1" title="Título" icon="settings" :done="step > 1">
+        <q-step
+          :name="1"
+          :title="$t('CreateCourses.titleTabTitle')"
+          icon="settings"
+          :done="step > 1"
+        >
           <div class="center">
-            <!-- <h3>¿Qué tal un título provisional?</h3> -->
             <h3>{{ $t('CreateCourses.titleTitle') }}</h3>
-            <h5>
-              No pasa nada si ahora no se te ocurre un buen título. Puedes cambiarlo más adelante.
-            </h5>
+            <h5>{{ $t('CreateCourses.titleDescription') }}</h5>
             <q-input
               filled
               v-model="title"
-              label="Ejemplo: Aprende a programar en Python desde cero"
-              :rules="[(val) => validateStep(val, 0, 60) || 'Necesitas un título']"
+              :label="$t('CreateCourses.titlePlaceholder')"
+              :rules="[(val) => validateStep(val, 0, 60) || $t('CreateCourses.titleError')]"
             />
           </div>
         </q-step>
 
-        <q-step :name="2" title="Descripción" icon="description" :done="step > 2">
+        <q-step
+          :name="2"
+          :title="$t('CreateCourses.descTabTitle')"
+          icon="description"
+          :done="step > 2"
+        >
           <div class="center">
-            <h3>¿Alguna idea para la descripción del curso?</h3>
+            <h3>{{ $t('CreateCourses.descTitle') }}</h3>
             <h5>
-              Si no estás seguro de si la descripción es adecuada, podrás cambiarla más tarde.
+              {{ $t('CreateCourses.descDescription') }}
             </h5>
             <q-input
               filled
               v-model="description"
-              label="Ejemplo: En este curso aprenderás desde lo básico hasta lo más avanzado de ... "
-              :rules="[(val) => validateStep(val, 1, 100) || 'Please enter a description']"
+              :label="$t('CreateCourses.descPlaceholder')"
+              :rules="[(val) => validateStep(val, 1, 100) || $t('CreateCourses.descError')]"
             />
           </div>
         </q-step>
 
-        <q-step :name="3" title="Categoría" icon="category">
+        <q-step :name="3" :title="$t('CreateCourses.categoryTabTitle')" icon="category">
           <div class="center">
-            <h3>¿Qué categoría se ajusta mejor a los conocimientos que vas a compartir?</h3>
-            <h5>Si no está seguro de cuál es la categoría adecuada, puede cambiarla más tarde.</h5>
+            <h3>{{ $t('CreateCourses.categoryTitle') }}</h3>
+            <h5>{{ $t('CreateCourses.categoryDescription') }}</h5>
             <q-input
               filled
               v-model="category"
-              label="Course category *"
-              :rules="[(val) => validateStep(val, 2) || 'Please select a category']"
+              :label="$t('CreateCourses.categoryPlaceholder')"
+              :rules="[(val) => validateStep(val, 2) || $t('CreateCourses.categoryError')]"
             />
           </div>
         </q-step>
@@ -95,21 +103,21 @@ const nextStepDisabled = computed(() => {
               :disable="nextStepDisabled"
               @click=";($refs.stepper as any).next()"
               color="primary"
-              label="Continue"
+              :label="$t('CreateCourses.continue')"
             />
             <q-btn
               v-else
               :disable="nextStepDisabled"
               @click="onSubmit"
               color="primary"
-              label="Finish"
+              :label="$t('CreateCourses.finish')"
             />
             <q-btn
               v-if="step > 1"
               flat
               color="primary"
               @click=";($refs.stepper as any).previous()"
-              label="Back"
+              :label="$t('CreateCourses.back')"
               class="q-ml-sm"
             />
           </q-stepper-navigation>

@@ -4,9 +4,9 @@ import { createI18n } from 'vue-i18n'
 /**
  * import locale messages resource from json for global scope
  */
-import es from "@/locales/es.json";
-import en from "@/locales/en.json";
-import { DEFAULT_LANGUAGE } from "@/constants";
+import es from '@/locales/es.json'
+import en from '@/locales/en.json'
+import { DEFAULT_LANGUAGE } from '@/constants'
 
 /**
  * setup vue-i18n with i18n resources with global type definition.
@@ -16,13 +16,13 @@ import { DEFAULT_LANGUAGE } from "@/constants";
 const i18n = createI18n({
   legacy: false,
   locale: DEFAULT_LANGUAGE,
-  fallbackLocale: ["es", "en"],
+  fallbackLocale: ['es', 'en'],
   //formatFallbackMessages: true,
   messages: {
     es: es,
     en: en,
   },
   globalInjection: true,
-});
+})
 
-export default i18n;
+export default i18n
