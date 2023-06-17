@@ -7,6 +7,7 @@ import App from './App.vue'
 // Plugins
 import router from './plugins/router'
 import quasarUserOptions from './plugins/quasar/quasar-user-options'
+import i18n from './plugins/i18n/i18n'
 
 // Style
 import '@/styles/base.css'
@@ -17,6 +18,7 @@ import appController from '@/controller/Controller'
 const app = createApp(App)
 
 app.use(router)
+app.use(i18n)
 app.use(createPinia())
 app.use(Quasar, quasarUserOptions)
 app.provide('appController', appController)

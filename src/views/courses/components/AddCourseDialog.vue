@@ -46,7 +46,8 @@ const nextStepDisabled = computed(() => {
       <q-stepper v-model="step" ref="stepper" color="primary" animated>
         <q-step :name="1" title="Título" icon="settings" :done="step > 1">
           <div class="center">
-            <h3>¿Qué tal un título provisional?</h3>
+            <!-- <h3>¿Qué tal un título provisional?</h3> -->
+            <h3>{{ $t('CreateCourses.titleTitle') }}</h3>
             <h5>
               No pasa nada si ahora no se te ocurre un buen título. Puedes cambiarlo más adelante.
             </h5>

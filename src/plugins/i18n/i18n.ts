@@ -1,5 +1,5 @@
 //https://github.com/intlify/vue-i18n-next/blob/master/examples/type-safe/global-type-definition/src/main.ts
-import { createI18n } from "vue-i18n";
+import { createI18n } from 'vue-i18n'
 
 /**
  * import locale messages resource from json for global scope
