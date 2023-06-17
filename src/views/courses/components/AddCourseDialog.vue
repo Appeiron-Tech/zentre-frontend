@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import BaseBar from '@/components/base/dialog/BaseBar.vue'
 import BaseDialog from '@/components/base/dialog/BaseDialog.vue'
+import BaseDropdown from '@/components/base/inputs/BaseDropdown.vue'
+import i18n from '@/plugins/i18n/i18n'
 import { computed, ref } from 'vue'
 
 const props = defineProps(['modelValue'])
@@ -18,6 +20,23 @@ const value = computed({
 const stepsValidation = ref([false, false, false])
 const description = ref(null)
 const category = ref(null)
+const categoryOptions = [
+  i18n.global.t('CreateCourses.categoryOptions.development'),
+  i18n.global.t('CreateCourses.categoryOptions.business'),
+  i18n.global.t('CreateCourses.categoryOptions.finance'),
+  i18n.global.t('CreateCourses.categoryOptions.tech'),
+  i18n.global.t('CreateCourses.categoryOptions.office'),
+  i18n.global.t('CreateCourses.categoryOptions.personal'),
+  i18n.global.t('CreateCourses.categoryOptions.design'),
+  i18n.global.t('CreateCourses.categoryOptions.marketing'),
+  i18n.global.t('CreateCourses.categoryOptions.lifestyle'),
+  i18n.global.t('CreateCourses.categoryOptions.photography'),
+  i18n.global.t('CreateCourses.categoryOptions.health'),
+  i18n.global.t('CreateCourses.categoryOptions.music'),
+  i18n.global.t('CreateCourses.categoryOptions.teaching'),
+  i18n.global.t('CreateCourses.categoryOptions.other'),
+]
+
 const title = ref(null)
 const step = ref(1)
 
@@ -87,11 +106,11 @@ const validateStep = (inputValue: string, idx: number, maxLength = 100) => {
           <div class="center">
             <h3>{{ $t('CreateCourses.categoryTitle') }}</h3>
             <h5>{{ $t('CreateCourses.categoryDescription') }}</h5>
-            <q-input
-              filled
+            <BaseDropdown
               v-model="category"
+              :options="categoryOptions"
               :label="$t('CreateCourses.categoryPlaceholder')"
-              :rules="[(val) => validateStep(val, 2) || $t('CreateCourses.categoryError')]"
+              :rules="[(val) => validateStep(val, 2)]"
             />
           </div>
         </q-step>
