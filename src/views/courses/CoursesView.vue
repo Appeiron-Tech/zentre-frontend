@@ -15,7 +15,7 @@ function toggleCourseForm() {
     <main>
       <div class="col-9 q-pa-md">
         <div class="q-gutter-y-md">
-          <h1>Course View</h1>
+          <h1>Courses View</h1>
           <AddSection @toggle-course-form="toggleCourseForm" />
         </div>
       </div>

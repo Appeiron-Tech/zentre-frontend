@@ -30,5 +30,13 @@ const modelValue = computed({
 </script>
 
 <template>
-  <q-select square filled v-model="modelValue" :options="options" :label="label" :rules="rules" emit-value />
+  <q-select
+    square
+    filled
+    v-model="modelValue"
+    :options="options"
+    :label="label"
+    :rules="rules"
+    emit-value
+  />
 </template>

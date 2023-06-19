@@ -5,9 +5,12 @@ import { computed, ref } from 'vue'
 import BaseBar from '@/components/base/dialog/BaseBar.vue'
 import { useI18n } from 'vue-i18n'
 import { COURSES_CATEGORY } from '@/constants'
+import { useRoute, useRouter } from 'vue-router'
 const { t } = useI18n()
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
+const title = ref(null)
+const step = ref(1)
 
 const value = computed({
   get() {
@@ -31,23 +34,29 @@ Object.keys(COURSES_CATEGORY).forEach((course) => {
   })
 })
 
-const title = ref(null)
-const step = ref(1)
+const router = useRouter()
+const route = useRoute()
 
 // --------- Computed ----------
 const nextStepDisabled = computed(() => {
   return !stepsValidation.value[step.value - 1]
 })
 // -----------------------------
+
 function onSubmit() {
   console.log('submit')
   console.log(title.value)
   console.log(description.value)
   console.log(category.value)
+  router.push({
+    name: 'course',
+    params: {
+      id: 123,
+    },
+  })
 }
 
 const validateStep = (inputValue: string, idx: number, maxLength = 100) => {
-  console.log(inputValue)
   const verified = (inputValue && inputValue.length > 0 && inputValue.length <= maxLength) || false
   stepsValidation.value[idx] = verified
   return verified
