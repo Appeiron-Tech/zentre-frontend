@@ -14,7 +14,6 @@ import { DEFAULT_LANGUAGE } from '@/constants'
  * you can check global type definition at `./vue-i18n.d.ts`
  */
 
-console.log("DEFAULT_LANGUAGE:", DEFAULT_LANGUAGE)
 const i18n = createI18n({
   legacy: false,
   locale: DEFAULT_LANGUAGE,

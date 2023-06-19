@@ -4,6 +4,7 @@ import BaseDialog from '@/components/base/dialog/BaseDialog.vue'
 import { computed, ref } from 'vue'
 import BaseBar from '@/components/base/dialog/BaseBar.vue'
 import { useI18n } from 'vue-i18n'
+import { COURSES_CATEGORY } from '@/constants'
 const { t } = useI18n()
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
@@ -21,22 +22,14 @@ const stepsValidation = ref([false, false, false])
 const description = ref(null)
 const category = ref(null)
 
-const categoryOptions = [
-  t('CreateCourses.categoryOptions.development'),
-  t('CreateCourses.categoryOptions.business'),
-  t('CreateCourses.categoryOptions.finance'),
-  t('CreateCourses.categoryOptions.tech'),
-  t('CreateCourses.categoryOptions.office'),
-  t('CreateCourses.categoryOptions.personal'),
-  t('CreateCourses.categoryOptions.design'),
-  t('CreateCourses.categoryOptions.marketing'),
-  t('CreateCourses.categoryOptions.lifestyle'),
-  t('CreateCourses.categoryOptions.photography'),
-  t('CreateCourses.categoryOptions.health'),
-  t('CreateCourses.categoryOptions.music'),
-  t('CreateCourses.categoryOptions.teaching'),
-  t('CreateCourses.categoryOptions.other'),
-]
+const categoryOptions: { label: string; value: string }[] = []
+Object.keys(COURSES_CATEGORY).forEach((course) => {
+  const lowerCaseCourse = course.toLowerCase()
+  categoryOptions.push({
+    label: t(`CreateCourses.categoryOptions.${lowerCaseCourse}`),
+    value: course,
+  })
+})
 
 const title = ref(null)
 const step = ref(1)
@@ -54,6 +47,7 @@ function onSubmit() {
 }
 
 const validateStep = (inputValue: string, idx: number, maxLength = 100) => {
+  console.log(inputValue)
   const verified = (inputValue && inputValue.length > 0 && inputValue.length <= maxLength) || false
   stepsValidation.value[idx] = verified
   return verified
@@ -78,7 +72,7 @@ const validateStep = (inputValue: string, idx: number, maxLength = 100) => {
               filled
               v-model="title"
               :label="$t('CreateCourses.titlePlaceholder')"
-              :rules="[(val) => validateStep(val, 0, 60) || $t('CreateCourses.titleError')]"
+              :rules="[(val: string) => validateStep(val, 0, 60) || $t('CreateCourses.titleError')]"
             />
           </div>
         </q-step>
@@ -98,7 +92,7 @@ const validateStep = (inputValue: string, idx: number, maxLength = 100) => {
               filled
               v-model="description"
               :label="$t('CreateCourses.descPlaceholder')"
-              :rules="[(val) => validateStep(val, 1, 100) || $t('CreateCourses.descError')]"
+              :rules="[(val: string) => validateStep(val, 1, 100) || $t('CreateCourses.descError')]"
             />
           </div>
         </q-step>

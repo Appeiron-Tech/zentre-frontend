@@ -102,3 +102,20 @@ export const DEFAULT_PERIODS = [
   { label: 'calendar-6months', value: EPeriod.MONTH6, before: { type: 'month', back: 6 } },
   { label: 'calendar-year', value: EPeriod.YEAR, before: { type: 'month', back: 12 } },
 ]
+
+export enum COURSES_CATEGORY {
+  DEVELOPMENT = 'development',
+  BUSINESS = 'business',
+  FINANCE = 'finance',
+  TECH = 'tech',
+  OFFICE = 'office',
+  PERSONAL = 'personal',
+  DESIGN = 'design',
+  MARKETING = 'marketing',
+  LIFESTYLE = 'lifestyle',
+  PHOTOGRAPHY = 'photography',
+  HEALTH = 'health',
+  MUSIC = 'music',
+  TEACHING = 'teaching',
+  OTHER = 'other',
+}
