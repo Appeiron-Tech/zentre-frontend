@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import BaseBar from '@/components/base/dialog/BaseBar.vue'
-import BaseDialog from '@/components/base/dialog/BaseDialog.vue'
 import BaseDropdown from '@/components/base/inputs/BaseDropdown.vue'
-import i18n from '@/plugins/i18n/i18n'
+import BaseDialog from '@/components/base/dialog/BaseDialog.vue'
 import { computed, ref } from 'vue'
-
+import BaseBar from '@/components/base/dialog/BaseBar.vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
 
@@ -20,21 +20,22 @@ const value = computed({
 const stepsValidation = ref([false, false, false])
 const description = ref(null)
 const category = ref(null)
+
 const categoryOptions = [
-  i18n.global.t('CreateCourses.categoryOptions.development'),
-  i18n.global.t('CreateCourses.categoryOptions.business'),
-  i18n.global.t('CreateCourses.categoryOptions.finance'),
-  i18n.global.t('CreateCourses.categoryOptions.tech'),
-  i18n.global.t('CreateCourses.categoryOptions.office'),
-  i18n.global.t('CreateCourses.categoryOptions.personal'),
-  i18n.global.t('CreateCourses.categoryOptions.design'),
-  i18n.global.t('CreateCourses.categoryOptions.marketing'),
-  i18n.global.t('CreateCourses.categoryOptions.lifestyle'),
-  i18n.global.t('CreateCourses.categoryOptions.photography'),
-  i18n.global.t('CreateCourses.categoryOptions.health'),
-  i18n.global.t('CreateCourses.categoryOptions.music'),
-  i18n.global.t('CreateCourses.categoryOptions.teaching'),
-  i18n.global.t('CreateCourses.categoryOptions.other'),
+  t('CreateCourses.categoryOptions.development'),
+  t('CreateCourses.categoryOptions.business'),
+  t('CreateCourses.categoryOptions.finance'),
+  t('CreateCourses.categoryOptions.tech'),
+  t('CreateCourses.categoryOptions.office'),
+  t('CreateCourses.categoryOptions.personal'),
+  t('CreateCourses.categoryOptions.design'),
+  t('CreateCourses.categoryOptions.marketing'),
+  t('CreateCourses.categoryOptions.lifestyle'),
+  t('CreateCourses.categoryOptions.photography'),
+  t('CreateCourses.categoryOptions.health'),
+  t('CreateCourses.categoryOptions.music'),
+  t('CreateCourses.categoryOptions.teaching'),
+  t('CreateCourses.categoryOptions.other'),
 ]
 
 const title = ref(null)

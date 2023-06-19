@@ -13,11 +13,14 @@ import { DEFAULT_LANGUAGE } from '@/constants'
  * if you define the i18n resource schema in your `*.d.ts`, these is checked with typeScript.
  * you can check global type definition at `./vue-i18n.d.ts`
  */
+
+console.log("DEFAULT_LANGUAGE:", DEFAULT_LANGUAGE)
 const i18n = createI18n({
   legacy: false,
   locale: DEFAULT_LANGUAGE,
   fallbackLocale: ['es', 'en'],
-  //formatFallbackMessages: true,
+  formatFallbackMessages: true,
+  // warnHtmlInMessage: 'off',
   messages: {
     es: es,
     en: en,
