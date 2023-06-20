@@ -34,5 +34,21 @@
     "continue": "Continue",
     "back": "Back",
     "finish": "Finish"
+  },
+  "CourseEdit": {
+    "pageTitle": "Course landing page",
+    "pageDescription": "Your course landing page is crucial to your success. As you complete this section, think about creating a compelling Course Landing Page that demonstrates why someone would want to enroll in your course.",
+    "titleLabel": "Course Title",
+    "titleHint": "Your title should be a mix of attention-grabbing, informative, and optimized for search",
+    "subtitleLabel": "Course Subtitle",
+    "descriptionLabel": "Course Description",
+    "descriptionHint": "Description should have minimum 200 words.",
+    "languageLabel": "Course Language",
+    "levelLabel": "Course Level",
+    "categoryLabel": "Course Category",
+    "subcategoryLabel": "Course Subcategory",
+    "imageLabel": "Course Image",
+    "imageDescription": "Upload your course image here. Important guidelines: 750x422 pixels; .jpg, .jpeg, or .png.",
+    "imageUpload": "Upload Image"
   }
 }

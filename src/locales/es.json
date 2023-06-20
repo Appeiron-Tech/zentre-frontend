@@ -34,5 +34,21 @@
     "continue": "Continuar",
     "back": "Atrás",
     "finish": "Finalizar"
-  }
+  },
+  "CourseEdit": {
+    "pageTitle": "Página de inicio del curso",
+    "pageDescription": "Tu página de inicio del curso es crucial para tu éxito. A medida que completes esta sección, piensa en crear una página de inicio de curso convincente que demuestre por qué alguien querría inscribirse en tu curso.",
+    "titleLabel": "Título del curso",
+    "titleHint": "Your title should be a mix of attention-grabbing, informative, and optimized for search",
+    "subtitleLabel": "Subtítulo del curso",
+    "descriptionLabel": "Descripción del curso",
+    "descriptionHint": "Description should have minimum 200 words.",
+    "languageLabel": "Idioma del curso",
+    "levelLabel": "Nivel del curso",
+    "categoryLabel": "Categoría del curso",
+    "subcategoryLabel": "Subcategoría del curso",
+    "imageLabel": "Imagen del curso",
+    "imageDescription": "Sube aquí la imagen de tu curso. Pautas importantes: 750x422 píxeles; .jpg, .jpeg o .png.",
+    "imageUpload": "Subir imagen"
+}
 }
