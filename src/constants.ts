@@ -119,3 +119,336 @@ export enum COURSES_CATEGORY {
   TEACHING = 'teaching',
   OTHER = 'other',
 }
+
+export enum LANGUAGES {
+  ES = 'Español',
+  CA = 'català',
+  EN = 'English',
+  PT = 'Português',
+  DE = 'Deutsch',
+  FR = 'Français',
+  IT = 'Italiano',
+}
+
+export enum DIFFICULT_LEVEL {
+  BEGINNER = 'beginner',
+  INTERMEDIATE = 'intermediate',
+  EXPERT = 'expert',
+  ALL = 'all',
+}
+
+export const COURSES_SUBCATEGORY = {
+  DEVELOPMENT: {
+    WEB: 'web',
+    DATA_SCIENCE: 'data-science',
+    MOBILE: 'mobile',
+    PROGRAMMING: 'programming',
+    GAME: 'game',
+    DATABASE: 'database-design',
+    SOFTWARE_TESTING: 'software-testing',
+    SOFTWARE_ENGINEERING: 'software-engineering',
+    SOFTWARE_DEVELOPMENT_TOOLS: 'software-development-tools',
+    NO_CODE: 'no-code',
+  },
+  BUSINESS: {
+    ENTREPRENEURSHIP: 'entrepreneurship',
+    COMMUNICATION: 'communication',
+    MANAGEMENT: 'management',
+    SALES: 'sales',
+    STRATEGY: 'strategy',
+    OPERATIONS: 'operations',
+    PROJECT_MANAGEMENT: 'project-management',
+    BUSINESS_LAW: 'business-law',
+    BUSINESS_ANALYTICS: 'business-analytics',
+    HUMAN_RESOURCES: 'human-resources',
+    INDUSTRY: 'industry',
+    E_COMMERCE: 'e-commerce',
+    MEDIA: 'media',
+    REAL_ESTATE: 'real-estate',
+    OTHER: 'other',
+  },
+  FINANCE: {
+    ACCOUNTING: 'accounting',
+    CRYPTOCURRENCY: 'cryptocurrency',
+    FINANCE: 'finance',
+    FINANCE_CERT: 'finance-cert',
+    FINANCIAL_MODELING: 'financial-modeling',
+    INVESTING: 'investing',
+    TRADING: 'trading',
+    COMPLIANCE: 'compliance',
+    ECONOMICS: 'economics',
+    MONEY_MANAGEMENT: 'money-management',
+    TAXES: 'taxes',
+    OTHER: 'other',
+  },
+  IT: {
+    IT_CERTIFICATIONS: 'it-certifications',
+    NETWORK_SECURITY: 'network-security',
+    HARDWARE: 'hardware',
+    OPERATING_SYSTEMS: 'operating-systems',
+    OTHER: 'other',
+  },
+  OFFICE: {
+    MICROSOFT: 'microsoft',
+    APPLE: 'apple',
+    GOOGLE: 'google',
+    SAP: 'sap',
+    ORACLE: 'oracle',
+    OTHER: 'other',
+  },
+  PERSONAL: {
+    PERSONAL_DEVELOPMENT: 'personal-development',
+    LEADERSHIP: 'leadership',
+    CAREER_DEVELOPMENT: 'career-development',
+    PARENTING: 'parenting',
+    RELIGION: 'religion',
+    HAPPINESS: 'happiness',
+    PERSONAL_BRAND: 'personal-brand',
+    CREATIVITY: 'creativity',
+    INFLUENCE: 'influence',
+    SELF_ESTEEM: 'self-esteem',
+    STRESS_MANAGEMENT: 'stress-management',
+    MEMORY: 'memory',
+    MOTIVATION: 'motivation',
+    OTHER: 'other',
+  },
+  DESIGN: {
+    WEB_DESIGN: 'web-design',
+    GRAPHIC_DESIGN: 'graphic-design',
+    DESIGN_TOOLS: 'design-tools',
+    USER_EXPERIENCE: 'user-experience',
+    GAME_DESIGN: 'game-design',
+    DESIGN_THINKING: 'design-thinking',
+    D3_ANIMATION: 'd3-animation',
+    FASHION: 'fashion',
+    ARCHITECTURAL_DESIGN: 'architectural-design',
+    INTERIOR_DESIGN: 'interior-design',
+    OTHER: 'other',
+  },
+  MARKETING: {
+    DIGITAL_MARKETING: 'digital-marketing',
+    SEO: 'seo',
+    MARKETING_FUNDAMENTALS: 'marketing-fundamentals',
+    SOCIAL_MEDIA_MARKETING: 'social-media-marketing',
+    BRANDING: 'branding',
+    MARKETING_ANALYTICS: 'marketing-analytics',
+    PUBLIC_RELATIONS: 'public-relations',
+    ADVERTISING: 'advertising',
+    VIDEO_AND_MOBILE_MARKETING: 'video-and-mobile-marketing',
+    CONTENT_MARKETING: 'content-marketing',
+    GROWTH_HACKING: 'growth-hacking',
+    AFFILIATE_MARKETING: 'affiliate-marketing',
+    PRODUCT_MARKETING: 'product-marketing',
+    OTHER: 'other',
+  },
+  LIFESTYLE: {
+    ARTS_CRAFTS: 'arts-and-crafts',
+    FOOD_BEVERAGE: 'food-and-beverage',
+    ESOTERIC: 'esoteric',
+    BEAUTY_MAKEUP: 'beauty-and-makeup',
+    TRAVEL: 'travel',
+    GAMING: 'gaming',
+    HOME_IMPROVEMENT: 'home-improvement',
+    PET_CARE_TRAINING: 'pet-care-and-training',
+    OTHER: 'other',
+  },
+  PHOTOGRAPHY: {
+    DIGITAL_PHOTOGRAPHY: 'digital-photography',
+    PHOTOGRAPHY_FUNDAMENTALS: 'photography-fundamentals',
+    PORTRAIT_PHOTOGRAPHY: 'portrait-photography',
+    PHOTOGRAPHY_TOOLS: 'photography-tools',
+    COMMERCIAL_PHOTOGRAPHY: 'commercial-photography',
+    VIDEO_DESIGN: 'video-design',
+    OTHER: 'other',
+  },
+  HEALTH: {
+    FITNESS: 'fitness',
+    GENERAL_HEALTH: 'general-health',
+    SPORTS: 'sports',
+    NUTRITION: 'nutrition',
+    YOGA: 'yoga',
+    MENTAL_HEALTH: 'mental-health',
+    DIETING: 'dieting',
+    SELF_DEFENSE: 'self-defense',
+    SAFETY_FIRST_AID: 'safety-first-aid',
+    DANCE: 'dance',
+    MEDITATION: 'meditation',
+    OTHER: 'other',
+  },
+  MUSIC: {
+    INSTRUMENTS: 'instruments',
+    PRODUCTION: 'production',
+    MUSIC_FUNDAMENTALS: 'music-fundamentals',
+    VOCAL: 'vocal',
+    MUSIC_TECHNIQUES: 'music-techniques',
+    MUSIC_SOFTWARE: 'music-software',
+    OTHER: 'other',
+  },
+  TEACHING: {
+    ENGINEERING: 'engineering',
+    HUMANITIES: 'humanities',
+    MATH: 'math',
+    SCIENCE: 'science',
+    ONLINE_EDUCATION: 'online-education',
+    SOCIAL_SCIENCE: 'social-science',
+    LANGUAGE: 'language',
+    TEACHER_TRAINING: 'teacher-training',
+    TEST_PREP: 'test-prep',
+    OTHER: 'other',
+  },
+}
+
+// Web Development
+// Data Science
+// Mobile Development
+// Programming Languages
+// Game Development
+// Database Design & Development
+// Software Testing
+// Software Engineering
+// Software Development Tools
+// No-Code Development
+
+// Business
+// Entrepreneurship
+// Communication
+// Management
+// Sales
+// Business Strategy
+// Operations
+// Project Management
+// Business Law
+// Business Analytics & Intelligence
+// Human Resources
+// Industry
+// E-Commerce
+// Media
+// Real Estate
+// Other Business
+
+//   Finance & Accounting
+// Accounting & Bookkeeping
+// Cryptocurrency & Blockchain
+// Finance
+// Finance Cert & Exam Prep
+// Financial Modeling & Analysis
+// Investing & Trading
+// Compliance
+// Economics
+// Money Management Tools
+// Taxes
+// Other Finance & Accounting
+
+//   IT & Software
+// IT Certifications
+// Network & Security
+// Hardware
+// Operating Systems & Servers
+// Other IT & Software
+
+//   Office Productivity
+// Microsoft
+// Apple
+// Google
+// SAP
+// Oracle
+// Other Office Productivity
+
+//   Personal Development
+// Personal Transformation
+// Personal Productivity
+// Leadership
+// Career Development
+// Parenting & Relationships
+// Happiness
+// Religion & Spirituality
+// Personal Brand Building
+// Creativity
+// Influence
+// Self Esteem & Confidence
+// Stress Management
+// Memory & Study Skills
+// Motivation
+// Other Personal Development
+
+//   Design
+// Web Design
+// Graphic Design & Illustration
+// Design Tools
+// User Experience Design
+// Game Design
+// 3D & Animation
+// Fashion Design
+// Architectural Design
+// Interior Design
+// Other Design
+
+//   Marketing
+// Digital Marketing
+// Search Engine Optimization
+// Social Media Marketing
+// Branding
+// Marketing Fundamentals
+// Marketing Analytics & Automation
+// Public Relations
+// Paid Advertising
+// Video & Mobile Marketing
+// Content Marketing
+// Growth Hacking
+// Affiliate Marketing
+// Product Marketing
+// Other Marketing
+
+//   Lifestyle
+// Arts & Crafts
+// Beauty & Makeup
+// Esoteric Practices
+// Food & Beverage
+// Gaming
+// Home Improvement & Gardening
+// Pet Care & Training
+// Travel
+// Other Lifestyle
+
+//   Photography
+// Digital Photography
+// Photography Fundamentals
+// Portraits
+// Photography Tools
+// Commercial Photography
+// Video Design
+// Other Photography
+
+//   Health & Fitness
+// Fitness
+// General Health
+// Sports
+// Nutrition & Diet
+// Yoga
+// Mental Health
+// Martial Arts & Self Defense
+// Safety & First Aid
+// Dance
+// Meditation
+// Other Health & Fitness
+
+//   Music
+// Instruments
+// Music Production
+// Music Fundamentals
+// Vocal
+// Music Techniques
+// Music Software
+// Other Music
+
+//   Teaching & Academics
+// Engineering
+// Humanities
+// Math
+// Online Education
+// Science
+// Social Science
+// Language Learning
+// Teacher Training
+// Test Prep
+// Other Teaching & Academics

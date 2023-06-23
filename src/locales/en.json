@@ -43,12 +43,20 @@
     "subtitleLabel": "Course Subtitle",
     "descriptionLabel": "Course Description",
     "descriptionHint": "Description should have minimum 200 words.",
-    "languageLabel": "Course Language",
-    "levelLabel": "Course Level",
     "categoryLabel": "Course Category",
     "subcategoryLabel": "Course Subcategory",
     "imageLabel": "Course Image",
     "imageDescription": "Upload your course image here. Important guidelines: 750x422 pixels; .jpg, .jpeg, or .png.",
-    "imageUpload": "Upload Image"
+    "imageUpload": "Upload Image",
+    "languageLabel": "Course Language",
+    "languageHint": "Select the language of your course.",
+    "levelLabel": "Course Level",
+    "levelHint": "Select the level of your course."
+  },
+  "DifficultLevel": {
+    "beginner": "Beginner Level",
+    "intermediate": "Intermediate Level",
+    "expert": "Expert Level",
+    "all": "All levels"
   }
 }

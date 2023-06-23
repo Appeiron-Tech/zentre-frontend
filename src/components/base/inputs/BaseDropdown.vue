@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ValidationRule } from 'quasar'
+import type { ValidationRule } from 'quasar';
 import { computed, type PropType } from 'vue'
 
 const props = defineProps({
@@ -15,6 +15,13 @@ const props = defineProps({
   },
   rules: {
     type: Array as PropType<ValidationRule[]>,
+  },
+  hint: {
+    type: String,
+  },
+  isOptionMap: {
+    type: Boolean,
+    default: false,
   },
 })
 const emit = defineEmits(['update:modelValue'])
@@ -32,11 +39,13 @@ const modelValue = computed({
 <template>
   <q-select
     square
-    filled
+    outlined
     v-model="modelValue"
     :options="options"
     :label="label"
     :rules="rules"
-    emit-value
+    :hint="hint"
+    :emit-value="isOptionMap ? true : undefined"
+    :map-options="isOptionMap ? true : undefined"
   />
 </template>

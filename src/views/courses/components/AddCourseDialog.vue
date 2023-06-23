@@ -5,12 +5,15 @@ import { computed, ref } from 'vue'
 import BaseBar from '@/components/base/dialog/BaseBar.vue'
 import { useI18n } from 'vue-i18n'
 import { COURSES_CATEGORY } from '@/constants'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
+
 const { t } = useI18n()
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
+
 const title = ref(null)
 const step = ref(1)
+const router = useRouter()
 
 const value = computed({
   get() {
@@ -25,17 +28,10 @@ const stepsValidation = ref([false, false, false])
 const description = ref(null)
 const category = ref(null)
 
-const categoryOptions: { label: string; value: string }[] = []
-Object.keys(COURSES_CATEGORY).forEach((course) => {
-  const lowerCaseCourse = course.toLowerCase()
-  categoryOptions.push({
-    label: t(`CreateCourses.categoryOptions.${lowerCaseCourse}`),
-    value: course,
-  })
-})
-
-const router = useRouter()
-const route = useRoute()
+const categoryOptions = Object.keys(COURSES_CATEGORY).map((course) => ({
+  label: t(`CreateCourses.categoryOptions.${course.toLowerCase()}`),
+  value: course,
+}))
 
 // --------- Computed ----------
 const nextStepDisabled = computed(() => {
@@ -112,6 +108,7 @@ const validateStep = (inputValue: string, idx: number, maxLength = 100) => {
             <h5>{{ $t('CreateCourses.categoryDescription') }}</h5>
             <BaseDropdown
               v-model="category"
+              isOptionMap
               :options="categoryOptions"
               :label="$t('CreateCourses.categoryPlaceholder')"
               :rules="[(val) => validateStep(val, 2)]"
