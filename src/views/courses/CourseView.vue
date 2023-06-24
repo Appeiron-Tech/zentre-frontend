@@ -1,11 +1,17 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { minLength } from '@/utils/validators'
+import { minLength, maxLength } from '@/utils/validators'
 import BaseCard from '@/components/base/card/BaseCard.vue'
 import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
 import BaseCardSeparator from '@/components/base/card/BaseCardSeparator.vue'
 import BaseDropdown from '@/components/base/inputs/BaseDropdown.vue'
-import { COURSES_CATEGORY, COURSES_SUBCATEGORY, DIFFICULT_LEVEL, LANGUAGES } from '@/constants'
+import {
+  COURSES_CATEGORY,
+  COURSES_SUBCATEGORY,
+  CURRENCIES,
+  DIFFICULT_LEVEL,
+  LANGUAGES,
+} from '@/constants'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
@@ -15,7 +21,9 @@ const language = ref(null)
 const level = ref(null)
 const category = ref('')
 const subCategory = ref(null)
+const currency = ref(null)
 const price = ref(0.0)
+
 const languageOptions = Object.keys(LANGUAGES).map((lang) => ({
   label: LANGUAGES[lang as keyof typeof LANGUAGES],
   value: lang,
@@ -23,6 +31,10 @@ const languageOptions = Object.keys(LANGUAGES).map((lang) => ({
 const levelOptions = Object.keys(DIFFICULT_LEVEL).map((level) => ({
   label: t(`DifficultLevel.${level.toLowerCase()}`),
   value: level,
+}))
+const currencyOptions = Object.keys(CURRENCIES).map((currency) => ({
+  label: CURRENCIES[currency as keyof typeof CURRENCIES],
+  value: currency,
 }))
 const categoryOptions = Object.keys(COURSES_CATEGORY).map((course) => ({
   label: t(`CreateCourses.categoryOptions.${course.toLowerCase()}`),
@@ -61,7 +73,7 @@ const subCategoryOptions = computed(() => {
                 v-model="title"
                 :label="$t('CourseEdit.titleLabel')"
                 :hint="$t('CourseEdit.titleHint')"
-                :rules="[(val) => minLength(val, 60) || $t('CreateCourses.titleError')]"
+                :rules="[(val) => maxLength(val, 60) || $t('CreateCourses.titleError')]"
               />
               <div class="q-mt-lg">
                 <q-input
@@ -69,7 +81,7 @@ const subCategoryOptions = computed(() => {
                   v-model="description"
                   :label="$t('CourseEdit.descriptionLabel')"
                   :hint="$t('CourseEdit.descriptionHint')"
-                  :rules="[(val) => minLength(val, 60) || $t('CreateCourses.descError')]"
+                  :rules="[(val) => minLength(val, 50) || $t('CreateCourses.descError')]"
                 />
               </div>
             </BaseCardSection>
@@ -120,7 +132,15 @@ const subCategoryOptions = computed(() => {
             </BaseCardSection>
             <BaseCardSection class="q-mx-xl">
               <div class="row justify-around q-gutter-xl">
-                <div class="col">
+                <div class="col-2">
+                  <BaseDropdown
+                    v-model="currency"
+                    isOptionMap
+                    :options="currencyOptions"
+                    :label="$t('CourseEdit.currencyLabel')"
+                  />
+                </div>
+                <div class="col-3">
                   <q-input
                     outlined
                     v-model="price"

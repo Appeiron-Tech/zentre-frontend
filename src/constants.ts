@@ -129,6 +129,12 @@ export enum LANGUAGES {
   FR = 'Français',
   IT = 'Italiano',
 }
+export enum CURRENCIES {
+  USD = 'USD ($)',
+  EUR = 'EUR (€)',
+  LIB = 'GBP (£)',
+  PEN = 'PEN (S/.)',
+}
 
 export enum DIFFICULT_LEVEL {
   BEGINNER = 'beginner',

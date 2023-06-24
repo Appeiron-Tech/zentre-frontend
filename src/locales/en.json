@@ -44,7 +44,7 @@
     "titleHint": "Your title should be a mix of attention-grabbing, informative, and optimized for search",
     "subtitleLabel": "Course Subtitle",
     "descriptionLabel": "Course Description",
-    "descriptionHint": "Description should have minimum 200 words.",
+    "descriptionHint": "Description should have minimum 50 characters.",
     "categoryLabel": "Course Category",
     "categoryHint": "The main category of your course.",
     "subcategoryLabel": "Course Subcategory",
@@ -57,6 +57,7 @@
     "levelLabel": "Course Level",
     "levelHint": "Select the level of your course.",
     "priceLabel": "Price",
+    "currencyLabel": "Currency",
     "priceHint": "Price of your course. Use '.' as decimal separator"
   },
   "DifficultLevel": {

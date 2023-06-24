@@ -44,7 +44,7 @@
     "titleHint": "Your title should be a mix of attention-grabbing, informative, and optimized for search",
     "subtitleLabel": "Subtítulo del curso",
     "descriptionLabel": "Descripción del curso",
-    "descriptionHint": "Description should have minimum 200 words.",
+    "descriptionHint": "Description debe tener como mínimo 50 caractéres.",
     "categoryLabel": "Categoría del curso",
     "categoryHint": "The main category of your course.",
     "subcategoryLabel": "Subcategoría del curso",
@@ -57,6 +57,7 @@
     "levelLabel": "Nivel del curso",
     "levelHint": "Selecciona el nivel del curso.",
     "priceLabel": "Precio",
+    "currencyLabel": "Moneda",
     "priceHint": "Precio del curso. Usa '.' como separador decimal"
   },
   "DifficultLevel": {
