@@ -181,7 +181,7 @@ export const COURSES_SUBCATEGORY = {
     TAXES: 'taxes',
     OTHER: 'other',
   },
-  IT: {
+  TECH: {
     IT_CERTIFICATIONS: 'it-certifications',
     NETWORK_SECURITY: 'network-security',
     HARDWARE: 'hardware',
