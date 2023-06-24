@@ -36,6 +36,8 @@
     "finish": "Finalizar"
   },
   "CourseEdit": {
+    "basicSection": "Información básica",
+    "priceSection": "Precio",
     "pageTitle": "Página de inicio del curso",
     "pageDescription": "Tu página de inicio del curso es crucial para tu éxito. A medida que completes esta sección, piensa en crear una página de inicio de curso convincente que demuestre por qué alguien querría inscribirse en tu curso.",
     "titleLabel": "Título del curso",
@@ -53,7 +55,9 @@
     "languageLabel": "Idioma del curso",
     "languageHint": "Selecciona el idioma del curso.",
     "levelLabel": "Nivel del curso",
-    "levelHint": "Selecciona el nivel del curso."
+    "levelHint": "Selecciona el nivel del curso.",
+    "priceLabel": "Precio",
+    "priceHint": "Precio del curso. Usa '.' como separador decimal"
   },
   "DifficultLevel": {
     "beginner": "Nivel Principiante",

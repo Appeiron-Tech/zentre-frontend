@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ValidationRule } from 'quasar';
+import type { ValidationRule } from 'quasar'
 import { computed, type PropType } from 'vue'
 
 const props = defineProps({

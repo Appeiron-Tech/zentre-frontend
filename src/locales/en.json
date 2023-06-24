@@ -36,6 +36,8 @@
     "finish": "Finish"
   },
   "CourseEdit": {
+    "basicSection": "Basic Information",
+    "priceSection": "Pricing",
     "pageTitle": "Course landing page",
     "pageDescription": "Your course landing page is crucial to your success. As you complete this section, think about creating a compelling Course Landing Page that demonstrates why someone would want to enroll in your course.",
     "titleLabel": "Course Title",
@@ -53,7 +55,9 @@
     "languageLabel": "Course Language",
     "languageHint": "Select the language of your course.",
     "levelLabel": "Course Level",
-    "levelHint": "Select the level of your course."
+    "levelHint": "Select the level of your course.",
+    "priceLabel": "Price",
+    "priceHint": "Price of your course. Use '.' as decimal separator"
   },
   "DifficultLevel": {
     "beginner": "Beginner Level",
