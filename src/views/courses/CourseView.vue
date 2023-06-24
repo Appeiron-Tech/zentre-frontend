@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { minLength } from '@/utils/validators'
 import BaseCard from '@/components/base/card/BaseCard.vue'
 import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
 import BaseCardSeparator from '@/components/base/card/BaseCardSeparator.vue'
 import BaseDropdown from '@/components/base/inputs/BaseDropdown.vue'
-import { DIFFICULT_LEVEL, LANGUAGES } from '@/constants'
+import { COURSES_CATEGORY, COURSES_SUBCATEGORY, DIFFICULT_LEVEL, LANGUAGES } from '@/constants'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
-const title = ref('')
-const description = ref('')
+const title = ref(null)
+const description = ref(null)
 const language = ref(null)
 const level = ref(null)
-const category = ref(null)
+const category = ref('')
 const subCategory = ref(null)
 const languageOptions = Object.keys(LANGUAGES).map((lang) => ({
   label: LANGUAGES[lang as keyof typeof LANGUAGES],
@@ -23,6 +23,22 @@ const levelOptions = Object.keys(DIFFICULT_LEVEL).map((level) => ({
   label: t(`DifficultLevel.${level.toLowerCase()}`),
   value: level,
 }))
+const categoryOptions = Object.keys(COURSES_CATEGORY).map((course) => ({
+  label: t(`CreateCourses.categoryOptions.${course.toLowerCase()}`),
+  value: course,
+}))
+const subCategoryOptions = computed(() => {
+  if (category.value) {
+    const subCategoryValues =
+      COURSES_SUBCATEGORY[category.value as keyof typeof COURSES_SUBCATEGORY]
+    return Object.keys(subCategoryValues).map((subCategory) => ({
+      label: t(`SubCategory.${category.value.toLowerCase()}.${subCategory.toLowerCase()}`),
+      value: subCategory,
+    }))
+  }
+  return []
+})
+
 </script>
 
 <template>
@@ -75,35 +91,25 @@ const levelOptions = Object.keys(DIFFICULT_LEVEL).map((level) => ({
                   />
                 </div>
               </div>
-              <div class="row justify-around q-gutter-xl">
-                <div class="col"></div>
-                <div class="col"></div>
-              </div>
-            </BaseCardSection>
-            <BaseCardSection class="q-mt-lg q-mx-xl">
-              <div class="row justify-around q-gutter-xl">
+              <div class="row justify-around q-gutter-xl q-pt-lg">
                 <div class="col">
                   <BaseDropdown
-                    v-model="language"
+                    v-model="category"
                     isOptionMap
-                    :options="languageOptions"
-                    :label="$t('CourseEdit.languageLabel')"
-                    :hint="$t('CourseEdit.languageHint')"
+                    :options="categoryOptions"
+                    :label="$t('CourseEdit.categoryLabel')"
+                    :hint="$t('CourseEdit.categoryHint')"
                   />
                 </div>
                 <div class="col">
                   <BaseDropdown
-                    v-model="level"
+                    v-model="subCategory"
                     isOptionMap
-                    :options="levelOptions"
-                    :label="$t('CourseEdit.levelLabel')"
-                    :hint="$t('CourseEdit.levelHint')"
+                    :options="subCategoryOptions"
+                    :label="$t('CourseEdit.subcategoryLabel')"
+                    :hint="$t('CourseEdit.subcategoryHint')"
                   />
                 </div>
-              </div>
-              <div class="row justify-around q-gutter-xl">
-                <div class="col"></div>
-                <div class="col"></div>
               </div>
             </BaseCardSection>
           </BaseCard>
