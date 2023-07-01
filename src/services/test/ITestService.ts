@@ -1,9 +1,10 @@
 // Interface required as param of the api
-export interface IReqTest {
-
+export interface IResTest {
+  responseBody: {
+    message: string
+  }
 }
 
-// Interface of the response returned for the backend
-export interface IResTest {
-
+export interface ITestService {
+  getTestService(): Promise<IResTest>
 }
