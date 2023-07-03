@@ -52,7 +52,12 @@
 
       <q-page-container>
         <q-page padding class="containerBackground">
-          <router-view />
+          <!-- <Suspense> -->
+            <router-view />
+            <!-- <template #fallback>
+              <div><h1>Loading...</h1></div>
+            </template> -->
+          <!-- </Suspense> -->
         </q-page>
       </q-page-container>
     </q-layout>

@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import type { ICourse } from '@/models/course/Course.interface';
+import type { ICourse } from '@/models/course/Course.interface'
 
 defineProps({
   courses: {
-    type: [] as PropType<ICourse[]>,
+    type: Array as PropType<ICourse[]>,
+    default: () => [],
   },
 })
 </script>

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
-import { API_PREFIX_BASE } from '@/constants'
+import { API_BASE_URL, API_PREFIX_BASE } from '@/constants'
 
 // https://medium.com/@zitko/structuring-a-vue-project-authentication-87032e5bfe16
 abstract class ApiService {
@@ -9,7 +9,7 @@ abstract class ApiService {
 
   constructor(config: { baseURL: string }) {
     this._baseUrl = config.baseURL
-    this._fullApiBase = API_PREFIX_BASE + this._baseUrl
+    this._fullApiBase = API_BASE_URL + API_PREFIX_BASE + this._baseUrl
     this.setHeader()
   }
 
