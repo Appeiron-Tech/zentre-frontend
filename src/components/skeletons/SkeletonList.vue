@@ -2,7 +2,7 @@
 defineProps({
   items: {
     type: Number,
-    default: 5,
+    default: 1,
   },
 })
 
@@ -13,7 +13,7 @@ function randomWidth() {
 
 <template>
   <div class="q-pa-md">
-    <q-item v-for="n in items" :key="n">
+    <q-item v-for="item in items" :key="item">
       <q-item-section avatar>
         <q-skeleton type="QAvatar" />
       </q-item-section>

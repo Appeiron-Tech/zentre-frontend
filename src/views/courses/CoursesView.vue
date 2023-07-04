@@ -35,7 +35,6 @@ function toggleCourseForm() {
           <h1>Courses View</h1>
           <AddCourseSection @toggle-course-form="toggleCourseForm" />
           <ListCourse v-if="courses.length" :courses="courses" />
-          <!-- <h3 v-else>There is nothing</h3> -->
           <SkeletonList v-else :items="5" />
         </div>
       </div>
