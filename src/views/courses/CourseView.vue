@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import { minLength, maxLength } from '@/utils/validators'
 import BaseCard from '@/components/base/card/BaseCard.vue'
 import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
@@ -13,9 +13,13 @@ import {
   LANGUAGES,
 } from '@/constants'
 import { useI18n } from 'vue-i18n'
+import type { ICourse } from '@/models/course/Course.interface'
+import CourseService from '@/services/course/Course.service'
+import { useRoute } from 'vue-router'
 const { t } = useI18n()
+const route = useRoute()
 
-const title = ref(null)
+const title = ref()
 const description = ref(null)
 const language = ref(null)
 const level = ref(null)
@@ -51,6 +55,16 @@ const subCategoryOptions = computed(() => {
   }
   return []
 })
+
+const course = ref<ICourse | null>(null)
+const courseService = new CourseService()
+
+onBeforeMount(async () => {
+  const courseId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
+  console.log(courseId)
+  course.value = await courseService.getCourse(courseId)
+  title.value = course.value.title
+})
 </script>
 
 <template>
@@ -58,7 +72,12 @@ const subCategoryOptions = computed(() => {
     <main>
       <div class="col-8 q-pa-lg">
         <div class="q-gutter-y-md">
-          <BaseCard>
+          <BaseCard v-if="!course">
+            <BaseCardSection class="q-mx-xl">
+              <h2>Loadinnnnng..... </h2>
+            </BaseCardSection>
+          </BaseCard>
+          <BaseCard v-else>
             <BaseCardSection class="q-mx-xl">
               <h2>{{ $t('CourseEdit.pageTitle') }}</h2>
               <h5>{{ $t('CourseEdit.pageDescription') }}</h5>

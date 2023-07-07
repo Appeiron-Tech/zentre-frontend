@@ -21,4 +21,14 @@ export default class CourseService extends ApiService implements ICourseService 
     }
     return courses
   }
+
+  async getCourse(courseId: string): Promise<ICourse> {
+    let course = null
+    try {
+      course = (await this.get(`/${courseId}`)).data
+    } catch (e) {
+      console.log(e)
+    }
+    return course
+  }
 }

@@ -34,11 +34,6 @@ function redirectEditCourse(courseId: string) {
             <BaseAvatar
               image="https://img.freepik.com/free-vector/online-tutorials-concept_52683-37480.jpg?q=10&h=200"
             />
-            <!-- <q-avatar>
-              <img
-                src="https://img.freepik.com/free-vector/online-tutorials-concept_52683-37480.jpg?q=10&h=200"
-              />
-            </q-avatar> -->
           </q-item-section>
           <q-item-section class="q-pl-md">
             <q-item-label lines="1">
