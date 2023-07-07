@@ -40,10 +40,6 @@ const nextStepDisabled = computed(() => {
 // -----------------------------
 
 function onSubmit() {
-  console.log('submit')
-  console.log(title.value)
-  console.log(description.value)
-  console.log(category.value)
   router.push({
     name: 'course',
     params: {

@@ -3,6 +3,7 @@ import type { PropType } from 'vue'
 import type { ICourse } from '@/models/course/Course.interface'
 import BaseCard from '@/components/base/card/BaseCard.vue'
 import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
+import { useRouter } from 'vue-router'
 
 defineProps({
   courses: {
@@ -10,19 +11,18 @@ defineProps({
     default: () => [],
   },
 })
-</script>
 
-<!-- centredId: string
-title: string
-description: string
-category: string
-subCategory?: string
-price: number
-currency: string
-duration?: number
-durationUnit?: string
-updatedAt: Date
-createdAt: Date -->
+const router = useRouter()
+
+function redirectEditCourse(courseId: string) {
+  router.push({
+    name: 'course',
+    params: {
+      id: courseId,
+    },
+  })
+}
+</script>
 
 <template>
   <BaseCard>
@@ -38,7 +38,7 @@ createdAt: Date -->
           </q-item-section>
           <q-item-section class="q-pl-md">
             <q-item-label lines="1">
-              <span class="text-weight-medium">{{ course.title }}</span>
+              <span class="text-weight-medium">{{ course.id }} {{ course.title }}</span>
               <span class="text-grey-8"> - {{ course.duration }} {{ course.durationUnit }}</span>
             </q-item-label>
             <q-item-label caption>{{ course.description }}</q-item-label>
@@ -48,7 +48,15 @@ createdAt: Date -->
           </q-item-section>
           <q-item-section side>
             <div class="text-grey-8 q-gutter-xs">
-              <q-btn class="gt-xs" size="12px" flat dense round icon="edit" />
+              <q-btn
+                class="gt-xs"
+                size="12px"
+                flat
+                dense
+                round
+                icon="edit"
+                @click="redirectEditCourse(course.id)"
+              />
               <q-btn size="12px" flat dense round icon="more_vert" />
             </div>
           </q-item-section>
