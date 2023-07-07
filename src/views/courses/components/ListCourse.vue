@@ -4,6 +4,7 @@ import type { ICourse } from '@/models/course/Course.interface'
 import BaseCard from '@/components/base/card/BaseCard.vue'
 import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
 import { useRouter } from 'vue-router'
+import BaseAvatar from '@/components/base/avatar/BaseAvatar.vue'
 
 defineProps({
   courses: {
@@ -30,15 +31,18 @@ function redirectEditCourse(courseId: string) {
       <q-list>
         <q-item v-for="course in courses" :key="course.id" clickable v-ripple>
           <q-item-section avatar>
-            <q-avatar>
+            <BaseAvatar
+              image="https://img.freepik.com/free-vector/online-tutorials-concept_52683-37480.jpg?q=10&h=200"
+            />
+            <!-- <q-avatar>
               <img
                 src="https://img.freepik.com/free-vector/online-tutorials-concept_52683-37480.jpg?q=10&h=200"
               />
-            </q-avatar>
+            </q-avatar> -->
           </q-item-section>
           <q-item-section class="q-pl-md">
             <q-item-label lines="1">
-              <span class="text-weight-medium">{{ course.id }} {{ course.title }}</span>
+              <span class="text-weight-medium">{{ course.title }}</span>
               <span class="text-grey-8"> - {{ course.duration }} {{ course.durationUnit }}</span>
             </q-item-label>
             <q-item-label caption>{{ course.description }}</q-item-label>
