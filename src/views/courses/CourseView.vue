@@ -5,13 +5,14 @@ import BaseCard from '@/components/base/card/BaseCard.vue'
 import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
 import BaseCardSeparator from '@/components/base/card/BaseCardSeparator.vue'
 import BaseDropdown from '@/components/base/inputs/BaseDropdown.vue'
+import SkeletonPost from '@/components/skeletons/SkeletonPost.vue'
 import {
   COURSES_CATEGORY,
   COURSES_SUBCATEGORY,
   CURRENCIES,
   DIFFICULT_LEVEL,
   LANGUAGES,
-TIME_DURATION,
+  TIME_DURATION,
 } from '@/constants'
 import { useI18n } from 'vue-i18n'
 import type { ICourse } from '@/models/course/Course.interface'
@@ -19,15 +20,6 @@ import CourseService from '@/services/course/Course.service'
 import { useRoute } from 'vue-router'
 const { t } = useI18n()
 const route = useRoute()
-
-const title = ref()
-const description = ref(null)
-const language = ref(null)
-const level = ref(null)
-const category = ref('')
-const subCategory = ref(null)
-const currency = ref(null)
-const price = ref(0.0)
 
 const course = ref<ICourse | null>(null)
 
@@ -78,7 +70,7 @@ onBeforeMount(async () => {
         <div class="q-gutter-y-md">
           <BaseCard v-if="!course">
             <BaseCardSection class="q-mx-xl">
-              <h2>Loadinnnnng..... </h2>
+              <SkeletonPost />
             </BaseCardSection>
           </BaseCard>
           <BaseCard v-else>
