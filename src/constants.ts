@@ -130,11 +130,20 @@ export enum LANGUAGES {
   FR = 'Français',
   IT = 'Italiano',
 }
+
 export enum CURRENCIES {
   USD = 'USD ($)',
   EUR = 'EUR (€)',
   LIB = 'GBP (£)',
   PEN = 'PEN (S/.)',
+}
+
+export enum TIME_DURATION {
+  MIN = 'mins',
+  HOU = 'hours',
+  DAY = 'days',
+  WEK = 'weeks',
+  MON = 'months',
 }
 
 export enum DIFFICULT_LEVEL {

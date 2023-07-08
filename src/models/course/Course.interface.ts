@@ -3,6 +3,8 @@ export interface ICourse {
   centredId: string
   title: string
   description: string
+  language: string
+  level: string
   category: string
   subCategory?: string
   price: number

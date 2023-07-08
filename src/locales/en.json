@@ -57,8 +57,18 @@
     "levelLabel": "Course Level",
     "levelHint": "Select the level of your course.",
     "priceLabel": "Price",
+    "durationLabel": "Duration",
+    "durationHint": "Total duration time of course",
+    "durationUnitLabel": "Duration unit",
     "currencyLabel": "Currency",
     "priceHint": "Price of your course. Use '.' as decimal separator"
+  },
+  "UnitDuration": {
+    "min": "Minutes",
+    "hou": "Hours",
+    "day": "Days",
+    "wek": "Weeks",
+    "mon": "Months"
   },
   "DifficultLevel": {
     "beginner": "Beginner Level",

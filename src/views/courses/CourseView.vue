@@ -11,6 +11,7 @@ import {
   CURRENCIES,
   DIFFICULT_LEVEL,
   LANGUAGES,
+TIME_DURATION,
 } from '@/constants'
 import { useI18n } from 'vue-i18n'
 import type { ICourse } from '@/models/course/Course.interface'
@@ -28,6 +29,8 @@ const subCategory = ref(null)
 const currency = ref(null)
 const price = ref(0.0)
 
+const course = ref<ICourse | null>(null)
+
 const languageOptions = Object.keys(LANGUAGES).map((lang) => ({
   label: LANGUAGES[lang as keyof typeof LANGUAGES],
   value: lang,
@@ -40,30 +43,31 @@ const currencyOptions = Object.keys(CURRENCIES).map((currency) => ({
   label: CURRENCIES[currency as keyof typeof CURRENCIES],
   value: currency,
 }))
+const durationOptions = Object.keys(TIME_DURATION).map((duration) => ({
+  label: t(`UnitDuration.${duration.toLowerCase()}`),
+  value: duration,
+}))
 const categoryOptions = Object.keys(COURSES_CATEGORY).map((course) => ({
   label: t(`CreateCourses.categoryOptions.${course.toLowerCase()}`),
   value: course,
 }))
 const subCategoryOptions = computed(() => {
-  if (category.value) {
+  if (course.value?.category) {
     const subCategoryValues =
-      COURSES_SUBCATEGORY[category.value as keyof typeof COURSES_SUBCATEGORY]
+      COURSES_SUBCATEGORY[course.value.category as keyof typeof COURSES_SUBCATEGORY]
     return Object.keys(subCategoryValues).map((subCategory) => ({
-      label: t(`SubCategory.${category.value.toLowerCase()}.${subCategory.toLowerCase()}`),
+      label: t(`SubCategory.${course.value?.category.toLowerCase()}.${subCategory.toLowerCase()}`),
       value: subCategory,
     }))
   }
   return []
 })
 
-const course = ref<ICourse | null>(null)
 const courseService = new CourseService()
 
 onBeforeMount(async () => {
   const courseId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
-  console.log(courseId)
   course.value = await courseService.getCourse(courseId)
-  title.value = course.value.title
 })
 </script>
 
@@ -89,7 +93,7 @@ onBeforeMount(async () => {
             <BaseCardSection class="q-mx-xl">
               <q-input
                 outlined
-                v-model="title"
+                v-model="course.title"
                 :label="$t('CourseEdit.titleLabel')"
                 :hint="$t('CourseEdit.titleHint')"
                 :rules="[(val) => maxLength(val, 60) || $t('CreateCourses.titleError')]"
@@ -97,7 +101,7 @@ onBeforeMount(async () => {
               <div class="q-mt-lg">
                 <q-input
                   outlined
-                  v-model="description"
+                  v-model="course.description"
                   :label="$t('CourseEdit.descriptionLabel')"
                   :hint="$t('CourseEdit.descriptionHint')"
                   :rules="[(val) => minLength(val, 50) || $t('CreateCourses.descError')]"
@@ -108,7 +112,7 @@ onBeforeMount(async () => {
               <div class="row justify-around q-gutter-xl">
                 <div class="col">
                   <BaseDropdown
-                    v-model="language"
+                    v-model="course.language"
                     isOptionMap
                     :options="languageOptions"
                     :label="$t('CourseEdit.languageLabel')"
@@ -117,7 +121,7 @@ onBeforeMount(async () => {
                 </div>
                 <div class="col">
                   <BaseDropdown
-                    v-model="level"
+                    v-model="course.level"
                     isOptionMap
                     :options="levelOptions"
                     :label="$t('CourseEdit.levelLabel')"
@@ -128,7 +132,7 @@ onBeforeMount(async () => {
               <div class="row justify-around q-gutter-xl q-pt-lg">
                 <div class="col">
                   <BaseDropdown
-                    v-model="category"
+                    v-model="course.category"
                     isOptionMap
                     :options="categoryOptions"
                     :label="$t('CourseEdit.categoryLabel')"
@@ -137,12 +141,34 @@ onBeforeMount(async () => {
                 </div>
                 <div class="col">
                   <BaseDropdown
-                    v-model="subCategory"
+                    v-model="course.subCategory"
                     isOptionMap
                     :options="subCategoryOptions"
                     :label="$t('CourseEdit.subcategoryLabel')"
                     :hint="$t('CourseEdit.subcategoryHint')"
                   />
+                </div>
+              </div>
+              <div class="row justify-around q-gutter-xl q-pt-lg">
+                <div class="col-3">
+                  <q-input
+                    outlined
+                    v-model="course.duration"
+                    type="number"
+                    :label="$t('CourseEdit.durationLabel')"
+                    :hint="$t('CourseEdit.durationHint')"
+                  />
+                </div>
+                <div class="col-2">
+                  <BaseDropdown
+                    v-model="course.durationUnit"
+                    isOptionMap
+                    :options="durationOptions"
+                    :label="$t('CourseEdit.durationUnitLabel')"
+                  />
+                </div>
+                <div class="col">
+                  <q-space />
                 </div>
               </div>
             </BaseCardSection>
@@ -153,7 +179,7 @@ onBeforeMount(async () => {
               <div class="row justify-around q-gutter-xl">
                 <div class="col-2">
                   <BaseDropdown
-                    v-model="currency"
+                    v-model="course.currency"
                     isOptionMap
                     :options="currencyOptions"
                     :label="$t('CourseEdit.currencyLabel')"
@@ -162,14 +188,14 @@ onBeforeMount(async () => {
                 <div class="col-3">
                   <q-input
                     outlined
-                    v-model="price"
+                    v-model="course.price"
                     type="number"
                     :label="$t('CourseEdit.priceLabel')"
                     :hint="$t('CourseEdit.priceHint')"
                   />
                 </div>
                 <div class="col">
-                  <div v-if="price <= 0" class="q-pt-sm">
+                  <div v-if="!course.price || course.price <= 0" class="q-pt-sm">
                     <q-chip outline color="green" text-color="white" icon="sell"> Free </q-chip>
                   </div>
                   <q-space v-else />
