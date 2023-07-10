@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, watch } from 'vue'
 import { minLength, maxLength } from '@/utils/validators'
 import BaseCard from '@/components/base/card/BaseCard.vue'
 import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
@@ -61,6 +61,23 @@ onBeforeMount(async () => {
   const courseId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
   course.value = await courseService.getCourse(courseId)
 })
+
+function onSubmit() {
+  console.log('updating course')
+}
+
+const courseHasChange = ref(false)
+watch(
+  () => course.value,
+  (newValue, oldValue) => {
+    console.log(oldValue)
+    if (oldValue !== null) {
+      console.log('has changed')
+      courseHasChange.value = true
+    }
+  },
+  { deep: true },
+)
 </script>
 
 <template>
@@ -80,7 +97,20 @@ onBeforeMount(async () => {
             </BaseCardSection>
             <BaseCardSeparator />
             <BaseCardSection class="q-mx-xl">
-              <span class="sectionTitle">{{ t('CourseEdit.basicSection') }}</span>
+              <div class="row justify-between">
+                <div class="col">
+                  <span class="sectionTitle">{{ t('CourseEdit.basicSection') }}</span>
+                </div>
+                <div class="col-2 contentRight">
+                  <q-btn
+                    size="lg"
+                    v-if="courseHasChange"
+                    @click="onSubmit"
+                    color="primary"
+                    :label="$t('CourseEdit.update')"
+                  />
+                </div>
+              </div>
             </BaseCardSection>
             <BaseCardSection class="q-mx-xl">
               <q-input
@@ -207,5 +237,10 @@ onBeforeMount(async () => {
   font-weight: 500;
   line-height: 2rem;
   letter-spacing: 0.0125em;
+}
+
+.contentRight {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>

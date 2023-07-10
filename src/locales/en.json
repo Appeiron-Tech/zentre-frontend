@@ -61,7 +61,8 @@
     "durationHint": "Total duration time of course",
     "durationUnitLabel": "Duration unit",
     "currencyLabel": "Currency",
-    "priceHint": "Price of your course. Use '.' as decimal separator"
+    "priceHint": "Price of your course. Use '.' as decimal separator",
+    "update": "Save"
   },
   "UnitDuration": {
     "min": "Minutes",

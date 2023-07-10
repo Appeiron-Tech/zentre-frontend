@@ -62,7 +62,8 @@
     "durationHint": "Duración total del curso",
     "currencyLabel": "Moneda",
     "durationUnitLabel": "Unidad",
-    "priceHint": "Precio del curso. Usa '.' como separador decimal"
+    "priceHint": "Precio del curso. Usa '.' como separador decimal",
+    "update": "Guardar"
   },
   "DifficultLevel": {
     "beginner": "Nivel Principiante",
