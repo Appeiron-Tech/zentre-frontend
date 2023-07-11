@@ -17,9 +17,11 @@ import {
 import { useI18n } from 'vue-i18n'
 import type { ICourse } from '@/models/course/Course.interface'
 import CourseService from '@/services/course/Course.service'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+
 const { t } = useI18n()
 const route = useRoute()
+const router = useRouter()
 
 const course = ref<ICourse | null>(null)
 
@@ -65,6 +67,7 @@ onBeforeMount(async () => {
 async function onSubmit() {
   if (course.value) {
     await courseService.updateCourse(course.value)
+    router.go(0)
   }
 }
 
