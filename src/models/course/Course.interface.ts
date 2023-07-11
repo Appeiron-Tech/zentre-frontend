@@ -14,3 +14,16 @@ export interface ICourse {
   updatedAt: Date
   createdAt: Date
 }
+
+export interface ICourseUpdate {
+  title: string
+  description: string
+  language: string
+  level: string
+  category: string
+  subCategory?: string
+  price: number
+  currency: string
+  duration?: number
+  durationUnit?: string
+}

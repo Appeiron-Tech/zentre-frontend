@@ -62,17 +62,17 @@ onBeforeMount(async () => {
   course.value = await courseService.getCourse(courseId)
 })
 
-function onSubmit() {
-  console.log('updating course')
+async function onSubmit() {
+  if (course.value) {
+    await courseService.updateCourse(course.value)
+  }
 }
 
 const courseHasChange = ref(false)
 watch(
   () => course.value,
   (newValue, oldValue) => {
-    console.log(oldValue)
     if (oldValue !== null) {
-      console.log('has changed')
       courseHasChange.value = true
     }
   },

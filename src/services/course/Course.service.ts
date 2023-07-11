@@ -1,17 +1,14 @@
 import ApiService from '@/models/ApiService'
 import type { ICourseService } from './CourseService.interface'
-import type { ICourse } from '@/models/course/Course.interface'
+import type { ICourse, ICourseUpdate } from '@/models/course/Course.interface'
 import type { IGetCoursesReq } from './course.interface'
+import { removeUndefined } from '@/utils/parses'
 
 export default class CourseService extends ApiService implements ICourseService {
   constructor() {
     super({ baseURL: '/course' })
   }
 
-  /**
-   *
-   * @returns
-   */
   async getAllCourses(request: IGetCoursesReq): Promise<ICourse[]> {
     let courses = []
     try {
@@ -30,5 +27,27 @@ export default class CourseService extends ApiService implements ICourseService 
       console.log(e)
     }
     return course
+  }
+
+  async updateCourse(rawCourse: ICourse): Promise<ICourse> {
+    const toUpdateBody: ICourseUpdate = removeUndefined({
+      title: rawCourse.title,
+      description: rawCourse.description,
+      language: rawCourse.language,
+      level: rawCourse.level,
+      category: rawCourse.category,
+      subCategory: rawCourse.subCategory,
+      price: rawCourse.price,
+      currency: rawCourse.currency,
+      duration: rawCourse.duration,
+      durationUnit: rawCourse.durationUnit,
+    })
+
+    try {
+      rawCourse = (await this.patch(`/${rawCourse.id}`, toUpdateBody)).data
+    } catch (e) {
+      console.log(e)
+    }
+    return rawCourse
   }
 }

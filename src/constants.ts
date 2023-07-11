@@ -123,7 +123,7 @@ export enum COURSES_CATEGORY {
 
 export enum LANGUAGES {
   ES = 'Español',
-  CA = 'català',
+  CA = 'Català',
   EN = 'English',
   PT = 'Português',
   DE = 'Deutsch',
