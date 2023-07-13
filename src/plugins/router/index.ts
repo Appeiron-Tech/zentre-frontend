@@ -27,6 +27,11 @@ const router = createRouter({
       component: () => import('@/views/content/ContentView.vue'),
     },
     {
+      path: '/centred',
+      name: 'centred',
+      component: () => import('@/views/centred/CentredView.vue'),
+    },
+    {
       path: '/cxentre',
       name: 'cxentre',
       component: () => import('@/views/cxentre/CXentreView.vue'),

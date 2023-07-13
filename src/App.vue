@@ -40,6 +40,13 @@
               <q-item-section>Contenido</q-item-section>
             </q-item>
 
+            <q-item clickable v-ripple to="/centred">
+              <q-item-section avatar>
+                <q-icon name="space_dashboard" />
+              </q-item-section>
+              <q-item-section>Centred</q-item-section>
+            </q-item>
+
             <q-item clickable v-ripple to="/cxentre">
               <q-item-section avatar>
                 <q-icon name="sentiment_very_satisfied" />

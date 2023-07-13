@@ -1,3 +1,107 @@
+<script setup lang="ts">
+import type { IBasicInfo } from '@/views/content/basicInfo/interfaces/IBasicInfo';
+import { useQuasar } from 'quasar'
+import { onMounted, ref, watch } from 'vue'
+import { Cropper as cropper } from 'vue-advanced-cropper'
+import 'vue-advanced-cropper/dist/style.css'
+
+const $q = useQuasar()
+
+const refProfileCropper = ref()
+const profile = ref()
+const profilePicked = ref()
+const profileDialog = ref(false)
+const profileInputName = ref()
+const cover = ref()
+const coverPicked = ref()
+const coverDialog = ref(false)
+const coverInputName = ref()
+const refCoverCropper = ref()
+const businessInfo = ref<IBasicInfo>({
+  cover_name: '',
+  cover_url: '',
+  profile_name: '',
+  profile_url: '',
+  name: '',
+  description: '',
+})
+
+onMounted(() => {
+  businessInfo.value = {
+    cover_name: 'myCoverPicture.png',
+    cover_url: 'https://images.pexels.com/photos/46160/field-clouds-sky-earth-46160.jpeg',
+    profile_name: 'myProfilePicture.png',
+    profile_url: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg',
+    name: 'Zentre',
+    description: 'Zentre Description',
+  }
+})
+
+function onSubmit() {
+  if (businessInfo.value?.name === '') {
+    $q.notify({
+      color: 'red-5',
+      textColor: 'white',
+      icon: 'warning',
+      message: 'You need to accept the license and terms first',
+    })
+  } else {
+    $q.notify({
+      color: 'green-4',
+      textColor: 'white',
+      icon: 'cloud_done',
+      message: 'Submitted',
+    })
+  }
+}
+
+watch(cover, (newCoverFiles) => {
+  const newCover = newCoverFiles[0]
+  coverPicked.value = URL.createObjectURL(newCover)
+  coverDialog.value = true
+})
+
+watch(profilePicked, (newProfile) => {
+  businessInfo.value.profile_url = URL.createObjectURL(newProfile)
+})
+
+function onReset() {
+  // age.value = null
+}
+
+function cropCoverImage() {
+  const result = refCoverCropper.value.getResult()
+  const cropperImage = result.canvas.toDataURL('image/jpg')
+  businessInfo.value.cover_url = cropperImage
+  coverDialog.value = false
+}
+
+function closeCoverDialog(): void {
+  coverPicked.value = null
+  coverDialog.value = false
+}
+
+function cropProfileImage() {
+  const result = refProfileCropper.value.getResult()
+  const croppedImage = result.canvas.toDataURL('image/jpg')
+  businessInfo.value.profile_url = croppedImage
+  profileDialog.value = false
+}
+
+function closeProfileDialog(): void {
+  profilePicked.value = null
+  profileDialog.value = false
+}
+
+function getCoverFile() {
+  coverInputName.value.$el.click()
+}
+
+function getProfileFile() {
+  profileInputName.value.$el.click()
+}
+</script>
+
 <template>
   <!-- https://codesandbox.io/s/vue-advanced-cropper-basic-jfy5w?file=/src/App.vue -->
   <main>
@@ -133,110 +237,6 @@
     </div>
   </main>
 </template>
-
-<script setup lang="ts">
-import { useQuasar } from 'quasar'
-import { onMounted, ref, watch } from 'vue'
-import type { IBasicInfo } from './interfaces/IBasicInfo'
-import { Cropper as cropper } from 'vue-advanced-cropper'
-import 'vue-advanced-cropper/dist/style.css'
-
-const $q = useQuasar()
-
-const refProfileCropper = ref()
-const profile = ref()
-const profilePicked = ref()
-const profileDialog = ref(false)
-const profileInputName = ref()
-const cover = ref()
-const coverPicked = ref()
-const coverDialog = ref(false)
-const coverInputName = ref()
-const refCoverCropper = ref()
-const businessInfo = ref<IBasicInfo>({
-  cover_name: '',
-  cover_url: '',
-  profile_name: '',
-  profile_url: '',
-  name: '',
-  description: '',
-})
-
-onMounted(() => {
-  businessInfo.value = {
-    cover_name: 'myCoverPicture.png',
-    cover_url: 'https://images.pexels.com/photos/46160/field-clouds-sky-earth-46160.jpeg',
-    profile_name: 'myProfilePicture.png',
-    profile_url: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg',
-    name: 'Zentre',
-    description: 'Zentre Description',
-  }
-})
-
-function onSubmit() {
-  if (businessInfo.value?.name === '') {
-    $q.notify({
-      color: 'red-5',
-      textColor: 'white',
-      icon: 'warning',
-      message: 'You need to accept the license and terms first',
-    })
-  } else {
-    $q.notify({
-      color: 'green-4',
-      textColor: 'white',
-      icon: 'cloud_done',
-      message: 'Submitted',
-    })
-  }
-}
-
-watch(cover, (newCoverFiles) => {
-  const newCover = newCoverFiles[0]
-  coverPicked.value = URL.createObjectURL(newCover)
-  coverDialog.value = true
-})
-
-watch(profilePicked, (newProfile) => {
-  businessInfo.value.profile_url = URL.createObjectURL(newProfile)
-})
-
-function onReset() {
-  // age.value = null
-}
-
-function cropCoverImage() {
-  const result = refCoverCropper.value.getResult()
-  const cropperImage = result.canvas.toDataURL('image/jpg')
-  businessInfo.value.cover_url = cropperImage
-  coverDialog.value = false
-}
-
-function closeCoverDialog(): void {
-  coverPicked.value = null
-  coverDialog.value = false
-}
-
-function cropProfileImage() {
-  const result = refProfileCropper.value.getResult()
-  const croppedImage = result.canvas.toDataURL('image/jpg')
-  businessInfo.value.profile_url = croppedImage
-  profileDialog.value = false
-}
-
-function closeProfileDialog(): void {
-  profilePicked.value = null
-  profileDialog.value = false
-}
-
-function getCoverFile() {
-  coverInputName.value.$el.click()
-}
-
-function getProfileFile() {
-  profileInputName.value.$el.click()
-}
-</script>
 
 <style>
 .cropper {
