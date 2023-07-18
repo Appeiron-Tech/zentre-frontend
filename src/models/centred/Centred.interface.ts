@@ -1,3 +1,5 @@
+import type { ISchool } from './School.interface'
+
 export interface ICentred {
   id: string
   tenancyName: string
@@ -10,6 +12,7 @@ export interface ICentred {
   ga_view_id: string
   ga_api_key: string
   apps: ICentredApp[]
+  schools: ISchool[]
   updatedAt: Date
   createdAt: Date
 }

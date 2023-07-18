@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { IBasicInfo } from '@/views/content/basicInfo/interfaces/IBasicInfo';
+import ImageCropper from '@/components/cropper/ImageCropper.vue'
+import type { IBasicInfo } from '@/views/content/basicInfo/interfaces/IBasicInfo'
 import { useQuasar } from 'quasar'
 import { onMounted, ref, watch } from 'vue'
 import { Cropper as cropper } from 'vue-advanced-cropper'
@@ -69,6 +70,10 @@ function onReset() {
   // age.value = null
 }
 
+const updateCoverRef = (refValue: unknown) => {
+  refCoverCropper.value = refValue
+}
+
 function cropCoverImage() {
   const result = refCoverCropper.value.getResult()
   const cropperImage = result.canvas.toDataURL('image/jpg')
@@ -127,7 +132,7 @@ function getProfileFile() {
         </q-card>
         <!-- Cover cropper -->
         <q-dialog v-model="coverDialog">
-          <q-card>
+          <!-- <q-card>
             <cropper
               ref="refCoverCropper"
               :src="coverPicked"
@@ -149,7 +154,17 @@ function getProfileFile() {
                 >Crop image</q-btn
               >
             </q-card-actions>
-          </q-card>
+          </q-card> -->
+          <ImageCropper
+            :image-source="coverPicked"
+            :image-size="{
+              width: 500,
+              height: 200,
+            }"
+            @on-crop="cropCoverImage"
+            @on-cancel="closeCoverDialog"
+            @on-image-change="updateCoverRef"
+          />
         </q-dialog>
 
         <!-- Business Image -->
