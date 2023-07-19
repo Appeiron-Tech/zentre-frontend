@@ -2,10 +2,13 @@
 import ImageCropper from '@/components/cropper/ImageCropper.vue'
 import type { IBasicInfo } from '@/views/content/basicInfo/interfaces/IBasicInfo'
 import { useQuasar } from 'quasar'
+import BaseCard from '@/components/base/card/BaseCard.vue'
+import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
+import BaseCardActions from '@/components/base/card/BaseCardActions.vue'
+import BaseDialog from '@/components/base/dialog/BaseDialog.vue'
 import { onMounted, ref, watch } from 'vue'
-import { Cropper as cropper } from 'vue-advanced-cropper'
-import 'vue-advanced-cropper/dist/style.css'
-
+import BaseAvatar from '@/components/base/avatar/BaseAvatar.vue'
+import BaseImage from '@/components/base/image/BaseImage.vue'
 const $q = useQuasar()
 
 const refProfileCropper = ref()
@@ -68,11 +71,6 @@ watch(profile, (newProfileFiles) => {
   profileDialog.value = true
 })
 
-// watch(profilePicked, (newProfile) => {
-//   businessInfo.value.profile_url = URL.createObjectURL(newProfile)
-//   profileDialog.value = true
-// })
-
 function onReset() {
   // age.value = null
 }
@@ -124,12 +122,10 @@ function getProfileFile() {
     <div class="q-px-xl">
       <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
         <!-- Cover -->
-        <q-card flat>
-          <q-card-section horizontal>
-            <q-img :src="businessInfo.cover_url" :ratio="9 / 3">
-              <div class="absolute-top text-subtitle1 text-center">Cover</div>
-            </q-img>
-            <q-card-actions vertical class="justify-around">
+        <BaseCard flat>
+          <BaseCardSection horizontal>
+            <BaseImage :source="businessInfo.cover_url" :ratio="9 / 3" label="Cover" />
+            <BaseCardActions vertical class="justify-around">
               <q-input
                 ref="coverInputName"
                 style="display: none"
@@ -138,11 +134,11 @@ function getProfileFile() {
                 label="Standard"
               />
               <q-btn flat round color="primary" icon="edit" @click="getCoverFile"></q-btn>
-            </q-card-actions>
-          </q-card-section>
-        </q-card>
+            </BaseCardActions>
+          </BaseCardSection>
+        </BaseCard>
         <!-- Cover cropper -->
-        <q-dialog v-model="coverDialog">
+        <BaseDialog v-model="coverDialog">
           <ImageCropper
             :image-source="coverPicked"
             :image-size="{
@@ -153,23 +149,24 @@ function getProfileFile() {
             @on-cancel="closeCoverDialog"
             @on-image-change="updateCoverRef"
           />
-        </q-dialog>
+        </BaseDialog>
 
         <!-- Business Image -->
         <div class="column items-center">
           <div class="col">
-            <q-card flat>
-              <q-card-section horizontal>
+            <BaseCard flat>
+              <BaseCardSection horizontal>
                 <div class="column items-center">
                   <div class="col">
-                    <q-avatar v-if="businessInfo.profile_url" size="200px">
-                      <q-img :src="businessInfo.profile_url">
-                        <div class="absolute-top text-subtitle1 text-center">Logo</div>
-                      </q-img>
-                    </q-avatar>
+                    <BaseAvatar
+                      v-if="businessInfo.profile_url"
+                      :image="businessInfo.profile_url"
+                      size="200px"
+                      label="Logo"
+                    />
                   </div>
                 </div>
-                <q-card-actions vertical class="justify-around">
+                <BaseCardActions vertical class="justify-around">
                   <q-input
                     ref="profileInputName"
                     style="display: none"
@@ -178,14 +175,14 @@ function getProfileFile() {
                     label="Standard"
                   />
                   <q-btn flat round color="primary" icon="edit" @click="getProfileFile"></q-btn>
-                </q-card-actions>
-              </q-card-section>
-            </q-card>
+                </BaseCardActions>
+              </BaseCardSection>
+            </BaseCard>
           </div>
         </div>
 
         <!-- Profile cropper -->
-        <q-dialog v-model="profileDialog">
+        <BaseDialog v-model="profileDialog">
           <ImageCropper
             :image-source="profilePicked"
             :image-size="{
@@ -196,7 +193,7 @@ function getProfileFile() {
             @on-cancel="closeProfileDialog"
             @on-image-change="updateProfileRef"
           />
-        </q-dialog>
+        </BaseDialog>
 
         <!-- Business Name -->
         <q-input
@@ -227,10 +224,3 @@ function getProfileFile() {
     </div>
   </main>
 </template>
-
-<style>
-.cropper {
-  min-height: 300px;
-  width: 100%;
-}
-</style>

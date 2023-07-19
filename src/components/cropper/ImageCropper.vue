@@ -2,6 +2,7 @@
 import { Cropper as cropper } from 'vue-advanced-cropper'
 import BaseCard from '@/components/base/card/BaseCard.vue'
 import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
+import 'vue-advanced-cropper/dist/style.css'
 import { ref, watch } from 'vue'
 defineProps({
   imageSource: {
@@ -39,3 +40,10 @@ watch(imageRef, () => {
     </BaseCardSection>
   </BaseCard>
 </template>
+
+<style>
+.cropper {
+  min-height: 300px;
+  width: 100%;
+}
+</style>
