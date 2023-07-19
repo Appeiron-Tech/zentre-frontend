@@ -62,9 +62,16 @@ watch(cover, (newCoverFiles) => {
   coverDialog.value = true
 })
 
-watch(profilePicked, (newProfile) => {
-  businessInfo.value.profile_url = URL.createObjectURL(newProfile)
+watch(profile, (newProfileFiles) => {
+  const newCover = newProfileFiles[0]
+  profilePicked.value = URL.createObjectURL(newCover)
+  profileDialog.value = true
 })
+
+// watch(profilePicked, (newProfile) => {
+//   businessInfo.value.profile_url = URL.createObjectURL(newProfile)
+//   profileDialog.value = true
+// })
 
 function onReset() {
   // age.value = null
@@ -72,6 +79,10 @@ function onReset() {
 
 const updateCoverRef = (refValue: unknown) => {
   refCoverCropper.value = refValue
+}
+
+const updateProfileRef = (refValue: unknown) => {
+  refProfileCropper.value = refValue
 }
 
 function cropCoverImage() {
@@ -132,29 +143,6 @@ function getProfileFile() {
         </q-card>
         <!-- Cover cropper -->
         <q-dialog v-model="coverDialog">
-          <!-- <q-card>
-            <cropper
-              ref="refCoverCropper"
-              :src="coverPicked"
-              :stencil-size="{
-                width: 500,
-                height: 200,
-              }"
-              :stencil-props="{
-                handlers: {},
-                movable: false,
-                resizable: false,
-              }"
-              image-restriction="stencil"
-            />
-            <q-separator dark />
-            <q-card-actions align="right">
-              <q-btn flat color="secondary" icon="cancel" @click="closeCoverDialog">Cancel</q-btn>
-              <q-btn flat color="primary" icon="aspect_ratio" @click="cropCoverImage"
-                >Crop image</q-btn
-              >
-            </q-card-actions>
-          </q-card> -->
           <ImageCropper
             :image-source="coverPicked"
             :image-size="{
@@ -198,29 +186,16 @@ function getProfileFile() {
 
         <!-- Profile cropper -->
         <q-dialog v-model="profileDialog">
-          <q-card>
-            <cropper
-              ref="refProfileCropper"
-              :src="profilePicked"
-              :stencil-size="{
-                width: 500,
-                height: 200,
-              }"
-              :stencil-props="{
-                handlers: {},
-                movable: false,
-                resizable: false,
-              }"
-              image-restriction="stencil"
-            />
-            <q-separator dark />
-            <q-card-actions align="right">
-              <q-btn flat color="secondary" icon="cancel" @click="closeProfileDialog">Cancel</q-btn>
-              <q-btn flat color="primary" icon="aspect_ratio" @click="cropProfileImage"
-                >Crop image</q-btn
-              >
-            </q-card-actions>
-          </q-card>
+          <ImageCropper
+            :image-source="profilePicked"
+            :image-size="{
+              width: 300,
+              height: 300,
+            }"
+            @on-crop="cropProfileImage"
+            @on-cancel="closeProfileDialog"
+            @on-image-change="updateProfileRef"
+          />
         </q-dialog>
 
         <!-- Business Name -->

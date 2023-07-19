@@ -13,7 +13,7 @@ defineProps({
   },
 })
 const imageRef = ref('parentImageRef')
-const emit = defineEmits(['onImageChange'])
+const emit = defineEmits(['onImageChange', 'onCrop', 'onCancel'])
 watch(imageRef, () => {
   emit('onImageChange', imageRef.value)
 })
