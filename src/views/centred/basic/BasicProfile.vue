@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ImageCropper from '@/components/cropper/ImageCropper.vue'
-import type { IBasicInfo } from '@/views/content/basicInfo/interfaces/IBasicInfo'
 import { useQuasar } from 'quasar'
 import BaseCard from '@/components/base/card/BaseCard.vue'
 import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
@@ -9,6 +8,8 @@ import BaseDialog from '@/components/base/dialog/BaseDialog.vue'
 import { onMounted, ref, watch } from 'vue'
 import BaseAvatar from '@/components/base/avatar/BaseAvatar.vue'
 import BaseImage from '@/components/base/image/BaseImage.vue'
+import { useCentredStore } from '@/stores/centred.store'
+import { storeToRefs } from 'pinia'
 const $q = useQuasar()
 
 const refProfileCropper = ref()
@@ -21,28 +22,15 @@ const coverPicked = ref()
 const coverDialog = ref(false)
 const coverInputName = ref()
 const refCoverCropper = ref()
-const businessInfo = ref<IBasicInfo>({
-  cover_name: '',
-  cover_url: '',
-  profile_name: '',
-  profile_url: '',
-  name: '',
-  description: '',
-})
+const centredStore = useCentredStore()
+const { centred } = storeToRefs(centredStore)
 
-onMounted(() => {
-  businessInfo.value = {
-    cover_name: 'myCoverPicture.png',
-    cover_url: 'https://images.pexels.com/photos/46160/field-clouds-sky-earth-46160.jpeg',
-    profile_name: 'myProfilePicture.png',
-    profile_url: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg',
-    name: 'Zentre',
-    description: 'Zentre Description',
-  }
+onMounted(async () => {
+  await centredStore.fetch('6498a94e213a7fc800781e1a')
 })
 
 function onSubmit() {
-  if (businessInfo.value?.name === '') {
+  if (centred.value?.shortName === '') {
     $q.notify({
       color: 'red-5',
       textColor: 'white',
@@ -50,6 +38,7 @@ function onSubmit() {
       message: 'You need to accept the license and terms first',
     })
   } else {
+    console.log(centred.value)
     $q.notify({
       color: 'green-4',
       textColor: 'white',
@@ -83,10 +72,10 @@ const updateProfileRef = (refValue: unknown) => {
   refProfileCropper.value = refValue
 }
 
-function cropCoverImage() {
+function cropCoverImage(): void {
   const result = refCoverCropper.value.getResult()
   const cropperImage = result.canvas.toDataURL('image/jpg')
-  businessInfo.value.cover_url = cropperImage
+  centred.value.coverUrl = cropperImage
   coverDialog.value = false
 }
 
@@ -95,10 +84,10 @@ function closeCoverDialog(): void {
   coverDialog.value = false
 }
 
-function cropProfileImage() {
+function cropProfileImage(): void {
   const result = refProfileCropper.value.getResult()
   const croppedImage = result.canvas.toDataURL('image/jpg')
-  businessInfo.value.profile_url = croppedImage
+  centred.value.profileUrl = croppedImage
   profileDialog.value = false
 }
 
@@ -124,7 +113,7 @@ function getProfileFile() {
         <!-- Cover -->
         <BaseCard flat>
           <BaseCardSection horizontal>
-            <BaseImage :source="businessInfo.cover_url" :ratio="9 / 3" label="Cover" />
+            <BaseImage :source="centred.coverUrl" :ratio="9 / 3" label="Cover" />
             <BaseCardActions vertical class="justify-around">
               <q-input
                 ref="coverInputName"
@@ -159,8 +148,8 @@ function getProfileFile() {
                 <div class="column items-center">
                   <div class="col">
                     <BaseAvatar
-                      v-if="businessInfo.profile_url"
-                      :image="businessInfo.profile_url"
+                      v-if="centred.profileUrl"
+                      :image="centred.profileUrl"
                       size="200px"
                       label="Logo"
                     />
@@ -198,7 +187,7 @@ function getProfileFile() {
         <!-- Business Name -->
         <q-input
           filled
-          v-model="businessInfo.name"
+          v-model="centred.shortName"
           label="Negocio *"
           hint="Nombre de tu negocio"
           lazy-rules
@@ -208,7 +197,7 @@ function getProfileFile() {
         <!-- Business Description -->
         <q-input
           filled
-          v-model="businessInfo.description"
+          v-model="centred.summary"
           label="Descripción *"
           hint="Descripción de tu negocio"
           lazy-rules

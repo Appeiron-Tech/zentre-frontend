@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import AddCourseSection from './components/AddCourseSection.vue'
 import AddCourseDialog from './components/AddCourseDialog.vue'
 import ListCourse from './components/ListCourse.vue'
@@ -18,8 +18,9 @@ const params: IGetCoursesReq = {
     category: 'TECH',
   },
 }
-courseService.getAllCourses(params).then((res) => {
-  courses.value = res
+
+onMounted(async () => {
+  courses.value = await courseService.getAllCourses(params)
 })
 
 function toggleCourseForm() {
