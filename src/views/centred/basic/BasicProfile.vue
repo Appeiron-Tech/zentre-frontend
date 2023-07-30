@@ -104,14 +104,6 @@ function cancelProfileDialog(): void {
   profilePicked.value = null
   profileDialog.value = false
 }
-
-function clickOnCoverInput() {
-  coverInputName.value.$el.click()
-}
-
-function clickOnProfileInput() {
-  profileInputName.value.$el.click()
-}
 </script>
 
 <template>
@@ -131,7 +123,13 @@ function clickOnProfileInput() {
                 type="file"
                 label="Standard"
               />
-              <q-btn flat round color="primary" icon="edit" @click="clickOnCoverInput"></q-btn>
+              <q-btn
+                flat
+                round
+                color="primary"
+                icon="edit"
+                @click="() => coverInputName.$el.click()"
+              ></q-btn>
             </BaseCardActions>
           </BaseCardSection>
         </BaseCard>
@@ -172,7 +170,13 @@ function clickOnProfileInput() {
                     type="file"
                     label="Standard"
                   />
-                  <q-btn flat round color="primary" icon="edit" @click="clickOnProfileInput"></q-btn>
+                  <q-btn
+                    flat
+                    round
+                    color="primary"
+                    icon="edit"
+                    @click="() => profileInputName.$el.click()"
+                  ></q-btn>
                 </BaseCardActions>
               </BaseCardSection>
             </BaseCard>
