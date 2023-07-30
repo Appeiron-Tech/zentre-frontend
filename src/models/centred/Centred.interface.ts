@@ -20,18 +20,18 @@ export interface ICentred {
 }
 
 export interface ICentredUpdate {
-  tenancyName: string
-  summary: string
-  officialName: string
-  shortName: string
-  coverUrl: string
-  profileUrl: string
-  country: string
-  type: string
-  favicon: string
-  currencyName: string
-  ga_email_analytics: string
-  apps: ICentredApp[]
+  tenancyName?: string
+  summary?: string
+  officialName?: string
+  shortName?: string
+  coverUrl?: string
+  profileUrl?: string
+  country?: string
+  type?: string
+  favicon?: string
+  currencyName?: string
+  ga_email_analytics?: string
+  apps?: ICentredApp[]
 }
 
 export interface ICentredApp {

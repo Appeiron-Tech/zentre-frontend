@@ -1,6 +1,6 @@
-import type { ICentred } from '@/models/centred/Centred.interface'
+import type { ICentred, ICentredUpdate } from '@/models/centred/Centred.interface'
 
 export interface ICentredService {
   getCentred(centredId: string): Promise<ICentred>
-  updateCentred(request: ICentred): Promise<ICentred>
+  updateCentred(centredId: string, centredToUpdate: ICentredUpdate): Promise<ICentred>
 }

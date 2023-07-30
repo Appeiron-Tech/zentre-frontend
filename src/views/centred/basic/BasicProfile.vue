@@ -29,7 +29,7 @@ onMounted(async () => {
   await centredStore.fetch('6498a94e213a7fc800781e1a')
 })
 
-function onSubmit() {
+async function onSubmit() {
   if (centred.value?.shortName === '') {
     $q.notify({
       color: 'red-5',
@@ -38,7 +38,7 @@ function onSubmit() {
       message: 'You need to accept the license and terms first',
     })
   } else {
-    console.log(centred.value)
+    centredStore.update(centred.value)
     $q.notify({
       color: 'green-4',
       textColor: 'white',

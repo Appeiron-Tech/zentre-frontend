@@ -1,6 +1,7 @@
 import ApiService from '@/models/ApiService'
-import type { ICentred } from '@/models/centred/Centred.interface'
+import type { ICentred, ICentredUpdate } from '@/models/centred/Centred.interface'
 import type { ICentredService } from './CentredService.interface'
+import { removeUndefined } from '@/utils/parses'
 
 export default class CentredService extends ApiService implements ICentredService {
   constructor() {
@@ -17,26 +18,17 @@ export default class CentredService extends ApiService implements ICentredServic
     return centred
   }
 
-  async updateCentred(rawCourse: ICentred): Promise<ICentred> {
-    // const toUpdateBody: ICourseUpdate = removeUndefined({
-    //   title: rawCourse.title,
-    //   description: rawCourse.description,
-    //   language: rawCourse.language,
-    //   level: rawCourse.level,
-    //   category: rawCourse.category,
-    //   subCategory: rawCourse.subCategory,
-    //   price: rawCourse.price,
-    //   currency: rawCourse.currency,
-    //   duration: rawCourse.duration,
-    //   durationUnit: rawCourse.durationUnit,
-    // })
-
-    // try {
-    //   rawCourse = (await this.patch(`/${rawCourse.id}`, toUpdateBody)).data
-    // } catch (e) {
-    //   console.log(e)
-    // }
-    // return rawCourse
-    return {} as ICentred
+  async updateCentred(centreId: string, centred: ICentredUpdate): Promise<ICentred> {
+    centred = removeUndefined(centred)
+    console.log('sending: ' + centreId)
+    console.log('body: ')
+    console.log(JSON.stringify(centred))
+    try {
+      return (await this.patch(`/${centreId}`, centred)).data
+    } catch (e) {
+      console.log(e)
+      throw new Error('Centred can not be updated')
+    }
+    // return centredUpdated
   }
 }
