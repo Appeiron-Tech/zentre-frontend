@@ -5,11 +5,12 @@ import BaseCard from '@/components/base/card/BaseCard.vue'
 import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
 import BaseCardActions from '@/components/base/card/BaseCardActions.vue'
 import BaseDialog from '@/components/base/dialog/BaseDialog.vue'
-import { onMounted, ref, watch } from 'vue'
+import { onBeforeMount, ref, watch } from 'vue'
 import BaseAvatar from '@/components/base/avatar/BaseAvatar.vue'
 import BaseImage from '@/components/base/image/BaseImage.vue'
 import { useCentredStore } from '@/stores/centred.store'
 import type { ICentredBasicProfile } from '@/models/centred/Centred.interface'
+import { isObjectEmpty } from '@/utils/validators'
 
 const $q = useQuasar()
 const profile = ref()
@@ -24,8 +25,9 @@ const coverInputName = ref()
 const refCoverCropper = ref()
 const centredStore = useCentredStore()
 const centred = ref({} as ICentredBasicProfile)
+const centredHasChange = ref(false)
 
-onMounted(async () => {
+onBeforeMount(async () => {
   await centredStore.fetch('6498a94e213a7fc800781e1a')
   centred.value = centredStore.getBasicProfile
 })
@@ -55,22 +57,6 @@ async function onSubmit() {
   //   icon: 'warning',
   //   message: 'You need to accept the license and terms first',
   // })
-}
-
-watch(cover, (newCoverFiles) => {
-  const newCover = newCoverFiles[0]
-  coverPicked.value = URL.createObjectURL(newCover)
-  coverDialog.value = true
-})
-
-watch(profile, (newProfileFiles) => {
-  const newCover = newProfileFiles[0]
-  profilePicked.value = URL.createObjectURL(newCover)
-  profileDialog.value = true
-})
-
-function onReset() {
-  // age.value = null
 }
 
 const updateCoverRef = (refValue: unknown) => {
@@ -104,13 +90,35 @@ function cancelProfileDialog(): void {
   profilePicked.value = null
   profileDialog.value = false
 }
+
+watch(cover, (newCoverFiles) => {
+  const newCover = newCoverFiles[0]
+  coverPicked.value = URL.createObjectURL(newCover)
+  coverDialog.value = true
+})
+
+watch(profile, (newProfileFiles) => {
+  const newCover = newProfileFiles[0]
+  profilePicked.value = URL.createObjectURL(newCover)
+  profileDialog.value = true
+})
+
+watch(
+  () => centred.value,
+  (newValue, oldValue) => {
+    if (oldValue !== null && !isObjectEmpty(oldValue)) {
+      centredHasChange.value = true
+    }
+  },
+  { deep: true },
+)
 </script>
 
 <template>
   <!-- https://codesandbox.io/s/vue-advanced-cropper-basic-jfy5w?file=/src/App.vue -->
   <main>
     <div class="q-px-xl">
-      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <q-form @submit="onSubmit" class="q-gutter-md">
         <!-- Cover -->
         <BaseCard flat>
           <BaseCardSection horizontal>
@@ -219,8 +227,7 @@ function cancelProfileDialog(): void {
           ]"
         />
         <div class="col" align="right">
-          <q-btn label="Clean" type="reset" color="primary" flat class="q-ml-sm" />
-          <q-btn label="Publish" type="submit" color="primary" />
+          <q-btn label="Publish" type="submit" color="primary" :disable="!centredHasChange" />
         </div>
       </q-form>
     </div>

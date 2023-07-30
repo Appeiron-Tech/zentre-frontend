@@ -17,13 +17,10 @@ export const useCentredStore = defineStore('centred', {
     },
     getBasicProfile(state) {
       const basicProfile: ICentredBasicProfile = {
-        tenancyName: state.centred.tenancyName,
         summary: state.centred.summary,
-        officialName: state.centred.officialName,
         shortName: state.centred.shortName,
         coverUrl: state.centred.coverUrl,
         profileUrl: state.centred.profileUrl,
-        currencyName: state.centred.currencyName,
       }
       return basicProfile
     },
@@ -33,7 +30,7 @@ export const useCentredStore = defineStore('centred', {
       this.centred = await courseService.getCentred(centredId)
     },
 
-    async updateBasicProfile(centred: ICentredUpdate) {
+    async updateBasicProfile(centred: ICentredBasicProfile) {
       const courseService = new CentredService()
       this.centred = await courseService.updateCentred(this.centred.id, centred)
     },
