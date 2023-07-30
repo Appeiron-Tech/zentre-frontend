@@ -34,6 +34,16 @@ export interface ICentredUpdate {
   apps?: ICentredApp[]
 }
 
+export interface ICentredBasicProfile {
+  tenancyName?: string
+  summary?: string
+  officialName?: string
+  shortName?: string
+  coverUrl?: string
+  profileUrl?: string
+  currencyName?: string
+}
+
 export interface ICentredApp {
   app: string
   plan: string

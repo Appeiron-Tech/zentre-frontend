@@ -9,7 +9,7 @@ import { onMounted, ref, watch } from 'vue'
 import BaseAvatar from '@/components/base/avatar/BaseAvatar.vue'
 import BaseImage from '@/components/base/image/BaseImage.vue'
 import { useCentredStore } from '@/stores/centred.store'
-import { storeToRefs } from 'pinia'
+import type { ICentredBasicProfile } from '@/models/centred/Centred.interface'
 const $q = useQuasar()
 
 const refProfileCropper = ref()
@@ -23,29 +23,28 @@ const coverDialog = ref(false)
 const coverInputName = ref()
 const refCoverCropper = ref()
 const centredStore = useCentredStore()
-const { centred } = storeToRefs(centredStore)
+// const { centred } = storeToRefs(centredStore)
+const centred = ref({} as ICentredBasicProfile)
 
 onMounted(async () => {
   await centredStore.fetch('6498a94e213a7fc800781e1a')
+  centred.value = centredStore.getBasicProfile
 })
 
 async function onSubmit() {
-  if (centred.value?.shortName === '') {
-    $q.notify({
-      color: 'red-5',
-      textColor: 'white',
-      icon: 'warning',
-      message: 'You need to accept the license and terms first',
-    })
-  } else {
-    centredStore.update(centred.value)
-    $q.notify({
-      color: 'green-4',
-      textColor: 'white',
-      icon: 'cloud_done',
-      message: 'Submitted',
-    })
-  }
+  // $q.notify({
+  //   color: 'red-5',
+  //   textColor: 'white',
+  //   icon: 'warning',
+  //   message: 'You need to accept the license and terms first',
+  // })
+  centredStore.updateBasicProfile(centred.value)
+  $q.notify({
+    color: 'green-4',
+    textColor: 'white',
+    icon: 'cloud_done',
+    message: 'Submitted',
+  })
 }
 
 watch(cover, (newCoverFiles) => {
