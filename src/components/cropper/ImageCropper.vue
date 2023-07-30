@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { Cropper } from 'vue-advanced-cropper'
+import BaseCard from '@/components/base/card/BaseCard.vue'
+import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
 import 'vue-advanced-cropper/dist/style.css'
 import { ref, watch } from 'vue'
 defineProps({
@@ -19,7 +21,7 @@ watch(imageRef, () => {
 </script>
 
 <template>
-  <div>
+  <BaseCard>
     <Cropper
       ref="imageRef"
       :src="imageSource"
@@ -31,20 +33,17 @@ watch(imageRef, () => {
       }"
       image-restriction="stencil"
     />
-    <hr class="solid" >
-    <div>
-      <button @click="$emit('onCancel')">Cancel</button>
-      <button @click="$emit('onCrop')">Crop image</button>
-    </div>
-  </div>
+    <q-separator dark />
+    <BaseCardSection align="right">
+      <q-btn flat color="secondary" icon="cancel" @click="$emit('onCancel')">Cancel</q-btn>
+      <q-btn flat color="primary" icon="aspect_ratio" @click="$emit('onCrop')">Crop image</q-btn>
+    </BaseCardSection>
+  </BaseCard>
 </template>
 
 <style>
-.cropper {
+.Cropper {
   min-height: 300px;
   width: 100%;
-}
-hr.solid {
-  border-top: 3px solid #bbb;
 }
 </style>

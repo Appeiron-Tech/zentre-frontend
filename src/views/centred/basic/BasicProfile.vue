@@ -10,20 +10,19 @@ import BaseAvatar from '@/components/base/avatar/BaseAvatar.vue'
 import BaseImage from '@/components/base/image/BaseImage.vue'
 import { useCentredStore } from '@/stores/centred.store'
 import type { ICentredBasicProfile } from '@/models/centred/Centred.interface'
-const $q = useQuasar()
 
-const refProfileCropper = ref()
+const $q = useQuasar()
 const profile = ref()
 const profilePicked = ref()
 const profileDialog = ref(false)
 const profileInputName = ref()
+const refProfileCropper = ref()
 const cover = ref()
 const coverPicked = ref()
 const coverDialog = ref(false)
 const coverInputName = ref()
 const refCoverCropper = ref()
 const centredStore = useCentredStore()
-// const { centred } = storeToRefs(centredStore)
 const centred = ref({} as ICentredBasicProfile)
 
 onMounted(async () => {
@@ -32,12 +31,17 @@ onMounted(async () => {
 })
 
 async function onSubmit() {
-  // $q.notify({
-  //   color: 'red-5',
-  //   textColor: 'white',
-  //   icon: 'warning',
-  //   message: 'You need to accept the license and terms first',
-  // })
+  console.log(coverPicked.value)
+  if (coverPicked.value) {
+    //send image to google
+    const newCoverUrl = 'newCoverUrl'
+    centred.value.coverUrl = newCoverUrl
+  }
+  if (profilePicked.value) {
+    //send image to google
+    const newProfileUrl = 'newProfileUrl'
+    centred.value.profileUrl = newProfileUrl
+  }
   centredStore.updateBasicProfile(centred.value)
   $q.notify({
     color: 'green-4',
@@ -45,6 +49,12 @@ async function onSubmit() {
     icon: 'cloud_done',
     message: 'Submitted',
   })
+  // $q.notify({
+  //   color: 'red-5',
+  //   textColor: 'white',
+  //   icon: 'warning',
+  //   message: 'You need to accept the license and terms first',
+  // })
 }
 
 watch(cover, (newCoverFiles) => {
@@ -78,7 +88,7 @@ function cropCoverImage(): void {
   coverDialog.value = false
 }
 
-function closeCoverDialog(): void {
+function cancelCoverDialog(): void {
   coverPicked.value = null
   coverDialog.value = false
 }
@@ -90,16 +100,16 @@ function cropProfileImage(): void {
   profileDialog.value = false
 }
 
-function closeProfileDialog(): void {
+function cancelProfileDialog(): void {
   profilePicked.value = null
   profileDialog.value = false
 }
 
-function getCoverFile() {
+function clickOnCoverInput() {
   coverInputName.value.$el.click()
 }
 
-function getProfileFile() {
+function clickOnProfileInput() {
   profileInputName.value.$el.click()
 }
 </script>
@@ -121,7 +131,7 @@ function getProfileFile() {
                 type="file"
                 label="Standard"
               />
-              <q-btn flat round color="primary" icon="edit" @click="getCoverFile"></q-btn>
+              <q-btn flat round color="primary" icon="edit" @click="clickOnCoverInput"></q-btn>
             </BaseCardActions>
           </BaseCardSection>
         </BaseCard>
@@ -134,7 +144,7 @@ function getProfileFile() {
               height: 200,
             }"
             @on-crop="cropCoverImage"
-            @on-cancel="closeCoverDialog"
+            @on-cancel="cancelCoverDialog"
             @on-image-change="updateCoverRef"
           />
         </BaseDialog>
@@ -162,7 +172,7 @@ function getProfileFile() {
                     type="file"
                     label="Standard"
                   />
-                  <q-btn flat round color="primary" icon="edit" @click="getProfileFile"></q-btn>
+                  <q-btn flat round color="primary" icon="edit" @click="clickOnProfileInput"></q-btn>
                 </BaseCardActions>
               </BaseCardSection>
             </BaseCard>
@@ -178,7 +188,7 @@ function getProfileFile() {
               height: 300,
             }"
             @on-crop="cropProfileImage"
-            @on-cancel="closeProfileDialog"
+            @on-cancel="cancelProfileDialog"
             @on-image-change="updateProfileRef"
           />
         </BaseDialog>
