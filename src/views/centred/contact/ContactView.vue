@@ -1,9 +1,8 @@
 <script setup lang="ts">
 // https://github.com/codingwithjustin/vue-google-maps/blob/master/src/App.vue
 // https://developers.google.com/maps/documentation/javascript/geolocation
-import { COUNTRIES, GOOGLE_MAPS_API_KEY } from '@/constants'
-import { onMounted, onUnmounted, ref, onBeforeMount } from 'vue'
-import { Loader } from '@googlemaps/js-api-loader'
+import { COUNTRIES } from '@/constants'
+import { onUnmounted, ref, onBeforeMount } from 'vue'
 import { useCentredStore } from '@/stores/centred.store'
 import type { ICentredContact } from '@/models/centred/Centred.interface'
 import { isObjectEmpty } from '@/utils/validators'
