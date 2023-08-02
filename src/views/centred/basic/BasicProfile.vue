@@ -28,12 +28,13 @@ const centred = ref({} as ICentredBasicProfile)
 const centredHasChange = ref(false)
 
 onBeforeMount(async () => {
-  await centredStore.fetch('6498a94e213a7fc800781e1a')
+  if (isObjectEmpty(centredStore.centred)) {
+    await centredStore.fetch('6498a94e213a7fc800781e1a')
+  }
   centred.value = centredStore.getBasicProfile
 })
 
 async function onSubmit() {
-  console.log(coverPicked.value)
   if (coverPicked.value) {
     //send image to google
     const newCoverUrl = 'newCoverUrl'

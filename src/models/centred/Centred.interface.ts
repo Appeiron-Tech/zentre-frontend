@@ -10,6 +10,7 @@ export interface ICentred {
   shortName: string
   country: string
   type: string
+  contact: ICentredContact
   favicon: string
   currencyName: string
   ga_email_analytics: string
@@ -28,6 +29,7 @@ export interface ICentredUpdate {
   profileUrl?: string
   country?: string
   type?: string
+  contact?: ICentredContact
   favicon?: string
   currencyName?: string
   ga_email_analytics?: string
@@ -39,6 +41,12 @@ export interface ICentredBasicProfile {
   shortName?: string
   coverUrl?: string
   profileUrl?: string
+}
+
+export interface ICentredContact {
+  phones: string[]
+  emails: string[]
+  website: string
 }
 
 export interface ICentredApp {

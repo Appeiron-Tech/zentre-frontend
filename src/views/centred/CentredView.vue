@@ -5,7 +5,7 @@ import BaseTabs from '../../components/base/tabs/BaseTabs.vue'
 import BaseTabPanels from '../../components/base/panels/BaseTabPanels.vue'
 import BaseTabPanel from '../../components/base/panels/BaseTabPanel.vue'
 import BasicProfile from './basic/BasicProfile.vue'
-import OpeningHours from './hours/OpeningHours.vue'
+import ContactView from './contact/ContactView.vue'
 
 const tab = ref('basic')
 </script>
@@ -16,7 +16,7 @@ const tab = ref('basic')
       <div class="col-12 col-md-8 col-lg-7 q-pt-none">
         <BaseTabs v-model="tab" class="text-primary" align="justify">
           <BaseTab name="basic" icon="feed" label="Basic Info" />
-          <BaseTab name="hours" icon="schedule" label="Hours" />
+          <BaseTab name="contact" icon="schedule" label="Contact" />
           <BaseTab name="sns" icon="settings_input_antenna" label="RRSS" />
         </BaseTabs>
 
@@ -35,8 +35,8 @@ const tab = ref('basic')
             <SnsView />
           </q-tab-panel> -->
 
-          <BaseTabPanel name="hours">
-            <OpeningHours />
+          <BaseTabPanel name="contact">
+            <ContactView />
           </BaseTabPanel>
         </BaseTabPanels>
       </div>

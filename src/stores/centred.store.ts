@@ -1,7 +1,7 @@
 import type {
   ICentred,
-  ICentredUpdate,
   ICentredBasicProfile,
+  ICentredContact,
 } from '@/models/centred/Centred.interface'
 import CentredService from '@/services/centred/Centred.service'
 import { defineStore } from 'pinia'
@@ -24,15 +24,25 @@ export const useCentredStore = defineStore('centred', {
       }
       return basicProfile
     },
+    getContact(state) {
+      const contact: ICentredContact = {
+        ...state.centred.contact,
+      }
+      return contact
+    },
   },
   actions: {
     async fetch(centredId: string): Promise<void> {
+      console.log('calling fetch centred')
       this.centred = await courseService.getCentred(centredId)
     },
 
     async updateBasicProfile(centred: ICentredBasicProfile) {
-      const courseService = new CentredService()
       this.centred = await courseService.updateCentred(this.centred.id, centred)
+    },
+
+    async updateContact(contact: ICentredContact) {
+      this.centred = await courseService.updateCentred(this.centred.id, { contact })
     },
   },
 })
