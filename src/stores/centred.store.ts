@@ -25,8 +25,11 @@ export const useCentredStore = defineStore('centred', {
       return basicProfile
     },
     getContact(state) {
+      // const address = state.centred.schools[0]?.address ?? ''
+      const address = ''
       const contact: ICentredContact = {
         ...state.centred.contact,
+        address,
       }
       return contact
     },

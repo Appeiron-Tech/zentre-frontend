@@ -46,6 +46,7 @@ export interface ICentredBasicProfile {
 export interface ICentredContact {
   phones: string[]
   emails: string[]
+  address: string
   website: string
 }
 
