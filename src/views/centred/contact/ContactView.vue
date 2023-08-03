@@ -4,11 +4,11 @@
 import { COUNTRIES } from '@/constants'
 import { onUnmounted, ref, onBeforeMount } from 'vue'
 import { useCentredStore } from '@/stores/centred.store'
-import type { ICentredContact } from '@/models/centred/Centred.interface'
+import type { IContact } from '@/models/centred/Centred.interface'
 import { isObjectEmpty } from '@/utils/validators'
 
 const centredStore = useCentredStore()
-const contact = ref({} as ICentredContact)
+const contact = ref({} as IContact)
 const contactHasChange = ref(false)
 
 onBeforeMount(async () => {
@@ -17,10 +17,6 @@ onBeforeMount(async () => {
   }
   contact.value = centredStore.getContact
 })
-
-// const tel = ref()
-// const url = ref()
-// const email = ref()
 
 const countryCodes = ref({
   iso2: 'ES',
@@ -87,7 +83,7 @@ onUnmounted(async () => {
               </q-item>
             </template>
           </q-select>
-          <q-input v-model="contact.phones[0]" filled type="tel" label="Teléfono">
+          <q-input v-model="contact.phones[0].number" filled type="tel" label="Teléfono">
             <template v-slot:prepend>
               <q-icon name="phone" />
             </template>
