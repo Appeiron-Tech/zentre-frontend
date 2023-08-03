@@ -36,15 +36,21 @@ function getCountry(countryCodeWithPlus: string): ICountry {
   )
 }
 
-function onReset() {
-  // age.value = null
-}
+watch(
+  () => contact.value,
+  (newValue, oldValue) => {
+    if (oldValue !== null && !isObjectEmpty(oldValue)) {
+      contactHasChange.value = true
+    }
+  },
+  { deep: true },
+)
 </script>
 
 <template>
   <main>
     <div class="q-px-xl">
-      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <q-form @submit="onSubmit" class="q-gutter-md">
         <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box" /> -->
         <q-input v-model="contact.website" filled type="url" label="Web Oficial">
           <template v-slot:prepend>
