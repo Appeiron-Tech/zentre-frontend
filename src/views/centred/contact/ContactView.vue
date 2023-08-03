@@ -2,48 +2,43 @@
 // https://github.com/codingwithjustin/vue-google-maps/blob/master/src/App.vue
 // https://developers.google.com/maps/documentation/javascript/geolocation
 import { COUNTRIES } from '@/constants'
-import { onUnmounted, ref, onBeforeMount } from 'vue'
+import type { ICountry } from '@/constants'
+import { ref, onBeforeMount, watch } from 'vue'
+import { isObjectEmpty } from '@/utils/validators'
 import { useCentredStore } from '@/stores/centred.store'
 import type { IContact } from '@/models/centred/Centred.interface'
-import { isObjectEmpty } from '@/utils/validators'
 
 const centredStore = useCentredStore()
 const contact = ref({} as IContact)
 const contactHasChange = ref(false)
+const contactCountryCode = ref()
 
 onBeforeMount(async () => {
   if (isObjectEmpty(centredStore.centred)) {
     await centredStore.fetch('6498a94e213a7fc800781e1a')
   }
   contact.value = centredStore.getContact
-})
-
-const countryCodes = ref({
-  iso2: 'ES',
-  img_url: 'http://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg',
-  country_code: 34,
+  contactCountryCode.value = getCountry(contact.value.phones[0].countryCode ?? '')
 })
 
 function onSubmit() {
   // if (sns.value?.name === '') {
 }
 
-function test() {
-  const tt = (document.getElementById('pac-input') as HTMLInputElement).value
-  console.log(tt)
+function getCountry(countryCodeWithPlus: string): ICountry {
+  const countryCode = Number(countryCodeWithPlus.replace('+', ''))
+  return (
+    COUNTRIES.find((country) => country.country_code === countryCode) ?? {
+      iso2: 'ES',
+      img_url: 'http://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg',
+      country_code: 34,
+    }
+  )
 }
 
 function onReset() {
   // age.value = null
 }
-
-let boundsListener: { remove: () => void } | null = null
-let searchBoxListener: { remove: () => void } | null = null
-
-onUnmounted(async () => {
-  if (boundsListener) boundsListener.remove()
-  if (searchBoxListener) searchBoxListener.remove()
-})
 </script>
 
 <template>
@@ -64,11 +59,11 @@ onUnmounted(async () => {
         <div class="q-gutter-md row justify-start">
           <q-select
             filled
-            v-model="countryCodes"
+            v-model="contactCountryCode"
             :options="COUNTRIES"
             label="País"
             color="teal"
-            :display-value="'+' + countryCodes.country_code"
+            :display-value="'+' + contactCountryCode.country_code"
             options-selected-class="text-deep-orange"
           >
             <template v-slot:option="scope">
@@ -99,8 +94,6 @@ onUnmounted(async () => {
         </q-input>
 
         <div class="col" align="right">
-          <!-- <q-btn label="Clean" type="reset" color="primary" flat class="q-ml-sm" /> -->
-          <q-btn label="Clean" color="primary" @click="test" flat class="q-ml-sm" />
           <q-btn label="Publish" type="submit" color="primary" />
         </div>
       </q-form>

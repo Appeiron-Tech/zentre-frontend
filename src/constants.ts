@@ -39,7 +39,13 @@ export const SNS_DEFAULT_VALUES = [
   },
 ]
 
-export const COUNTRIES = [
+export interface ICountry {
+  iso2: string
+  img_url: string
+  country_code: number
+}
+
+export const COUNTRIES: ICountry[] = [
   {
     iso2: 'ES',
     img_url: 'http://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg',
