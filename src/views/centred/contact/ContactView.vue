@@ -7,6 +7,7 @@ import { ref, onBeforeMount, watch } from 'vue'
 import { isObjectEmpty } from '@/utils/validators'
 import { useCentredStore } from '@/stores/centred.store'
 import type { IContact } from '@/models/centred/Centred.interface'
+import BaseInput from '@/components/base/inputs/BaseInput.vue'
 
 const centredStore = useCentredStore()
 const contact = ref({} as IContact)
@@ -51,17 +52,8 @@ watch(
   <main>
     <div class="q-px-xl">
       <q-form @submit="onSubmit" class="q-gutter-md">
-        <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box" /> -->
-        <q-input v-model="contact.website" filled type="url" label="Web Oficial">
-          <template v-slot:prepend>
-            <q-icon name="language" />
-          </template>
-        </q-input>
-        <q-input v-model="contact.emails[0]" filled type="email" label="Email de contacto">
-          <template v-slot:prepend>
-            <q-icon name="mail" />
-          </template>
-        </q-input>
+        <BaseInput v-model="contact.website" type="url" label="Web Oficial" icon="language" />
+        <BaseInput v-model="contact.emails[0]" type="email" label="Email de contacto" icon="mail" />
         <div class="q-gutter-md row justify-start">
           <q-select
             filled
@@ -84,20 +76,10 @@ watch(
               </q-item>
             </template>
           </q-select>
-          <q-input v-model="contact.phones[0].number" filled type="tel" label="Teléfono">
-            <template v-slot:prepend>
-              <q-icon name="phone" />
-            </template>
-          </q-input>
+          <BaseInput v-model="contact.phones[0].number" type="tel" label="Teléfono" icon="phone" />
         </div>
-
         <q-separator spaced />
-
-        <q-input v-model="contact.address" filled type="text" label="Address">
-          <template v-slot:prepend>
-            <q-icon name="location_on" />
-          </template>
-        </q-input>
+        <BaseInput v-model="contact.address" type="text" label="Address" icon="location_on" />
 
         <div class="col" align="right">
           <q-btn label="Publish" type="submit" color="primary" />
