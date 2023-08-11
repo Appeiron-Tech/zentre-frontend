@@ -9,8 +9,8 @@ import { onBeforeMount, ref, watch } from 'vue'
 import BaseAvatar from '@/components/base/avatar/BaseAvatar.vue'
 import BaseImage from '@/components/base/image/BaseImage.vue'
 import { useCentredStore } from '@/stores/centred.store'
-import type { ICentredBasicProfile } from '@/models/centred/Centred.interface'
 import { isObjectEmpty } from '@/utils/validators'
+import type { IBasicProfile } from '@/models/centred/School.interface'
 
 const $q = useQuasar()
 const profile = ref()
@@ -24,28 +24,29 @@ const coverDialog = ref(false)
 const coverInputName = ref()
 const refCoverCropper = ref()
 const centredStore = useCentredStore()
-const centred = ref({} as ICentredBasicProfile)
-const centredHasChange = ref(false)
+const basicProfile = ref({} as IBasicProfile)
+const basicProfileHasChange = ref(false)
 
 onBeforeMount(async () => {
   if (isObjectEmpty(centredStore.centred)) {
     await centredStore.fetch('6498a94e213a7fc800781e1a')
   }
-  centred.value = centredStore.getBasicProfile
+  basicProfile.value = centredStore.getBasicProfile
 })
 
 async function onSubmit() {
   if (coverPicked.value) {
     //send image to google
     const newCoverUrl = 'newCoverUrl'
-    centred.value.coverUrl = newCoverUrl
+    basicProfile.value.coverUrl = newCoverUrl
   }
   if (profilePicked.value) {
     //send image to google
     const newProfileUrl = 'newProfileUrl'
-    centred.value.profileUrl = newProfileUrl
+    basicProfile.value.profileUrl = newProfileUrl
   }
-  centredStore.updateBasicProfile(centred.value)
+  centredStore.updateBasicProfile(basicProfile.value)
+  basicProfileHasChange.value = false
   $q.notify({
     color: 'green-4',
     textColor: 'white',
@@ -71,7 +72,7 @@ const updateProfileRef = (refValue: unknown) => {
 function cropCoverImage(): void {
   const result = refCoverCropper.value.getResult()
   const cropperImage = result.canvas.toDataURL('image/jpg')
-  centred.value.coverUrl = cropperImage
+  basicProfile.value.coverUrl = cropperImage
   coverDialog.value = false
 }
 
@@ -83,7 +84,7 @@ function cancelCoverDialog(): void {
 function cropProfileImage(): void {
   const result = refProfileCropper.value.getResult()
   const croppedImage = result.canvas.toDataURL('image/jpg')
-  centred.value.profileUrl = croppedImage
+  basicProfile.value.profileUrl = croppedImage
   profileDialog.value = false
 }
 
@@ -105,10 +106,10 @@ watch(profile, (newProfileFiles) => {
 })
 
 watch(
-  () => centred.value,
+  () => basicProfile.value,
   (newValue, oldValue) => {
     if (oldValue !== null && !isObjectEmpty(oldValue)) {
-      centredHasChange.value = true
+      basicProfileHasChange.value = true
     }
   },
   { deep: true },
@@ -123,15 +124,9 @@ watch(
         <!-- Cover -->
         <BaseCard flat>
           <BaseCardSection horizontal>
-            <BaseImage :source="centred.coverUrl" :ratio="9 / 3" label="Cover" />
+            <BaseImage :source="basicProfile.coverUrl" :ratio="9 / 3" label="Cover" />
             <BaseCardActions vertical class="justify-around">
-              <q-input
-                ref="coverInputName"
-                style="display: none"
-                v-model="cover"
-                type="file"
-                label="Standard"
-              />
+              <q-input ref="coverInputName" style="display: none" v-model="cover" type="file" />
               <q-btn
                 flat
                 round
@@ -164,8 +159,8 @@ watch(
                 <div class="column items-center">
                   <div class="col">
                     <BaseAvatar
-                      v-if="centred.profileUrl"
-                      :image="centred.profileUrl"
+                      v-if="basicProfile.profileUrl"
+                      :image="basicProfile.profileUrl"
                       size="200px"
                       label="Logo"
                     />
@@ -177,7 +172,6 @@ watch(
                     style="display: none"
                     v-model="profile"
                     type="file"
-                    label="Standard"
                   />
                   <q-btn
                     flat
@@ -209,7 +203,7 @@ watch(
         <!-- Business Name -->
         <q-input
           filled
-          v-model="centred.shortName"
+          v-model="basicProfile.shortName"
           label="Negocio *"
           hint="Nombre de tu negocio"
           lazy-rules
@@ -219,7 +213,7 @@ watch(
         <!-- Business Description -->
         <q-input
           filled
-          v-model="centred.summary"
+          v-model="basicProfile.summary"
           label="Descripción *"
           hint="Descripción de tu negocio"
           lazy-rules
@@ -228,7 +222,7 @@ watch(
           ]"
         />
         <div class="col" align="right">
-          <q-btn label="Publish" type="submit" color="primary" :disable="!centredHasChange" />
+          <q-btn label="Publish" type="submit" color="primary" :disable="!basicProfileHasChange" />
         </div>
       </q-form>
     </div>

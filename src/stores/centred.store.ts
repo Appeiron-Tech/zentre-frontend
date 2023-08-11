@@ -1,8 +1,11 @@
-import type { ICentredBasicProfile, IContact, ICentred } from '@/models/centred/Centred.interface'
+import type { IContact, ICentred } from '@/models/centred/Centred.interface'
+import type { IBasicProfile } from '@/models/centred/School.interface'
 import CentredService from '@/services/centred/Centred.service'
+import SchoolService from '@/services/centred/School.service'
 import { defineStore } from 'pinia'
 
-const courseService = new CentredService()
+const centredService = new CentredService()
+const schoolService = new SchoolService()
 export const useCentredStore = defineStore('centred', {
   state: () => ({
     centred: {} as ICentred,
@@ -12,18 +15,18 @@ export const useCentredStore = defineStore('centred', {
       return state.centred
     },
     getBasicProfile(state) {
-      const basicProfile: ICentredBasicProfile = {
-        summary: state.centred.summary,
-        shortName: state.centred.shortName,
-        coverUrl: state.centred.coverUrl,
-        profileUrl: state.centred.profileUrl,
+      const basicProfile: IBasicProfile = {
+        summary: state.centred.schools[0].summary,
+        shortName: state.centred.schools[0].shortName,
+        coverUrl: state.centred.schools[0].coverUrl,
+        profileUrl: state.centred.schools[0].profileUrl,
       }
       return basicProfile
     },
     getContact(state) {
       const address = state.centred.schools[0]?.address ?? ''
       const contact: IContact = {
-        ...state.centred.contact,
+        ...state.centred.schools[0].contact,
         address,
       }
       return contact
@@ -31,16 +34,17 @@ export const useCentredStore = defineStore('centred', {
   },
   actions: {
     async fetch(centredId: string): Promise<void> {
-      console.log('calling fetch centred')
-      this.centred = await courseService.getCentred(centredId)
+      this.centred = await centredService.getCentred(centredId)
     },
 
-    async updateBasicProfile(centred: ICentredBasicProfile) {
-      this.centred = await courseService.updateCentred(this.centred.id, centred)
+    async updateBasicProfile(basicProfile: IBasicProfile) {
+      const schoolId = this.centred.schools[0].id
+      this.centred.schools[0] = await schoolService.updateSchool(schoolId, basicProfile)
     },
 
     async updateContact(contact: IContact) {
-      this.centred = await courseService.updateCentred(this.centred.id, { contact })
+      const schoolId = this.centred.schools[0].id
+      this.centred.schools[0] = await schoolService.updateSchool(schoolId, { contact })
     },
   },
 })
