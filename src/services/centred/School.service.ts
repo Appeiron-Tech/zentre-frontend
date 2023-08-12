@@ -25,8 +25,7 @@ export default class SchoolService extends ApiService implements ISchoolService 
     console.log('body: ')
     console.log(JSON.stringify(school))
     try {
-      // const dbUpdatedSchool = (await this.patch(`/${schoolId}`, school)).data as ISchoolDB
-      const dbUpdatedSchool = (await this.get(`/${schoolId}`)).data as ISchoolDB
+      const dbUpdatedSchool = (await this.patch(`/${schoolId}`, school)).data as ISchoolDB
       return new School(dbUpdatedSchool)
     } catch (e) {
       console.log(e)
