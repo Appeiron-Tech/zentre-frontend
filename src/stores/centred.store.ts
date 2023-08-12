@@ -1,5 +1,6 @@
+import { SNS_DEFAULT_VALUES } from '@/constants'
 import type { IContact, ICentred } from '@/models/centred/Centred.interface'
-import type { IBasicProfile } from '@/models/centred/School.interface'
+import type { IBasicProfile, ISns } from '@/models/centred/School.interface'
 import CentredService from '@/services/centred/Centred.service'
 import SchoolService from '@/services/centred/School.service'
 import { defineStore } from 'pinia'
@@ -30,6 +31,26 @@ export const useCentredStore = defineStore('centred', {
         address,
       }
       return contact
+    },
+    getSns(state) {
+      return Object.keys(SNS_DEFAULT_VALUES).map((sn) => {
+        const snDB = state.centred.schools[0].sns.find((snDB) => snDB.code === sn)
+        if (snDB) {
+          return {
+            ...snDB,
+            name: SNS_DEFAULT_VALUES[sn].name,
+            icon: SNS_DEFAULT_VALUES[sn].icon,
+          } as ISns
+        } else {
+          return {
+            code: sn,
+            url: '',
+            show: false,
+            name: SNS_DEFAULT_VALUES[sn].name,
+            icon: SNS_DEFAULT_VALUES[sn].icon,
+          } as ISns
+        }
+      })
     },
   },
   actions: {

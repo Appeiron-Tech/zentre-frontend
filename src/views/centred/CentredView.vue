@@ -6,6 +6,7 @@ import BaseTabPanels from '../../components/base/panels/BaseTabPanels.vue'
 import BaseTabPanel from '../../components/base/panels/BaseTabPanel.vue'
 import BasicProfile from './basic/BasicProfile.vue'
 import ContactView from './contact/ContactView.vue'
+import SocialNetworks from './social/SocialNetworks.vue'
 
 const tab = ref('basic')
 </script>
@@ -31,13 +32,13 @@ const tab = ref('basic')
             <BasicProfile />
           </BaseTabPanel>
 
-          <!-- <q-tab-panel name="sns">
-            <SnsView />
-          </q-tab-panel> -->
-
           <BaseTabPanel name="contact">
             <ContactView />
           </BaseTabPanel>
+
+          <q-tab-panel name="sns">
+            <SocialNetworks />
+          </q-tab-panel>
         </BaseTabPanels>
       </div>
     </div>

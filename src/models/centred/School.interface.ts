@@ -12,6 +12,7 @@ export interface ISchool {
   country: string
   type: string
   contact: IContact
+  sns: ISns[]
   favicon: string
   currency: string
   updatedAt: Date
@@ -30,6 +31,7 @@ export interface ISchoolDB {
   country: string
   type: string
   contact: IContact
+  sns: ISnsDB[]
   favicon: string
   currency: string
   updatedAt: Date
@@ -55,4 +57,15 @@ export interface IBasicProfile {
   shortName?: string
   coverUrl?: string
   profileUrl?: string
+}
+
+export interface ISnsDB {
+  code: string
+  url: string
+  show: boolean
+}
+
+export interface ISns extends ISnsDB {
+  icon: string
+  name: string
 }
