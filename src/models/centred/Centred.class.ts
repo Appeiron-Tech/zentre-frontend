@@ -1,4 +1,5 @@
 import type { ICentred, ICentredApp, ICentredDB } from './Centred.interface'
+import { School } from './School.class'
 import type { ISchool } from './School.interface'
 
 export class Centred implements ICentred {
@@ -21,7 +22,7 @@ export class Centred implements ICentred {
     this.ga_email_analytics = centredDB.ga_email_analytics
     this.currencyName = centredDB.currencyName
     this.apps = centredDB.apps
-    this.schools = centredDB.schools
+    this.schools = centredDB.schools.map((schoolDB) => new School(schoolDB))
     this.updatedAt = centredDB.updatedAt
     this.createdAt = centredDB.createdAt
   }

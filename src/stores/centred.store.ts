@@ -1,5 +1,5 @@
-import { SNS_DEFAULT_VALUES } from '@/constants'
 import type { IContact, ICentred } from '@/models/centred/Centred.interface'
+import { School } from '@/models/centred/School.class'
 import type { IBasicProfile, ISns } from '@/models/centred/School.interface'
 import CentredService from '@/services/centred/Centred.service'
 import SchoolService from '@/services/centred/School.service'
@@ -33,24 +33,25 @@ export const useCentredStore = defineStore('centred', {
       return contact
     },
     getSns(state) {
-      return Object.keys(SNS_DEFAULT_VALUES).map((sn) => {
-        const snDB = state.centred.schools[0].sns.find((snDB) => snDB.code === sn)
-        if (snDB) {
-          return {
-            ...snDB,
-            name: SNS_DEFAULT_VALUES[sn].name,
-            icon: SNS_DEFAULT_VALUES[sn].icon,
-          } as ISns
-        } else {
-          return {
-            code: sn,
-            url: '',
-            show: false,
-            name: SNS_DEFAULT_VALUES[sn].name,
-            icon: SNS_DEFAULT_VALUES[sn].icon,
-          } as ISns
-        }
-      })
+      return state.centred.schools[0].sns
+      // return Object.keys(SNS_DEFAULT_VALUES).map((sn) => {
+      //   const snDB = state.centred.schools[0].sns.find((snDB) => snDB.code === sn)
+      //   if (snDB) {
+      //     return {
+      //       ...snDB,
+      //       name: SNS_DEFAULT_VALUES[sn].name,
+      //       icon: SNS_DEFAULT_VALUES[sn].icon,
+      //     } as ISns
+      //   } else {
+      //     return {
+      //       code: sn,
+      //       url: '',
+      //       show: false,
+      //       name: SNS_DEFAULT_VALUES[sn].name,
+      //       icon: SNS_DEFAULT_VALUES[sn].icon,
+      //     } as ISns
+      //   }
+      // })
     },
   },
   actions: {
@@ -66,6 +67,23 @@ export const useCentredStore = defineStore('centred', {
     async updateContact(contact: IContact) {
       const schoolId = this.centred.schools[0].id
       this.centred.schools[0] = await schoolService.updateSchool(schoolId, { contact })
+    },
+
+    async updateSns(sns: ISns[]) {
+      const schoolId = this.centred.schools[0].id
+      const snsDB = School.parseToSnsDB(sns)
+      //We manage the parse here instead of the service because the updateSchool method is generic for any school property.
+      //If we wanted to manage the parse in the service, we would need to create separate update methods for each case.
+      // const snsDB = sns
+      //   .filter((sn) => sn.url.length)
+      //   .map((sn) => {
+      //     return {
+      //       code: sn.code,
+      //       url: sn.url,
+      //       show: sn.show,
+      //     } as ISnsDB
+      //   })
+      this.centred.schools[0] = await schoolService.updateSchool(schoolId, { sns: snsDB })
     },
   },
 })

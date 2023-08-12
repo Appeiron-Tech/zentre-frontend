@@ -43,6 +43,7 @@ export interface ISchoolUpdate {
   country?: string
   type?: string
   contact?: IContact
+  sns?: ISnsDB[]
   currency?: string
   summary?: string
   officialName?: string
