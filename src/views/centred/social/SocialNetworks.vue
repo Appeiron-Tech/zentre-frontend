@@ -3,11 +3,11 @@ import type { ISns } from '@/models/centred/School.interface'
 import { useCentredStore } from '@/stores/centred.store'
 import { useQuasar } from 'quasar'
 import { isObjectEmpty } from '@/utils/validators'
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref, watch } from 'vue'
 
 const centredStore = useCentredStore()
 const sns = ref<ISns[]>([])
-// const snsHasChange = ref(false)
+const snsHasChange = ref(false)
 const $q = useQuasar()
 
 onBeforeMount(async () => {
@@ -40,6 +40,17 @@ function onSubmit() {
     message: 'Submitted',
   })
 }
+
+watch(
+  () => sns.value,
+  (newValue, oldValue) => {
+    console.log(oldValue)
+    if (oldValue.length) {
+      snsHasChange.value = true
+    }
+  },
+  { deep: true },
+)
 </script>
 
 <template>
@@ -57,11 +68,7 @@ function onSubmit() {
                 </template>
                 <template v-slot:append>
                   <q-toggle :disable="sn.url.length == 0" color="green" v-model="sn.show">
-                    <q-tooltip
-                      :target="sn.url.length == 0"
-                      transition-show="rotate"
-                      transition-hide="rotate"
-                    >
+                    <q-tooltip :target="sn.url.length == 0">
                       Ingresar el link a la cuenta de {{ sn.name }} del negocio
                     </q-tooltip>
                   </q-toggle>
@@ -72,7 +79,7 @@ function onSubmit() {
         </q-list>
 
         <div class="col" align="right">
-          <q-btn label="Publish" type="submit" color="primary" />
+          <q-btn label="Publish" type="submit" color="primary" :disable="!snsHasChange" />
         </div>
       </q-form>
     </div>
