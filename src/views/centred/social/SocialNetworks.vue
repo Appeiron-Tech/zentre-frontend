@@ -19,6 +19,7 @@ onBeforeMount(async () => {
 
 function onSubmit() {
   centredStore.updateSns(sns.value)
+  snsHasChange.value = false
   $q.notify({
     color: 'green-4',
     textColor: 'white',
@@ -30,7 +31,6 @@ function onSubmit() {
 watch(
   () => sns.value,
   (newValue, oldValue) => {
-    console.log(oldValue)
     if (oldValue.length) {
       snsHasChange.value = true
     }

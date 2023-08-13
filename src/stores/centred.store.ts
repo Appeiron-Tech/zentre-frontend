@@ -74,15 +74,6 @@ export const useCentredStore = defineStore('centred', {
       const snsDB = School.parseToSnsDB(sns)
       //We manage the parse here instead of the service because the updateSchool method is generic for any school property.
       //If we wanted to manage the parse in the service, we would need to create separate update methods for each case.
-      // const snsDB = sns
-      //   .filter((sn) => sn.url.length)
-      //   .map((sn) => {
-      //     return {
-      //       code: sn.code,
-      //       url: sn.url,
-      //       show: sn.show,
-      //     } as ISnsDB
-      //   })
       this.centred.schools[0] = await schoolService.updateSchool(schoolId, { sns: snsDB })
     },
   },
