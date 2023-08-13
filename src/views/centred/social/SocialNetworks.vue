@@ -55,7 +55,7 @@ watch(
                 <template v-slot:append>
                   <q-toggle :disable="sn.url.length == 0" color="green" v-model="sn.show">
                     <q-tooltip :target="sn.url.length == 0">
-                      Ingresar el link a la cuenta de {{ sn.name }} del negocio
+                      {{ $t('SocialNetworks.urlTooltip') }}
                     </q-tooltip>
                   </q-toggle>
                 </template>

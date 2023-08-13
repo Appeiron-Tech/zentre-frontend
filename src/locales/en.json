@@ -237,5 +237,15 @@
       "test_prep": "Test Preparation",
       "other": "Other"
     }
+  },
+  "SocialNetworks": {
+    "urlTooltip": "First enter the social network url"
+  },
+  "ContactView": {
+    "websiteLabel": "Official web",
+    "emailLabel": "Contact email",
+    "countryCodeLabel": "Country",
+    "phoneLabel": "Phone",
+    "addressLabel": "Address"
   }
 }

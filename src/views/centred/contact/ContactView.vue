@@ -101,14 +101,24 @@ watch(
   <main>
     <div class="q-px-xl">
       <q-form @submit="onSubmit" class="q-gutter-md">
-        <BaseInput v-model="contact.website" type="url" label="Web Oficial" icon="language" />
-        <BaseInput v-model="contact.emails[0]" type="email" label="Email de contacto" icon="mail" />
+        <BaseInput
+          v-model="contact.website"
+          type="url"
+          :label="$t('ContactView.websiteLabel')"
+          icon="language"
+        />
+        <BaseInput
+          v-model="contact.emails[0]"
+          type="email"
+          :label="$t('ContactView.emailLabel')"
+          icon="mail"
+        />
         <div class="q-gutter-md row justify-start">
           <q-select
             filled
             v-model="contactCountries[0]"
             :options="COUNTRIES"
-            label="País"
+            :label="$t('ContactView.countryCodeLabel')"
             color="teal"
             :display-value="'+' + contactCountries[0].country_code"
             options-selected-class="text-deep-orange"
@@ -125,11 +135,20 @@ watch(
               </q-item>
             </template>
           </q-select>
-          <BaseInput v-model="contact.phones[0].phone" type="tel" label="Teléfono" icon="phone" />
+          <BaseInput
+            v-model="contact.phones[0].phone"
+            type="tel"
+            :label="$t('ContactView.phone')"
+            icon="phone"
+          />
         </div>
         <q-separator spaced />
-        <BaseInput v-model="contact.address" type="text" label="Address" icon="location_on" />
-
+        <BaseInput
+          v-model="contact.address"
+          type="text"
+          :label="$t('ContactView.addressLabel')"
+          icon="location_on"
+        />
         <div class="col" align="right">
           <q-btn label="Publish" type="submit" color="primary" :disable="!contactHasChange" />
         </div>

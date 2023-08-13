@@ -238,5 +238,15 @@
       "test_prep": "Preparación para Exámenes",
       "other": "Otro"
     }
+  },
+  "SocialNetworks": {
+    "urlTooltip": "Ingresa la url de la red social"
+  },
+  "ContactView": {
+    "websiteLabel": "Web Oficial",
+    "emailLabel": "Email de contacto",
+    "countryCodeLabel": "País",
+    "phoneLabel": "Teléfono",
+    "addressLabel": "Dirección"
   }
 }
