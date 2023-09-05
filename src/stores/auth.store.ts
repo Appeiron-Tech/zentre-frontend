@@ -1,3 +1,42 @@
+import { defineStore } from 'pinia'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../firebaseConfig'
+// import router from '../router'
+
+export const useAuthStore = defineStore('auth', {
+  state: () => ({
+    user: {
+      loggedIn: false,
+      data: {},
+    },
+  }),
+  getters: {
+    getUser(state) {
+      return state.user
+    },
+  },
+  actions: {
+    async register(email: string, password: string) {
+      console.log('On register with: ' + email + ' - ' + password)
+      const response = await createUserWithEmailAndPassword(auth, email, password)
+      if (response) {
+        console.log(response.user)
+        this.user.data = response.user
+      } else {
+        throw new Error('Unable to register user')
+      }
+    },
+    async logIn(email: string, password: string) {
+      const response = await signInWithEmailAndPassword(auth, email, password)
+      if (response) {
+        this.user.data = response.user
+      } else {
+        throw new Error('login failed')
+      }
+    },
+  },
+})
+
 // import { defineStore } from 'pinia'
 // import { ref } from 'vue'
 // import router from '../router'

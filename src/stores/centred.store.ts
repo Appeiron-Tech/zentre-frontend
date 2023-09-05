@@ -34,24 +34,6 @@ export const useCentredStore = defineStore('centred', {
     },
     getSns(state) {
       return state.centred.schools[0].sns
-      // return Object.keys(SNS_DEFAULT_VALUES).map((sn) => {
-      //   const snDB = state.centred.schools[0].sns.find((snDB) => snDB.code === sn)
-      //   if (snDB) {
-      //     return {
-      //       ...snDB,
-      //       name: SNS_DEFAULT_VALUES[sn].name,
-      //       icon: SNS_DEFAULT_VALUES[sn].icon,
-      //     } as ISns
-      //   } else {
-      //     return {
-      //       code: sn,
-      //       url: '',
-      //       show: false,
-      //       name: SNS_DEFAULT_VALUES[sn].name,
-      //       icon: SNS_DEFAULT_VALUES[sn].icon,
-      //     } as ISns
-      //   }
-      // })
     },
   },
   actions: {
