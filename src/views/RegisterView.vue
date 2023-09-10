@@ -7,7 +7,7 @@ const password = ref('')
 const authStore = useAuthStore()
 
 function onSubmit() {
-  authStore.register(username.value, password.value)
+  authStore.registerWithEmailAndPassword(username.value, password.value)
 }
 
 function onReset() {

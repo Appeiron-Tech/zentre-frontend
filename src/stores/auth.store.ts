@@ -3,15 +3,18 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   type Auth,
+  type User as GUser,
 } from 'firebase/auth'
 import { useFirebaseAuth } from 'vuefire'
+import UserService from '@/services/user/User.service'
 
 const auth = useFirebaseAuth() as Auth
+const userService = new UserService()
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: {
       loggedIn: false,
-      data: {},
+      data: {} as GUser,
     },
   }),
   getters: {
@@ -20,12 +23,16 @@ export const useAuthStore = defineStore('auth', {
     },
   },
   actions: {
-    async register(email: string, password: string) {
-      console.log('On register with: ' + email + ' - ' + password)
+    async registerWithEmailAndPassword(email: string, password: string) {
       const response = await createUserWithEmailAndPassword(auth, email, password)
       if (response) {
         console.log(response.user)
-        this.user.data = response.user
+        const providerUser: GUser = response.user
+        const createdUser = await userService.createUser(providerUser, '6498a94e213a7fc800781e1a')
+        if (createdUser) {
+          this.user.data = response.user
+          this.user.loggedIn = true
+        }
       } else {
         throw new Error('Unable to register user')
       }
@@ -40,52 +47,3 @@ export const useAuthStore = defineStore('auth', {
     },
   },
 })
-
-// import { defineStore } from 'pinia'
-// import { ref } from 'vue'
-// import router from '../router'
-// import myFetch from '../helpers/myFetch'
-
-// export const useAuthStore = defineStore('auth', {
-//   state: () => ({
-//     user: ref({}),
-//     message: ref(''),
-//   }),
-//   getters: {
-//     userFirstName: (state) => {
-//       if (state.user.name) {
-//         return state.user.name.charAt(0).toUpperCase() + state.user.name.slice(1)
-//       }
-//     },
-//   },
-//   actions: {
-//     async register(createdName, createdUserName, createdPassword) {
-//       const body = { createdName, createdUserName, createdPassword }
-//       myFetch('register', 'POST', body).then((res) => {
-//         if (res.response.value.message) {
-//           this.message = res.response.value.message
-//         } else {
-//           this.user = res.response.value
-//           router.push('/')
-//         }
-//       })
-//     },
-
-//     async login(username, password) {
-//       const body = { username, password }
-//       myFetch('login', 'POST', body).then((res) => {
-//         this.user = res.response.value.user
-//         // redirect to home page
-//         router.push('/')
-//       })
-//     },
-//     logout() {
-//       // reset store to original state
-//       this.$reset()
-//       router.push('/')
-//     },
-//   },
-//   greeting: {
-//     enabled: false,
-//   },
-// })

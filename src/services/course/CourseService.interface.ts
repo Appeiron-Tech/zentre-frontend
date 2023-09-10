@@ -6,10 +6,3 @@ export interface ICourseService {
   getCourse(courseId: string): Promise<ICourse>
   updateCourse(request: ICourse): Promise<ICourse>
 }
-
-// type BatchCreatePaymentBatchRequest = AuthRequest<
-//   never,
-//   IPayableBatch,
-//   { payablesIds: string[]; productId: string },
-//   never
-// >;

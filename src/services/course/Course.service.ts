@@ -1,7 +1,7 @@
 import ApiService from '@/models/ApiService'
 import type { ICourseService } from './CourseService.interface'
 import type { ICourse, ICourseUpdate } from '@/models/course/Course.interface'
-import type { IGetCoursesReq } from './course.interface'
+import type { IGetCoursesReq } from './Course.interface'
 import { removeUndefined } from '@/utils/parses'
 
 export default class CourseService extends ApiService implements ICourseService {
