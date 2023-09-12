@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth.store'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { getCurrentUser } from 'vuefire'
 
 const username = ref('')
 const password = ref('')
+const router = useRouter()
 const authStore = useAuthStore()
+const currentUser = await getCurrentUser()
 
-function onSubmit() {
-  authStore.registerWithEmailAndPassword(username.value, password.value)
+async function onSubmit() {
+  await authStore.registerWithEmailAndPassword(username.value, password.value)
+  if (currentUser) {
+    router.push({ name: 'dashboard' })
+  }
 }
 
 function onReset() {

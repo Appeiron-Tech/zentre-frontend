@@ -28,4 +28,14 @@ export default class UserService extends ApiService implements IUserService {
       throw new Error('Unable to save in DB')
     }
   }
+
+  async loginUser(userUid: string): Promise<IUser> {
+    try {
+      const loggedInUserResponse = await this.patch(`/login/${userUid}`)
+      return loggedInUserResponse.data
+    } catch (e) {
+      console.log(e)
+      throw new Error('Unable to save in DB')
+    }
+  }
 }
