@@ -1,11 +1,16 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import AppToolbar from '@/components/layouts/AppToolbar.vue'
+
+const drawer = ref(false)
+const miniState = ref(true)
+</script>
+
 <template>
   <div>
     <q-layout view="hHh Lpr lff" class="shadow-2">
       <q-header elevated class="primary">
-        <q-toolbar>
-          <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
-          <q-toolbar-title>Z E N T R E</q-toolbar-title>
-        </q-toolbar>
+        <AppToolbar v-model:drawer="drawer"></AppToolbar>
       </q-header>
 
       <q-drawer
@@ -65,13 +70,6 @@
     </q-layout>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const drawer = ref(false)
-const miniState = ref(true)
-</script>
 
 <style lang="sass" scoped>
 .menu-list .q-item
