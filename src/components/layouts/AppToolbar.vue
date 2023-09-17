@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 
 const props = defineProps(['drawer'])
-const emit = defineEmits(['update:drawer'])
+const emit = defineEmits(['update:drawer', 'onLogout'])
 
 const drawer = computed({
   get() {
@@ -14,10 +14,6 @@ const drawer = computed({
 })
 const mobileData = ref(false)
 const bluetooth = ref(false)
-
-function logout(): void {
-  console.log('login out')
-}
 </script>
 
 <template>
@@ -41,7 +37,14 @@ function logout(): void {
 
           <div class="text-subtitle1 q-mt-md q-mb-xs">John Doe</div>
 
-          <q-btn color="primary" label="Logout" push size="sm" v-close-popup @click="logout" />
+          <q-btn
+            color="primary"
+            label="Logout"
+            push
+            size="sm"
+            v-close-popup
+            @click="$emit('onLogout')"
+          />
         </div>
       </div>
     </q-btn-dropdown>

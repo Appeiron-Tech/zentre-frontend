@@ -1,16 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import AppToolbar from '@/components/layouts/AppToolbar.vue'
+import { useFirebaseAuth } from 'vuefire'
+import { signOut, type Auth } from 'firebase/auth'
+import { useRouter } from 'vue-router'
 
 const drawer = ref(false)
 const miniState = ref(true)
+const router = useRouter()
+
+async function logout(): Promise<void> {
+  const auth = useFirebaseAuth() as Auth
+  await signOut(auth)
+  router.push({ name: 'login' })
+}
 </script>
 
 <template>
   <div>
     <q-layout view="hHh Lpr lff" class="shadow-2">
       <q-header elevated class="primary">
-        <AppToolbar v-model:drawer="drawer"></AppToolbar>
+        <AppToolbar v-model:drawer="drawer" @on-logout="logout"></AppToolbar>
       </q-header>
 
       <q-drawer

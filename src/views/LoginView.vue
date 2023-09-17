@@ -2,17 +2,16 @@
 import { useAuthStore } from '@/stores/auth.store'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { getCurrentUser } from 'vuefire'
 
 const username = ref('')
 const password = ref('')
 const authStore = useAuthStore()
 const router = useRouter()
-const currentUser = await getCurrentUser()
 
 async function onSubmit() {
   await authStore.signInWithEmailAndPassword(username.value, password.value)
-  if (currentUser) {
+  const user = authStore.user
+  if (user.id) {
     router.push({ name: 'dashboard' })
   }
 }

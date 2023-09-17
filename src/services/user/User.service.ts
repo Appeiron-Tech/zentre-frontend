@@ -24,7 +24,7 @@ export default class UserService extends ApiService implements IUserService {
       const createdUserResponse = await this.post(`/`, userToCreate)
       return createdUserResponse.data
     } catch (e) {
-      console.log(e)
+      console.error(e)
       throw new Error('Unable to save in DB')
     }
   }
@@ -34,7 +34,16 @@ export default class UserService extends ApiService implements IUserService {
       const loggedInUserResponse = await this.patch(`/login/${userUid}`)
       return loggedInUserResponse.data
     } catch (e) {
-      console.log(e)
+      console.error(e)
+      throw new Error('Unable to save in DB')
+    }
+  }
+
+  async logoutUser(userUid: string): Promise<void> {
+    try {
+      await this.patch(`/logout/${userUid}`)
+    } catch (e) {
+      console.error(e)
       throw new Error('Unable to save in DB')
     }
   }

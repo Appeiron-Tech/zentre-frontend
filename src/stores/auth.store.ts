@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendEmailVerification,
+  signOut,
   type Auth,
   type User as GUser,
 } from 'firebase/auth'
@@ -14,9 +15,7 @@ const auth = useFirebaseAuth() as Auth
 const userService = new UserService()
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: {
-      data: {} as IUser,
-    },
+    user: {} as IUser,
   }),
   getters: {
     getUser(state) {
@@ -30,7 +29,7 @@ export const useAuthStore = defineStore('auth', {
         const providerUser: GUser = response.user
         const createdUser = await userService.createUser(providerUser, '6498a94e213a7fc800781e1a')
         if (createdUser) {
-          this.user.data = createdUser
+          this.user = createdUser
           // const currentUser = await getCurrentUser()
           if (auth.currentUser) {
             await sendEmailVerification(auth.currentUser)
@@ -45,9 +44,19 @@ export const useAuthStore = defineStore('auth', {
       if (response) {
         const providerUser: GUser = response.user
         const loggedInUser = await userService.loginUser(providerUser.uid)
-        this.user.data = loggedInUser
+        this.user = loggedInUser
       } else {
         throw new Error('login failed')
+      }
+    },
+    async logout() {
+      try {
+        if (auth.currentUser) {
+          await userService.logoutUser(auth.currentUser.uid)
+        }
+        await signOut(auth)
+      } catch {
+        throw new Error('logout DB failed')
       }
     },
   },
