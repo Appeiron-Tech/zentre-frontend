@@ -1,5 +1,6 @@
 <template>
-  <div id="app" class="containerBackground">
+  <!-- <div id="app" class="containerBackground"> -->
+  <div id="app">
     <router-view />
   </div>
 </template>

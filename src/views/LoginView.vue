@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth.store'
 import { ref } from 'vue'
+import CalloutBox from '@/components/base/callouts/CalloutBox.vue'
 import { useRouter } from 'vue-router'
 
 const username = ref('')
@@ -24,7 +25,7 @@ function onReset() {
 
 <template>
   <div class="q-pa-md" style="max-width: 400px">
-    <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+    <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md q-py-lg">
       <q-input
         filled
         v-model="username"
@@ -47,5 +48,6 @@ function onReset() {
         <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
       </div>
     </q-form>
+    <CalloutBox text="Contraseña o email incorrectos" type="error" />
   </div>
 </template>

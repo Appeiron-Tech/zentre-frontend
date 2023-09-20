@@ -65,9 +65,7 @@ async function logout(): Promise<void> {
     </q-drawer>
 
     <q-page-container>
-      <!-- <q-page padding class="containerBackground"> -->
       <router-view />
-      <!-- </q-page> -->
     </q-page-container>
   </q-layout>
 </template>
