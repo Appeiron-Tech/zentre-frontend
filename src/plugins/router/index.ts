@@ -8,60 +8,74 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('@/views/LoginView.vue'),
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: () => import('@/views/RegisterView.vue'),
+      path: '/',
+      component: () => import('@/components/layouts/AppLayout.vue'),
+      children: [
+        {
+          path: 'dashboard',
+          name: 'dashboard',
+          alias: '/',
+          component: () => import('@/views/dashboard/DashboardView.vue'),
+        },
+        {
+          path: 'courses',
+          name: 'courses',
+          component: () => import('@/views/courses/CoursesView.vue'),
+        },
+        {
+          path: 'course/:id',
+          name: 'course',
+          component: () => import('@/views/courses/CourseView.vue'),
+        },
+        {
+          path: 'centred',
+          name: 'centred',
+          component: () => import('@/views/centred/CentredView.vue'),
+        },
+        {
+          path: 'cxentre',
+          name: 'cxentre',
+          component: () => import('@/views/cxentre/CXentreView.vue'),
+        },
+      ],
     },
     {
       path: '/',
-      name: 'dashboard',
-      component: () => import('@/views/dashboard/DashboardView.vue'),
+      component: () => import('@/components/layouts/LoginLayout.vue'),
+      children: [
+        {
+          path: '/:pathMatch(.*)*',
+          name: 'NotFound',
+          component: NotFoundView,
+        },
+        {
+          path: '404/:resource',
+          name: '404Resource',
+          component: NotFoundView,
+          props: true,
+        },
+        {
+          path: 'network-error',
+          name: 'NetworkError',
+          component: NetworkErrorView,
+        },
+      ],
     },
     {
-      path: '/courses',
-      name: 'courses',
-      component: () => import('@/views/courses/CoursesView.vue'),
-    },
-    {
-      path: '/course/:id',
-      name: 'course',
-      component: () => import('@/views/courses/CourseView.vue'),
-    },
-    {
-      path: '/content',
-      name: 'content',
-      component: () => import('@/views/content/ContentView.vue'),
-    },
-    {
-      path: '/centred',
-      name: 'centred',
-      component: () => import('@/views/centred/CentredView.vue'),
-    },
-    {
-      path: '/cxentre',
-      name: 'cxentre',
-      component: () => import('@/views/cxentre/CXentreView.vue'),
-    },
-    {
-      path: '/:catchAll(.*)',
-      name: 'NotFound',
-      component: NotFoundView,
-    },
-    {
-      path: '/404/:resource',
-      name: '404Resource',
-      component: NotFoundView,
-      props: true,
-    },
-    {
-      path: '/network-error',
-      name: 'NetworkError',
-      component: NetworkErrorView,
+      path: '/',
+      component: () => import('@/components/layouts/LoginLayout.vue'),
+      children: [
+        {
+          path: 'login',
+          name: 'login',
+          component: () => import('@/views/LoginView.vue'),
+        },
+        {
+          path: 'register',
+          name: 'register',
+          component: () => import('@/views/RegisterView.vue'),
+        },
+      ],
     },
   ],
 })
