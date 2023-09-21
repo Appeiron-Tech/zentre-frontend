@@ -8,12 +8,17 @@ const username = ref('')
 const password = ref('')
 const authStore = useAuthStore()
 const router = useRouter()
+const isWrongPassword = ref(false)
 
 async function onSubmit() {
-  await authStore.signInWithEmailAndPassword(username.value, password.value)
-  const user = authStore.user
-  if (user.id) {
-    router.push({ name: 'dashboard' })
+  try {
+    await authStore.signInWithEmailAndPassword(username.value, password.value)
+    const user = authStore.user
+    if (user.id) {
+      router.push({ name: 'dashboard' })
+    }
+  } catch (error) {
+    isWrongPassword.value = true
   }
 }
 
@@ -48,6 +53,6 @@ function onReset() {
         <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
       </div>
     </q-form>
-    <CalloutBox text="Contraseña o email incorrectos" type="error" />
+    <CalloutBox v-if="isWrongPassword" text="Contraseña o email incorrectos" type="error" />
   </div>
 </template>
