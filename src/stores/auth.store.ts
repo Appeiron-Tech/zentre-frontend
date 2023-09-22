@@ -10,6 +10,7 @@ import {
 import { useFirebaseAuth } from 'vuefire'
 import UserService from '@/services/user/User.service'
 import type { IUser } from '@/models/user/User.interface'
+import { isObjectEmpty } from '@/utils/validators'
 
 const auth = useFirebaseAuth() as Auth
 const userService = new UserService()
@@ -19,6 +20,12 @@ export const useAuthStore = defineStore('auth', {
   }),
   getters: {
     getUser(state) {
+      if (isObjectEmpty(state.user)) {
+        const localUser = localStorage.getItem('currentUser')
+        if (localUser) {
+          state.user = JSON.parse(localUser) as IUser
+        }
+      }
       return state.user
     },
   },
@@ -45,6 +52,7 @@ export const useAuthStore = defineStore('auth', {
         const providerUser: GUser = response.user
         const loggedInUser = await userService.loginUser(providerUser.uid)
         this.user = loggedInUser
+        localStorage.setItem('currentUser', JSON.stringify(this.user))
       } else {
         throw new Error('login failed')
       }

@@ -15,7 +15,7 @@ const isWrongPassword = ref(false)
 async function onSubmit() {
   try {
     await authStore.signInWithEmailAndPassword(username.value, password.value)
-    const user = authStore.user
+    const user = authStore.getUser
     if (user.id) {
       await centredStore.fetch(user.centredId)
       router.push({ name: 'dashboard' })

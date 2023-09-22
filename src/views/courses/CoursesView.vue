@@ -6,14 +6,14 @@ import ListCourse from './components/ListCourse.vue'
 import CourseService from '@/services/course/Course.service'
 import SkeletonList from '@/components/skeletons/SkeletonList.vue'
 import type { ICourse } from '@/models/course/Course.interface'
-import { useCentredStore } from '@/stores/centred.store'
-import { isObjectEmpty } from '@/utils/validators'
+import { useAuthStore } from '@/stores/auth.store'
 
 const showToggleCourseForm = ref(false)
+const userStore = useAuthStore()
 
 // API callbacks
 const courseService = new CourseService()
-const centredStore = useCentredStore()
+// const centredStore = useCentredStore()
 const courses = ref<ICourse[]>([] as ICourse[])
 const params = {
   params: {
@@ -22,10 +22,8 @@ const params = {
 }
 
 onMounted(async () => {
-  if (isObjectEmpty(centredStore.centred)) {
-    await centredStore.fetch('6498a94e213a7fc800781e1a')
-  }
-  courses.value = await courseService.getAllCourses(centredStore.centred.id, params)
+  const user = userStore.getUser
+  courses.value = await courseService.getAllCourses(user.centredId, params)
 })
 
 function toggleCourseForm() {
