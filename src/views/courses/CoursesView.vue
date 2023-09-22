@@ -5,22 +5,27 @@ import AddCourseDialog from './components/AddCourseDialog.vue'
 import ListCourse from './components/ListCourse.vue'
 import CourseService from '@/services/course/Course.service'
 import SkeletonList from '@/components/skeletons/SkeletonList.vue'
-import type { IGetCoursesReq } from '@/services/course/course.interface'
 import type { ICourse } from '@/models/course/Course.interface'
+import { useCentredStore } from '@/stores/centred.store'
+import { isObjectEmpty } from '@/utils/validators'
 
 const showToggleCourseForm = ref(false)
 
 // API callbacks
 const courseService = new CourseService()
+const centredStore = useCentredStore()
 const courses = ref<ICourse[]>([] as ICourse[])
-const params: IGetCoursesReq = {
+const params = {
   params: {
     category: 'TECH',
   },
 }
 
 onMounted(async () => {
-  courses.value = await courseService.getAllCourses(params)
+  if (isObjectEmpty(centredStore.centred)) {
+    await centredStore.fetch('6498a94e213a7fc800781e1a')
+  }
+  courses.value = await courseService.getAllCourses(centredStore.centred.id, params)
 })
 
 function toggleCourseForm() {
