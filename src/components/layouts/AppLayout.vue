@@ -11,6 +11,7 @@ const router = useRouter()
 
 async function logout(): Promise<void> {
   const auth = useFirebaseAuth() as Auth
+  localStorage.removeItem('currentUser')
   await signOut(auth)
   router.push({ name: 'login' })
 }

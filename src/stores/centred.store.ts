@@ -12,7 +12,15 @@ export const useCentredStore = defineStore('centred', {
     centred: {} as ICentred,
   }),
   getters: {
-    getCentredVerbose(state) {
+    getCentred(state) {
+      if (!state.centred.id) {
+        const localCentred = localStorage.getItem('centred')
+        if (localCentred) {
+          state.centred = JSON.parse(localCentred) as ICentred
+        } else {
+          console.log('there is not centred on LS')
+        }
+      }
       return state.centred
     },
     getBasicProfile(state) {
@@ -39,6 +47,7 @@ export const useCentredStore = defineStore('centred', {
   actions: {
     async fetch(centredId: string): Promise<void> {
       this.centred = await centredService.getCentred(centredId)
+      localStorage.setItem('centred', JSON.stringify(this.centred))
     },
 
     async updateBasicProfile(basicProfile: IBasicProfile) {

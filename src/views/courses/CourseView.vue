@@ -16,8 +16,8 @@ import {
 } from '@/constants'
 import { useI18n } from 'vue-i18n'
 import type { ICourse } from '@/models/course/Course.interface'
-import CourseService from '@/services/course/Course.service'
 import { useRoute, useRouter } from 'vue-router'
+import CourseService from '@/services/course/Course.service'
 
 const { t } = useI18n()
 const route = useRoute()

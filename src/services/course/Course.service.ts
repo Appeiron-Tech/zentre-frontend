@@ -1,6 +1,6 @@
 import ApiService from '@/models/ApiService'
 import type { ICourseService } from './CourseService.interface'
-import type { ICourse, ICourseUpdate } from '@/models/course/Course.interface'
+import type { ICourse, ICourseCreate, ICourseUpdate } from '@/models/course/Course.interface'
 import { removeUndefined } from '@/utils/parses'
 
 export default class CourseService extends ApiService implements ICourseService {
@@ -8,7 +8,7 @@ export default class CourseService extends ApiService implements ICourseService 
     super({ baseURL: '/course' })
   }
 
-  async getAllCourses(centredId: string, paramsRequest: any): Promise<ICourse[]> {
+  async getCourses(centredId: string, paramsRequest?: any): Promise<ICourse[]> {
     let courses = []
     try {
       courses = (await this.get(`/`, { params: { centredId } })).data
@@ -48,5 +48,11 @@ export default class CourseService extends ApiService implements ICourseService 
       console.log(e)
     }
     return rawCourse
+  }
+
+  async createCourse(centredId: string, rawCourse: ICourseCreate): Promise<ICourse> {
+    const course = { centredId, ...rawCourse }
+    const createdCourse = (await this.post(`/`, course)).data
+    return createdCourse
   }
 }

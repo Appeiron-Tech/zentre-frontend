@@ -3,7 +3,7 @@ import { useAuthStore } from '@/stores/auth.store'
 import { ref } from 'vue'
 import CalloutBox from '@/components/base/callouts/CalloutBox.vue'
 import { useRouter } from 'vue-router'
-import { useCentredStore } from '@/stores/centred.store';
+import { useCentredStore } from '@/stores/centred.store'
 
 const username = ref('')
 const password = ref('')

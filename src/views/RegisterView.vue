@@ -1,19 +1,25 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth.store'
+import { useCentredStore } from '@/stores/centred.store';
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { getCurrentUser } from 'vuefire'
 
 const username = ref('')
 const password = ref('')
-const router = useRouter()
 const authStore = useAuthStore()
-const currentUser = await getCurrentUser()
+const router = useRouter()
+const centredStore = useCentredStore()
 
 async function onSubmit() {
-  await authStore.registerWithEmailAndPassword(username.value, password.value)
-  if (currentUser) {
-    router.push({ name: 'dashboard' })
+  try {
+    await authStore.registerWithEmailAndPassword(username.value, password.value)
+    const user = authStore.getUser
+    if (user.id) {
+      await centredStore.fetch(user.centredId)
+      router.push({ name: 'dashboard' })
+    }
+  } catch (error) {
+    console.error(error)
   }
 }
 
@@ -25,7 +31,7 @@ function onReset() {
 
 <template>
   <div class="q-pa-md" style="max-width: 400px">
-    <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+    <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md q-py-lg">
       <q-input
         filled
         v-model="username"

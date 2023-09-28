@@ -6,14 +6,17 @@ import BaseBar from '@/components/base/dialog/BaseBar.vue'
 import { useI18n } from 'vue-i18n'
 import { COURSES_CATEGORY } from '@/constants'
 import { useRouter } from 'vue-router'
+import CourseService from '@/services/course/Course.service'
+import type { ICourseCreate } from '@/models/course/Course.interface'
 
 const { t } = useI18n()
-const props = defineProps(['modelValue'])
+const props = defineProps(['modelValue', 'centredId'])
 const emit = defineEmits(['update:modelValue'])
 
 const title = ref(null)
 const step = ref(1)
 const router = useRouter()
+const courseService = new CourseService()
 
 const value = computed({
   get() {
@@ -39,13 +42,27 @@ const nextStepDisabled = computed(() => {
 })
 // -----------------------------
 
-function onSubmit() {
-  router.push({
-    name: 'course',
-    params: {
-      id: 123,
-    },
-  })
+async function onSubmit() {
+  if (title.value && description.value && category.value) {
+    const courseToCreate: ICourseCreate = {
+      title: title.value,
+      description: description.value,
+      category: category.value,
+    }
+    try {
+      const createdCourse = await courseService.createCourse(props.centredId, courseToCreate)
+      if (createdCourse) {
+        router.push({
+          name: 'course',
+          params: {
+            id: createdCourse.id,
+          },
+        })
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
 const validateStep = (inputValue: string, idx: number, maxLength = 100) => {

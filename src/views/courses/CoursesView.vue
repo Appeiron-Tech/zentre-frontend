@@ -13,17 +13,11 @@ const userStore = useAuthStore()
 
 // API callbacks
 const courseService = new CourseService()
-// const centredStore = useCentredStore()
 const courses = ref<ICourse[]>([] as ICourse[])
-const params = {
-  params: {
-    category: 'TECH',
-  },
-}
+const user = userStore.getUser
 
 onMounted(async () => {
-  const user = userStore.getUser
-  courses.value = await courseService.getAllCourses(user.centredId, params)
+  courses.value = await courseService.getCourses(user.centredId)
 })
 
 function toggleCourseForm() {
@@ -42,7 +36,7 @@ function toggleCourseForm() {
           <SkeletonList v-else :items="5" />
         </div>
       </div>
-      <AddCourseDialog v-model="showToggleCourseForm" />
+      <AddCourseDialog v-model="showToggleCourseForm" :centred-id="user.centredId" />
     </div>
   </main>
 </template>

@@ -86,7 +86,7 @@ router.beforeEach(() => {
 
 router.beforeEach(async (to) => {
   const currentUser = await getCurrentUser()
-  if (!currentUser && to.name !== 'login') {
+  if (!currentUser && to.name !== 'login' && to.name !== 'register') {
     return { name: 'login' }
   }
 })
