@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendEmailVerification,
+  sendPasswordResetEmail,
   signOut,
   type Auth,
   type User as GUser,
@@ -65,6 +66,14 @@ export const useAuthStore = defineStore('auth', {
         await signOut(auth)
       } catch {
         throw new Error('logout DB failed')
+      }
+    },
+    async sendPasswordResetEmail(email: string) {
+      try {
+        await sendPasswordResetEmail(auth, email)
+      } catch (error) {
+        console.error(error)
+        throw new Error('Error sending email')
       }
     },
   },

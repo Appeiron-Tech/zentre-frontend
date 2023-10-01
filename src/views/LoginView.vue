@@ -25,6 +25,10 @@ async function onSubmit() {
   }
 }
 
+function goRecoverPassword() {
+  router.push({ name: 'recoverPassword' })
+}
+
 function onReset() {
   username.value = ''
   password.value = ''
@@ -56,6 +60,9 @@ function onReset() {
         <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
       </div>
     </q-form>
-    <CalloutBox v-if="isWrongPassword" text="Contraseña o email incorrectos" type="error" />
+    <div>
+      <CalloutBox v-if="isWrongPassword" text="Contraseña o email incorrectos" type="error" />
+      <q-btn color="secondary" label="Recover Password" @click="goRecoverPassword" />
+    </div>
   </div>
 </template>

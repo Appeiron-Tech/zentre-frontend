@@ -24,4 +24,14 @@ defineProps({
   color: #b00020;
   border-radius: 5px;
 }
+
+.info {
+  position: relative;
+  padding: 15px;
+  text-align: center;
+  background-color: #e3f2fd;
+  border: 1px solid #29b6f6;
+  color: #29b6f6;
+  border-radius: 5px;
+}
 </style>

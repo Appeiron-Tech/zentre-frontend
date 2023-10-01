@@ -75,6 +75,11 @@ const router = createRouter({
           name: 'register',
           component: () => import('@/views/RegisterView.vue'),
         },
+        {
+          path: 'recoverPassword',
+          name: 'recoverPassword',
+          component: () => import('@/views/recoverPassword.vue'),
+        },
       ],
     },
   ],
@@ -86,7 +91,12 @@ router.beforeEach(() => {
 
 router.beforeEach(async (to) => {
   const currentUser = await getCurrentUser()
-  if (!currentUser && to.name !== 'login' && to.name !== 'register') {
+  if (
+    !currentUser &&
+    to.name !== 'login' &&
+    to.name !== 'register' &&
+    to.name !== 'recoverPassword'
+  ) {
     return { name: 'login' }
   }
 })
