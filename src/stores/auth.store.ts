@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('auth', {
       const response = await createUserWithEmailAndPassword(auth, email, password)
       if (response) {
         const providerUser: GUser = response.user
-        const createdUser = await userService.createUser(providerUser, '6498a94e213a7fc800781e1a')
+        const createdUser = await userService.createUser(providerUser, '63c700411aa173942ca540ab')
         if (createdUser) {
           this.user = createdUser
           // const currentUser = await getCurrentUser()

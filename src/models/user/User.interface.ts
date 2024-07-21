@@ -1,12 +1,12 @@
 export interface IUserCreate {
   uid: string
+  companyId: string
   email: string | null
   displayName: string | null
   emailVerified: boolean
   isAnonymous: boolean
   phoneNumber: string | null
   photoURL: string | null
-  centredId: string
   lastLoginAt: Date
 }
 

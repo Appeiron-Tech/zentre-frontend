@@ -5,10 +5,10 @@ import type { User as GUser } from 'firebase/auth'
 
 export default class UserService extends ApiService implements IUserService {
   constructor() {
-    super({ baseURL: '/user' })
+    super({ baseURL: '/auth' })
   }
 
-  async createUser(rawUser: GUser, centredId: string): Promise<IUser> {
+  async createUser(rawUser: GUser, companyId: string): Promise<IUser> {
     try {
       const userToCreate: IUserCreate = {
         uid: rawUser.uid,
@@ -18,7 +18,7 @@ export default class UserService extends ApiService implements IUserService {
         isAnonymous: rawUser.isAnonymous,
         phoneNumber: rawUser.phoneNumber,
         photoURL: rawUser.photoURL,
-        centredId: centredId,
+        companyId: companyId,
         lastLoginAt: new Date(rawUser.metadata.lastSignInTime ?? ''),
       }
       const createdUserResponse = await this.post(`/`, userToCreate)
