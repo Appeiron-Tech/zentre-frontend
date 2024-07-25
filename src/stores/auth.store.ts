@@ -49,9 +49,13 @@ export const useAuthStore = defineStore('auth', {
     },
     async signInWithEmailAndPassword(email: string, password: string) {
       const response = await signInWithEmailAndPassword(auth, email, password)
-      if (response) {
+      console.log('firebase response')
+      console.log(response)
+      if (response.user) {
         const providerUser: GUser = response.user
         const loggedInUser = await userService.loginUser(providerUser.uid)
+        console.log('loggedUser')
+        console.log(loggedInUser)
         this.user = loggedInUser
         localStorage.setItem('currentUser', JSON.stringify(this.user))
       } else {

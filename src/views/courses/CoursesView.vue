@@ -17,7 +17,7 @@ const courses = ref<ICourse[]>([] as ICourse[])
 const user = userStore.getUser
 
 onMounted(async () => {
-  courses.value = await courseService.getCourses(user.centredId)
+  courses.value = await courseService.getCourses(user.companyId)
 })
 
 function toggleCourseForm() {
@@ -36,7 +36,8 @@ function toggleCourseForm() {
           <SkeletonList v-else :items="5" />
         </div>
       </div>
-      <AddCourseDialog v-model="showToggleCourseForm" :centred-id="user.centredId" />
+      <AddCourseDialog v-model="showToggleCourseForm" :centred-id="user.companyId" />
     </div>
   </main>
 </template>
+companyIdcompanyIdcompanyIdcompanyId

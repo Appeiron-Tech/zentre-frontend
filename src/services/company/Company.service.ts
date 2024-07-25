@@ -1,5 +1,5 @@
 import ApiService from '@/models/ApiService'
-import type { ICompany, ICompanyUpdate } from '@/models/centred/Company.interfaces'
+import type { ICompany, ICompanyDB, ICompanyUpdate } from '@/models/centred/Company.interfaces'
 import { removeUndefined } from '@/utils/parses'
 import { parseToReadCompany } from '@/models/centred/Company.parser'
 
@@ -10,7 +10,7 @@ export default class CompanyService extends ApiService {
 
   async getById(companyId: string): Promise<ICompany> {
     try {
-      const companyDB = (await this.get(`/${companyId}`)).data
+      const companyDB = (await this.get(`/${companyId}`)).data as ICompanyDB
       return parseToReadCompany(companyDB)
     } catch (e) {
       console.error(e)

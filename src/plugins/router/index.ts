@@ -17,16 +17,16 @@ const router = createRouter({
           alias: '/',
           component: () => import('@/views/dashboard/DashboardView.vue'),
         },
-        {
-          path: 'courses',
-          name: 'courses',
-          component: () => import('@/views/courses/CoursesView.vue'),
-        },
-        {
-          path: 'course/:id',
-          name: 'course',
-          component: () => import('@/views/courses/CourseView.vue'),
-        },
+        // {
+        //   path: 'courses',
+        //   name: 'courses',
+        //   component: () => import('@/views/courses/CoursesView.vue'),
+        // },
+        // {
+        //   path: 'course/:id',
+        //   name: 'course',
+        //   component: () => import('@/views/courses/CourseView.vue'),
+        // },
         {
           path: 'centred',
           name: 'centred',

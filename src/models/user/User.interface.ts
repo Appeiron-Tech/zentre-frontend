@@ -19,7 +19,7 @@ export interface IUser {
   isAnonymous: boolean
   phoneNumber: string | null
   photoURL: string | null
-  centredId: string
+  companyId: string
   lastLoginAt: Date
   createdAt: Date
 }

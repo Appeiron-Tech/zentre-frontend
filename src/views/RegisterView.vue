@@ -15,7 +15,7 @@ async function onSubmit() {
     await authStore.registerWithEmailAndPassword(username.value, password.value)
     const user = authStore.getUser
     if (user.id) {
-      await centredStore.fetch(user.centredId)
+      await centredStore.fetch(user.companyId)
       router.push({ name: 'dashboard' })
     }
   } catch (error) {
@@ -56,3 +56,4 @@ function onReset() {
     </q-form>
   </div>
 </template>
+companyId
