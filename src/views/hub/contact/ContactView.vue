@@ -2,13 +2,13 @@
 // https://github.com/codingwithjustin/vue-google-maps/blob/master/src/App.vue
 // https://developers.google.com/maps/documentation/javascript/geolocation
 import { useQuasar } from 'quasar'
-import { COUNTRIES } from '@/constants'
-import type { ICountry } from '@/constants'
+import { COUNTRIES } from '../../../constants'
+import type { ICountry } from '../../../constants'
 import { ref, onBeforeMount, watch } from 'vue'
-import { isObjectEmpty } from '@/utils/validators'
-import { useCentredStore } from '@/stores/centred.store'
-import type { IPhone, IContact as IStoreContact } from '@/models/centred/Centred.interface'
-import BaseInput from '@/components/base/inputs/BaseInput.vue'
+import { isObjectEmpty } from '../../../utils/validators'
+import { useCentredStore } from '../../../stores/centred.store'
+import BaseInput from '../../../components/base/inputs/BaseInput.vue'
+import type { IPhone, IContact as IStoreContact } from '../../../models/centred/Company.interfaces'
 
 interface IContact {
   phones: IPhone[]

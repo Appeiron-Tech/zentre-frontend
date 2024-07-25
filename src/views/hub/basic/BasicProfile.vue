@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import ImageCropper from '@/components/cropper/ImageCropper.vue'
+import ImageCropper from '../../../components/cropper/ImageCropper.vue'
 import { useQuasar } from 'quasar'
-import BaseCard from '@/components/base/card/BaseCard.vue'
-import BaseCardSection from '@/components/base/card/BaseCardSection.vue'
-import BaseCardActions from '@/components/base/card/BaseCardActions.vue'
-import BaseDialog from '@/components/base/dialog/BaseDialog.vue'
+import BaseCard from '../../../components/base/card/BaseCard.vue'
+import BaseCardSection from '../../../components/base/card/BaseCardSection.vue'
+import BaseCardActions from '../../../components/base/card/BaseCardActions.vue'
+import BaseDialog from '../../../components/base/dialog/BaseDialog.vue'
 import { onBeforeMount, ref, watch } from 'vue'
-import BaseAvatar from '@/components/base/avatar/BaseAvatar.vue'
-import BaseImage from '@/components/base/image/BaseImage.vue'
-import { useCentredStore } from '@/stores/centred.store'
-import { isObjectEmpty } from '@/utils/validators'
-import type { IBasicProfile } from '@/models/centred/School.interface'
+import BaseAvatar from '../../../components/base/avatar/BaseAvatar.vue'
+import BaseImage from '../../../components/base/image/BaseImage.vue'
+import { useCentredStore } from '../../../stores/centred.store'
+import { isObjectEmpty } from '../../../utils/validators'
+import type { IBasicProfile } from '../../../models/centred/School.interface'
 
 const $q = useQuasar()
 const profile = ref()
@@ -23,15 +23,15 @@ const coverPicked = ref()
 const coverDialog = ref(false)
 const coverInputName = ref()
 const refCoverCropper = ref()
-const centredStore = useCentredStore()
+const companyStore = useCentredStore()
 const basicProfile = ref({} as IBasicProfile)
 const basicProfileHasChange = ref(false)
 
 onBeforeMount(async () => {
-  if (isObjectEmpty(centredStore.centred)) {
-    await centredStore.fetch('6498a94e213a7fc800781e1a')
+  if (isObjectEmpty(companyStore.centred)) {
+    await companyStore.fetch('63c700411aa173942ca540ab')
   }
-  basicProfile.value = centredStore.getBasicProfile
+  basicProfile.value = companyStore.getBasicProfile
 })
 
 async function onSubmit() {
@@ -45,7 +45,7 @@ async function onSubmit() {
     const newProfileUrl = 'newProfileUrl'
     basicProfile.value.profileUrl = newProfileUrl
   }
-  centredStore.updateBasicProfile(basicProfile.value)
+  companyStore.updateBasicProfile(basicProfile.value)
   basicProfileHasChange.value = false
   $q.notify({
     color: 'green-4',

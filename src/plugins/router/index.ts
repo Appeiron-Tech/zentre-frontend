@@ -28,9 +28,9 @@ const router = createRouter({
         //   component: () => import('@/views/courses/CourseView.vue'),
         // },
         {
-          path: 'company',
-          name: 'company',
-          component: () => import('@/views/company/CompanyView.vue'),
+          path: 'hub',
+          name: 'hub',
+          component: () => import('@/views/hub/HubView.vue'),
         },
         {
           path: 'cxentre',
@@ -78,7 +78,7 @@ const router = createRouter({
         {
           path: 'recoverPassword',
           name: 'recoverPassword',
-          component: () => import('@/views/recoverPassword.vue'),
+          component: () => import('../../views/RecoverPassword.vue'),
         },
       ],
     },
