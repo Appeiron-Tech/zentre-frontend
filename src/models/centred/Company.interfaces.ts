@@ -1,38 +1,38 @@
-import type { ISchool } from './School.interface'
+import type { IStore } from './School.interface'
 
-export interface ICentredDB {
+export interface ICompanyDB {
   id: string
   tenancyName: string
   country: string
   type: string
   currencyName: string
   ga_email_analytics: string
-  apps: ICentredApp[]
-  schools: ISchool[]
+  apps: ICompanyApp[]
+  stores: IStore[]
   updatedAt: Date
   createdAt: Date
 }
 
-export interface ICentred {
+export interface ICompany {
   id: string
   tenancyName: string
   country: string
   type: string
   currencyName: string
   ga_email_analytics: string
-  apps: ICentredApp[]
-  schools: ISchool[]
+  apps: ICompanyApp[]
+  stores: IStore[]
   updatedAt: Date
   createdAt: Date
 }
 
-export interface ICentredUpdate {
+export interface ICompanyUpdate {
   tenancyName?: string
   country?: string
   type?: string
   currencyName?: string
   ga_email_analytics?: string
-  apps?: ICentredApp[]
+  apps?: ICompanyApp[]
 }
 
 export interface IContact {
@@ -42,7 +42,7 @@ export interface IContact {
   website: string
 }
 
-export interface ICentredApp {
+export interface ICompanyApp {
   app: string
   plan: string
 }

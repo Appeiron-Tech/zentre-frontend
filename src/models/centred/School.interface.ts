@@ -1,8 +1,8 @@
-import type { IContact } from './Centred.interface'
+import type { IContact } from './Company.interfaces'
 
-export interface ISchool {
+export interface IStore {
   id: string
-  centredId: string
+  companyId: string
   coverUrl: string
   profileUrl: string
   officialName: string
@@ -19,9 +19,9 @@ export interface ISchool {
   createdAt: Date
 }
 
-export interface ISchoolDB {
+export interface IStoreDB {
   id: string
-  centredId: string
+  companyId: string
   coverUrl: string
   profileUrl: string
   officialName: string
@@ -38,7 +38,7 @@ export interface ISchoolDB {
   createdAt: Date
 }
 
-export interface ISchoolUpdate {
+export interface IStoreUpdate {
   address?: string
   country?: string
   type?: string
