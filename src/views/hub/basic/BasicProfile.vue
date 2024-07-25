@@ -10,7 +10,7 @@ import BaseAvatar from '../../../components/base/avatar/BaseAvatar.vue'
 import BaseImage from '../../../components/base/image/BaseImage.vue'
 import { useCentredStore } from '../../../stores/centred.store'
 import { isObjectEmpty } from '../../../utils/validators'
-import type { IBasicProfile } from '../../../models/centred/School.interface'
+import type { IBasicProfile } from '../../../models/centred/Store.interface'
 
 const $q = useQuasar()
 const profile = ref()
@@ -228,3 +228,4 @@ watch(
     </div>
   </main>
 </template>
+../../../models/centred/Store.interfaceIDefaultStoreIDefaultStore

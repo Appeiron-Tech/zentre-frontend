@@ -1,6 +1,6 @@
 import type { IContact, ICompany } from '@/models/centred/Company.interfaces'
-import { parseToSnsDB } from '@/models/centred/School.class'
-import type { IBasicProfile, ISns } from '@/models/centred/School.interface'
+import { parseToSnsDB } from '../models/centred/Store.class'
+import type { IDefaultStore, ISns } from '../models/centred/Store.interface'
 import CompanyService from '@/services/company/Company.service'
 import StoreService from '@/services/company/Store.service'
 import { defineStore } from 'pinia'
@@ -24,7 +24,7 @@ export const useCentredStore = defineStore('centred', {
       return state.centred
     },
     getBasicProfile(state) {
-      const basicProfile: IBasicProfile = {
+      const basicProfile: IDefaultStore = {
         summary: state.centred.stores[0].summary,
         shortName: state.centred.stores[0].shortName,
         coverUrl: state.centred.stores[0].coverUrl,
@@ -50,7 +50,7 @@ export const useCentredStore = defineStore('centred', {
       localStorage.setItem('company', JSON.stringify(this.centred))
     },
 
-    async updateBasicProfile(basicProfile: IBasicProfile) {
+    async updateBasicProfile(basicProfile: IDefaultStore) {
       const schoolId = this.centred.stores[0].id
       this.centred.stores[0] = await schoolService.updateStore(schoolId, basicProfile)
     },

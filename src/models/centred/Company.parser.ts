@@ -1,5 +1,5 @@
 import type { ICompany, ICompanyDB } from './Company.interfaces'
-import { parseToStoreRead } from './School.class'
+import { parseToStoreRead } from './Store.class'
 
 export function parseToReadCompany(rawCompany: ICompanyDB): ICompany {
   const company: ICompany = {

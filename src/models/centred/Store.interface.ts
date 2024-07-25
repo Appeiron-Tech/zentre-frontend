@@ -2,20 +2,20 @@ import type { IContact } from './Company.interfaces'
 
 export interface IStore {
   id: string
-  companyId: string
-  coverUrl: string
-  profileUrl: string
-  officialName: string
-  shortName: string
-  summary: string
-  address: string
-  country: string
-  type: string
+  name: string
+  description: string
+  address?: string
+  logoUrl?: string
+  coverUrl?: string
+  isMain: boolean
+  latitude?: number
+  longitude?: number
+  cityId?: number
+  sns?: ISns[]
+  isOpenAlways: boolean
+  openingHours: IOpeningHour[]
   contact: IContact
-  sns: ISns[]
-  favicon: string
-  currency: string
-  updatedAt: Date
+  isActive: boolean
   createdAt: Date
 }
 
@@ -53,17 +53,18 @@ export interface IStoreUpdate {
   favicon?: string
 }
 
-export interface IBasicProfile {
-  summary?: string
-  shortName?: string
-  coverUrl?: string
-  profileUrl?: string
-}
+export type IDefaultStore = Pick<IStore, 'name' | 'description' | 'coverUrl' | 'logoUrl'>
 
 export interface ISnsDB {
   code: string
   url: string
   show: boolean
+}
+
+export interface IOpeningHour {
+  weekDay: number
+  from: string
+  to: string
 }
 
 export interface ISns extends ISnsDB {

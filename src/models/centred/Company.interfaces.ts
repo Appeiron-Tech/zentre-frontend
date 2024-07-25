@@ -1,4 +1,4 @@
-import type { IStore } from './School.interface'
+import type { IStore } from './Store.interface'
 
 export interface ICompanyDB {
   id: string

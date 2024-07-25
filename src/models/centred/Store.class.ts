@@ -1,5 +1,5 @@
 import { SNS_DEFAULT_VALUES } from '@/constants'
-import type { IStore, IStoreDB, ISns, ISnsDB } from './School.interface'
+import type { IStore, IStoreDB, ISns, ISnsDB } from './Store.interface'
 
 export function parseToStoreRead(storeDB: IStoreDB): IStore {
   const storeRead: IStore = {
