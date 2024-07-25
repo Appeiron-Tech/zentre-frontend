@@ -56,4 +56,3 @@ function onReset() {
     </q-form>
   </div>
 </template>
-companyId

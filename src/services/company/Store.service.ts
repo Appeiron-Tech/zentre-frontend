@@ -3,9 +3,9 @@ import { removeUndefined } from '@/utils/parses'
 import type { IStore, IStoreUpdate } from '@/models/centred/School.interface'
 import { parseToStoreRead } from '@/models/centred/School.class'
 
-export default class SchoolService extends ApiService {
+export default class StoreService extends ApiService {
   constructor() {
-    super({ baseURL: '/school' })
+    super({ baseURL: '/store' })
   }
 
   async getStore(storeId: string): Promise<IStore> {
@@ -28,7 +28,7 @@ export default class SchoolService extends ApiService {
       return parseToStoreRead(updatedStoreDB)
     } catch (e) {
       console.log(e)
-      throw new Error('Centred can not be updated')
+      throw new Error('Store can not be updated')
     }
   }
 }

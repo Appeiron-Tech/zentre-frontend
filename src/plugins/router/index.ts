@@ -28,9 +28,9 @@ const router = createRouter({
         //   component: () => import('@/views/courses/CourseView.vue'),
         // },
         {
-          path: 'centred',
-          name: 'centred',
-          component: () => import('@/views/centred/CentredView.vue'),
+          path: 'company',
+          name: 'company',
+          component: () => import('@/views/company/CompanyView.vue'),
         },
         {
           path: 'cxentre',

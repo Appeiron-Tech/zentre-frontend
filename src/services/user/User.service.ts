@@ -1,9 +1,8 @@
 import ApiService from '@/models/ApiService'
-import type { IUserService } from './UserService.interface'
 import type { IUser, IUserCreate } from '@/models/user/User.interface'
 import type { User as GUser } from 'firebase/auth'
 
-export default class UserService extends ApiService implements IUserService {
+export default class UserService extends ApiService {
   constructor() {
     super({ baseURL: '/auth' })
   }

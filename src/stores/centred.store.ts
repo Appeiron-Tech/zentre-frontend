@@ -2,11 +2,11 @@ import type { IContact, ICompany } from '@/models/centred/Company.interfaces'
 import { parseToSnsDB } from '@/models/centred/School.class'
 import type { IBasicProfile, ISns } from '@/models/centred/School.interface'
 import CompanyService from '@/services/company/Company.service'
-import SchoolService from '@/services/company/School.service'
+import StoreService from '@/services/company/Store.service'
 import { defineStore } from 'pinia'
 
 const centredService = new CompanyService()
-const schoolService = new SchoolService()
+const schoolService = new StoreService()
 export const useCentredStore = defineStore('centred', {
   state: () => ({
     centred: {} as ICompany,
@@ -14,7 +14,7 @@ export const useCentredStore = defineStore('centred', {
   getters: {
     getCentred(state) {
       if (!state.centred.id) {
-        const localCentred = localStorage.getItem('centred')
+        const localCentred = localStorage.getItem('company')
         if (localCentred) {
           state.centred = JSON.parse(localCentred) as ICompany
         } else {
@@ -47,7 +47,7 @@ export const useCentredStore = defineStore('centred', {
   actions: {
     async fetch(centredId: string): Promise<void> {
       this.centred = await centredService.getById(centredId)
-      localStorage.setItem('centred', JSON.stringify(this.centred))
+      localStorage.setItem('company', JSON.stringify(this.centred))
     },
 
     async updateBasicProfile(basicProfile: IBasicProfile) {
