@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth.store'
-import { useCentredStore } from '@/stores/centred.store';
+import { useCompanyStore } from '@/stores/company.store'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -8,14 +8,14 @@ const username = ref('')
 const password = ref('')
 const authStore = useAuthStore()
 const router = useRouter()
-const centredStore = useCentredStore()
+const companyStore = useCompanyStore()
 
 async function onSubmit() {
   try {
     await authStore.registerWithEmailAndPassword(username.value, password.value)
     const user = authStore.getUser
     if (user.id) {
-      await centredStore.fetch(user.companyId)
+      await companyStore.fetch(user.companyId)
       router.push({ name: 'dashboard' })
     }
   } catch (error) {

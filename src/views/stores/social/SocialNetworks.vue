@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import type { ISns } from '@/models/centred/School.interface'
-import { useCentredStore } from '@/stores/centred.store'
+import type { ISns } from '../../../models/centred/Store.interface'
 import { useQuasar } from 'quasar'
-import { isObjectEmpty } from '@/utils/validators'
 import { onBeforeMount, ref, watch } from 'vue'
+import { isObjectEmpty } from '../../../utils/validators'
+import { useCompanyStore } from '../../../stores/company.store'
 
-const centredStore = useCentredStore()
+const companyStore = useCompanyStore()
 const sns = ref<ISns[]>([])
 const snsHasChange = ref(false)
 const $q = useQuasar()
 
 onBeforeMount(async () => {
-  if (isObjectEmpty(centredStore.centred)) {
-    await centredStore.fetch('6498a94e213a7fc800781e1a')
+  if (isObjectEmpty(companyStore.company)) {
+    await companyStore.fetch('6498a94e213a7fc800781e1a')
   }
-  sns.value = centredStore.getSns
+  sns.value = companyStore.getSns
 })
 
 function onSubmit() {
-  centredStore.updateSns(sns.value)
+  companyStore.updateSns(sns.value)
   snsHasChange.value = false
   $q.notify({
     color: 'green-4',

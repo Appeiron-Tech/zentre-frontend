@@ -1,7 +1,7 @@
 import ApiService from '@/models/ApiService'
-import type { ICompany, ICompanyDB, ICompanyUpdate } from '@/models/centred/Company.interfaces'
+import type { ICompany, ICompanyDB, ICompanyUpdate } from '@/models/company/Company.interfaces'
 import { removeUndefined } from '@/utils/parses'
-import { parseToReadCompany } from '@/models/centred/Company.parser'
+import { parseToReadCompany } from '@/models/company/Company.parser'
 
 export default class CompanyService extends ApiService {
   constructor() {

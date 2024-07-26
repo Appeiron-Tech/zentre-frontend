@@ -8,9 +8,9 @@ import BaseDialog from '../../../components/base/dialog/BaseDialog.vue'
 import { onBeforeMount, ref, watch } from 'vue'
 import BaseAvatar from '../../../components/base/avatar/BaseAvatar.vue'
 import BaseImage from '../../../components/base/image/BaseImage.vue'
-import { useCentredStore } from '../../../stores/centred.store'
+import { useCompanyStore } from '../../../stores/company.store'
 import { isObjectEmpty } from '../../../utils/validators'
-import type { IBasicProfile } from '../../../models/centred/Store.interface'
+import type { IBasicStore } from '../../../models/centred/Store.interface'
 
 const $q = useQuasar()
 const profile = ref()
@@ -23,30 +23,30 @@ const coverPicked = ref()
 const coverDialog = ref(false)
 const coverInputName = ref()
 const refCoverCropper = ref()
-const companyStore = useCentredStore()
-const basicProfile = ref({} as IBasicProfile)
-const basicProfileHasChange = ref(false)
+const companyStore = useCompanyStore()
+const basicStore = ref({} as IBasicStore)
+const basicStoreHasChange = ref(false)
 
 onBeforeMount(async () => {
-  if (isObjectEmpty(companyStore.centred)) {
+  if (isObjectEmpty(companyStore.company)) {
     await companyStore.fetch('63c700411aa173942ca540ab')
   }
-  basicProfile.value = companyStore.getBasicProfile
+  basicStore.value = companyStore.getBasicStore
 })
 
 async function onSubmit() {
   if (coverPicked.value) {
-    //send image to google
+    //TODO send image to google
     const newCoverUrl = 'newCoverUrl'
-    basicProfile.value.coverUrl = newCoverUrl
+    basicStore.value.coverUrl = newCoverUrl
   }
   if (profilePicked.value) {
-    //send image to google
-    const newProfileUrl = 'newProfileUrl'
-    basicProfile.value.profileUrl = newProfileUrl
+    //TODO send image to google
+    const newLogoUrl = 'newProfileUrl'
+    basicStore.value.logoUrl = newLogoUrl
   }
-  companyStore.updateBasicProfile(basicProfile.value)
-  basicProfileHasChange.value = false
+  companyStore.updateBasicStore(basicStore.value)
+  basicStoreHasChange.value = false
   $q.notify({
     color: 'green-4',
     textColor: 'white',
@@ -72,7 +72,7 @@ const updateProfileRef = (refValue: unknown) => {
 function cropCoverImage(): void {
   const result = refCoverCropper.value.getResult()
   const cropperImage = result.canvas.toDataURL('image/jpg')
-  basicProfile.value.coverUrl = cropperImage
+  basicStore.value.coverUrl = cropperImage
   coverDialog.value = false
 }
 
@@ -81,10 +81,10 @@ function cancelCoverDialog(): void {
   coverDialog.value = false
 }
 
-function cropProfileImage(): void {
+function cropLogoImage(): void {
   const result = refProfileCropper.value.getResult()
   const croppedImage = result.canvas.toDataURL('image/jpg')
-  basicProfile.value.profileUrl = croppedImage
+  basicStore.value.logoUrl = croppedImage
   profileDialog.value = false
 }
 
@@ -106,10 +106,10 @@ watch(profile, (newProfileFiles) => {
 })
 
 watch(
-  () => basicProfile.value,
+  () => basicStore.value,
   (newValue, oldValue) => {
     if (oldValue !== null && !isObjectEmpty(oldValue)) {
-      basicProfileHasChange.value = true
+      basicStoreHasChange.value = true
     }
   },
   { deep: true },
@@ -124,7 +124,7 @@ watch(
         <!-- Cover -->
         <BaseCard flat>
           <BaseCardSection horizontal>
-            <BaseImage :source="basicProfile.coverUrl" :ratio="9 / 3" label="Cover" />
+            <BaseImage :source="basicStore.coverUrl" :ratio="9 / 3" label="Cover" />
             <BaseCardActions vertical class="justify-around">
               <q-input ref="coverInputName" style="display: none" v-model="cover" type="file" />
               <q-btn
@@ -159,8 +159,8 @@ watch(
                 <div class="column items-center">
                   <div class="col">
                     <BaseAvatar
-                      v-if="basicProfile.profileUrl"
-                      :image="basicProfile.profileUrl"
+                      v-if="basicStore.logoUrl"
+                      :image="basicStore.logoUrl"
                       size="200px"
                       label="Logo"
                     />
@@ -194,7 +194,7 @@ watch(
               width: 300,
               height: 300,
             }"
-            @on-crop="cropProfileImage"
+            @on-crop="cropLogoImage"
             @on-cancel="cancelProfileDialog"
             @on-image-change="updateProfileRef"
           />
@@ -203,7 +203,7 @@ watch(
         <!-- Business Name -->
         <q-input
           filled
-          v-model="basicProfile.shortName"
+          v-model="basicStore.name"
           label="Negocio *"
           hint="Nombre de tu negocio"
           lazy-rules
@@ -213,7 +213,7 @@ watch(
         <!-- Business Description -->
         <q-input
           filled
-          v-model="basicProfile.summary"
+          v-model="basicStore.description"
           label="Descripción *"
           hint="Descripción de tu negocio"
           lazy-rules
@@ -222,10 +222,10 @@ watch(
           ]"
         />
         <div class="col" align="right">
-          <q-btn label="Publish" type="submit" color="primary" :disable="!basicProfileHasChange" />
+          <q-btn label="Publish" type="submit" color="primary" :disable="!basicStoreHasChange" />
         </div>
       </q-form>
     </div>
   </main>
 </template>
-../../../models/centred/Store.interfaceIDefaultStoreIDefaultStore
+../../../stores/company.store

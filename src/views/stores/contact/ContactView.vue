@@ -6,7 +6,7 @@ import { COUNTRIES } from '../../../constants'
 import type { ICountry } from '../../../constants'
 import { ref, onBeforeMount, watch } from 'vue'
 import { isObjectEmpty } from '../../../utils/validators'
-import { useCentredStore } from '../../../stores/centred.store'
+import { useCompanyStore } from '../../../stores/company.store'
 import BaseInput from '../../../components/base/inputs/BaseInput.vue'
 import type { IPhone, IContact as IStoreContact } from '../../../models/centred/Company.interfaces'
 
@@ -17,17 +17,17 @@ interface IContact {
   website: string
 }
 
-const centredStore = useCentredStore()
+const companyStore = useCompanyStore()
 const contact = ref({} as IContact)
 const contactHasChange = ref(false)
 const contactCountries = ref()
 const $q = useQuasar()
 
 onBeforeMount(async () => {
-  if (isObjectEmpty(centredStore.centred)) {
-    await centredStore.fetch('6498a94e213a7fc800781e1a')
+  if (isObjectEmpty(companyStore.company)) {
+    await companyStore.fetch('6498a94e213a7fc800781e1a')
   }
-  contact.value = parseContacts(centredStore.getContact)
+  contact.value = parseContacts(companyStore.getContact)
 })
 
 function parseContacts(contactStore: IStoreContact): IContact {
@@ -56,7 +56,7 @@ function onSubmit() {
     address: contact.value.address,
     website: contact.value.website,
   }
-  centredStore.updateContact(contactToUpdate)
+  companyStore.updateContact(contactToUpdate)
   contactHasChange.value = false
   $q.notify({
     color: 'green-4',

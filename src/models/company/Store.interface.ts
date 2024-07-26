@@ -1,6 +1,8 @@
 import type { IContact } from './Company.interfaces'
 
-export interface IStore {
+export type IStore = IStoreDB
+
+export interface IStoreDB {
   id: string
   name: string
   description: string
@@ -19,25 +21,6 @@ export interface IStore {
   createdAt: Date
 }
 
-export interface IStoreDB {
-  id: string
-  companyId: string
-  coverUrl: string
-  profileUrl: string
-  officialName: string
-  shortName: string
-  summary: string
-  address: string
-  country: string
-  type: string
-  contact: IContact
-  sns: ISnsDB[]
-  favicon: string
-  currency: string
-  updatedAt: Date
-  createdAt: Date
-}
-
 export interface IStoreUpdate {
   address?: string
   country?: string
@@ -53,7 +36,7 @@ export interface IStoreUpdate {
   favicon?: string
 }
 
-export type IDefaultStore = Pick<IStore, 'name' | 'description' | 'coverUrl' | 'logoUrl'>
+export type IBasicStore = Pick<IStore, 'name' | 'description' | 'coverUrl' | 'logoUrl'>
 
 export interface ISnsDB {
   code: string

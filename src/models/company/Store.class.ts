@@ -4,7 +4,7 @@ import type { IStore, IStoreDB, ISns, ISnsDB } from './Store.interface'
 export function parseToStoreRead(storeDB: IStoreDB): IStore {
   const storeRead: IStore = {
     ...storeDB,
-    sns: parseSns(storeDB.sns),
+    sns: parseSns(storeDB.sns ?? []),
   }
   return storeRead
 }

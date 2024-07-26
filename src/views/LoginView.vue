@@ -3,12 +3,12 @@ import { useAuthStore } from '@/stores/auth.store'
 import { ref } from 'vue'
 import CalloutBox from '@/components/base/callouts/CalloutBox.vue'
 import { useRouter } from 'vue-router'
-import { useCentredStore } from '@/stores/centred.store'
+import { useCompanyStore } from '@/stores/company.store'
 
 const username = ref('')
 const password = ref('')
 const authStore = useAuthStore()
-const centredStore = useCentredStore()
+const companyStore = useCompanyStore()
 const router = useRouter()
 const isWrongPassword = ref(false)
 
@@ -17,7 +17,7 @@ async function onSubmit() {
     await authStore.signInWithEmailAndPassword(username.value, password.value)
     const user = authStore.getUser
     if (user.id) {
-      await centredStore.fetch(user.companyId)
+      await companyStore.fetch(user.companyId)
       router.push({ name: 'dashboard' })
     }
   } catch (error) {

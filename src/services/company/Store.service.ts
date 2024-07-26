@@ -1,7 +1,7 @@
 import ApiService from '@/models/ApiService'
 import { removeUndefined } from '@/utils/parses'
-import { parseToStoreRead } from '@/models/centred/Store.class'
-import type { IStore, IStoreUpdate } from '@/models/centred/Store.interface'
+import { parseToStoreRead } from '@/models/company/Store.class'
+import type { IStore, IStoreUpdate } from '@/models/company/Store.interface'
 
 export default class StoreService extends ApiService {
   constructor() {
