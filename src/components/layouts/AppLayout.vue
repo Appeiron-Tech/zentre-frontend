@@ -48,18 +48,18 @@ async function logout(): Promise<void> {
             <q-item-section>Courses</q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/centred">
+          <q-item clickable v-ripple to="/stores">
             <q-item-section avatar>
               <q-icon name="space_dashboard" />
             </q-item-section>
-            <q-item-section>Centred</q-item-section>
+            <q-item-section>Stores</q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/cxentre">
             <q-item-section avatar>
               <q-icon name="sentiment_very_satisfied" />
             </q-item-section>
-            <q-item-section>Customer Experience</q-item-section>
+            <q-item-section>Customers</q-item-section>
           </q-item>
         </q-list>
       </q-scroll-area>
